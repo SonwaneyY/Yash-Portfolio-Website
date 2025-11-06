@@ -38,13 +38,19 @@ Portfolio-Builder/
 
 ### 2. Use Slash Commands
 
-Available commands for content refinement:
+**General-Purpose Command:**
+- `/refine-content` - Refine ANY portfolio content (headers, descriptions, outcomes, CTAs, etc.)
 
+**Specialized Commands:**
 - `/refine-title` - Polish project titles for impact and clarity
 - `/write-caption` - Generate descriptive captions for images
-- `/polish-about` - Refine About page content
+- `/polish-about` - Refine About page content (bios, hero statements)
 - `/optimize-nav` - Improve navigation labels
-- `/seo-optimize` - Add SEO optimization to content
+- `/seo-optimize` - Add SEO optimization to any content
+
+**When to use which?**
+- Use specialized commands for those specific content types (faster, more focused)
+- Use `/refine-content` for everything else: section headers, process descriptions, outcome statements, role descriptions, CTAs, footer copy, and more
 
 ### 3. Workflow
 
@@ -55,14 +61,33 @@ Available commands for content refinement:
 
 ## Content Types Supported
 
+**Core Portfolio Content:**
 - Project titles and taglines
-- Navigation labels
-- Section headers and subheaders
+- About page content (one-liners to full bios)
+- Navigation labels and menu items
 - Image descriptions and captions
-- About page content (one-liners to full paragraphs)
-- Project case study introductions
+
+**Case Study Content:**
+- Section headers and subheaders
+- Project introductions and overviews
+- Problem/challenge statements
+- Process and methodology descriptions
+- Solution descriptions
+- Outcome and impact statements
+- Case study conclusions
+
+**Supporting Content:**
 - Role and responsibility descriptions
-- Process and methodology explanations
+- Skills and capabilities descriptions
+- Calls-to-action (CTA)
+- Footer copy
+- Testimonial introductions
+- Resume/CV bullet points
+- Design principles statements
+- Value propositions
+- Transition text between sections
+
+**And more!** Use `/refine-content` for any portfolio writing you need help with.
 
 ## Features
 

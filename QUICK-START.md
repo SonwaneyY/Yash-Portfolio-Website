@@ -54,6 +54,12 @@ Let's refine a project title:
 
 ### Try These Next:
 
+**Have ANY other portfolio content to refine?**
+```
+/refine-content
+```
+This is your go-to command for headers, process descriptions, outcome statements, CTAs, or any portfolio writing.
+
 **Need an image caption?**
 ```
 /write-caption
