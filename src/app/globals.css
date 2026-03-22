@@ -93,6 +93,7 @@
 }
 
 html {
+  scrollbar-gutter: stable;
   background-color: var(--bg-primary);
   color: var(--text-primary);
   font-family: var(--font-sans);
