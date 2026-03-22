@@ -1,62 +1,28 @@
 /* ============================================
-   INTRO OVERLAY — loading screen
+   INTRO OVERLAY — covers all content during loading
    ============================================ */
 .introOverlay {
   position: fixed;
   inset: 0;
-  z-index: 100;
+  z-index: 90;
   background-color: var(--bg-primary);
   display: flex;
-  align-items: flex-end;
-  justify-content: center;
-}
-
-.introContent {
-  width: 100%;
-  padding: 0 var(--space-3);
-  padding-bottom: 12vh;
-  display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: var(--space-4);
-}
-
-.introName {
-  display: flex;
-  align-items: baseline;
   justify-content: center;
-  gap: clamp(10px, 2vw, 20px);
-  white-space: nowrap;
-}
-
-.introNameFirst {
-  font-family: var(--font-serif);
-  font-size: clamp(48px, 10vw, 120px);
-  font-weight: 400;
-  color: var(--text-primary);
-  letter-spacing: -0.03em;
-  line-height: 0.9;
-  display: block;
-}
-
-.introNameLast {
-  font-family: var(--font-serif);
-  font-size: clamp(48px, 10vw, 120px);
-  font-weight: 400;
-  color: transparent;
-  -webkit-text-stroke: 1.5px var(--text-primary);
-  letter-spacing: -0.03em;
-  line-height: 0.9;
-  display: block;
 }
 
 /* Progress bar */
+.progressWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .progressTrack {
-  width: 100%;
-  max-width: 320px;
-  height: 2px;
+  width: min(280px, 60vw);
+  height: 20px;
   background-color: var(--border);
-  border-radius: 1px;
+  border-radius: 9999px;
   overflow: hidden;
 }
 
@@ -65,7 +31,7 @@
   height: 100%;
   background-color: var(--accent);
   transform-origin: left;
-  border-radius: 1px;
+  border-radius: 9999px;
 }
 
 /* ============================================
@@ -208,13 +174,19 @@
    NAME BLOCK — centered, pinned to bottom
    ============================================ */
 .nameBlock {
-  position: absolute;
-  bottom: var(--space-5);
+  position: fixed;
+  bottom: 0;
   left: 0;
   right: 0;
-  z-index: 1;
+  z-index: 95;
   pointer-events: none;
   overflow: hidden;
+  padding-bottom: var(--space-2);
+}
+
+/* After reveal, drop z-index so it doesn't cover scrolled content */
+.nameBlockRevealed {
+  z-index: 1;
 }
 
 .nameInner {
@@ -233,7 +205,7 @@
   letter-spacing: -0.03em;
   line-height: 0.85;
   display: block;
-  opacity: 0.08;
+  transition: opacity 0.8s ease;
 }
 
 .nameLast {
@@ -245,7 +217,7 @@
   letter-spacing: -0.03em;
   line-height: 0.85;
   display: block;
-  opacity: 0.12;
+  transition: opacity 0.8s ease;
 }
 
 /* ============================================

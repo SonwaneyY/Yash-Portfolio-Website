@@ -1,107 +1,88 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import Container from "@/components/ui/Container";
 import { siteConfig, experience } from "@/lib/data";
 import styles from "./Hero.module.css";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
-// Staggered character reveal for hero name
-function AnimatedName({ text, className, delay = 0 }: { text: string; className: string; delay?: number }) {
-  return (
-    <span className={className} aria-label={text}>
-      <motion.span
-        initial="hidden"
-        animate="visible"
-        variants={{
-          hidden: {},
-          visible: { transition: { staggerChildren: 0.04, delayChildren: delay } },
-        }}
-        style={{ display: "inline-flex" }}
-      >
-        {text.split("").map((char, i) => (
-          <motion.span
-            key={i}
-            variants={{
-              hidden: { y: "110%", opacity: 0 },
-              visible: { y: "0%", opacity: 1, transition: { duration: 0.7, ease } },
-            }}
-            style={{ display: "inline-block", overflow: "hidden" }}
-          >
-            <span style={{ display: "inline-block" }}>{char}</span>
-          </motion.span>
-        ))}
-      </motion.span>
-    </span>
-  );
-}
-
 export default function Hero() {
   const [phase, setPhase] = useState<"intro" | "reveal">("intro");
 
+  // Scroll-based name fade out
+  const { scrollY } = useScroll();
+  const nameOpacity = useTransform(scrollY, [0, 300], [1, 0]);
+
   useEffect(() => {
-    // Hide header during intro
+    // Lock scroll during intro
+    document.body.style.overflow = "hidden";
     document.body.classList.add("intro-active");
 
     const timer = setTimeout(() => {
       setPhase("reveal");
+      document.body.style.overflow = "";
       document.body.classList.remove("intro-active");
-    }, 2600);
+    }, 2800);
     return () => {
       clearTimeout(timer);
+      document.body.style.overflow = "";
       document.body.classList.remove("intro-active");
     };
   }, []);
 
+  const isReveal = phase === "reveal";
+
   return (
     <>
-      {/* ---- INTRO: name + progress bar on a clean screen ---- */}
+      {/* ---- FULL-SCREEN OVERLAY — covers everything during intro ---- */}
       <AnimatePresence>
-        {phase === "intro" && (
+        {!isReveal && (
           <motion.div
             className={styles.introOverlay}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.5, ease }}
           >
-            <div className={styles.introContent}>
-              {/* Name at ~80vh */}
-              <div className={styles.introName}>
-                <AnimatedName text="Yash" className={styles.introNameFirst} delay={0.2} />
-                <AnimatedName text="Sonwaney" className={styles.introNameLast} delay={0.4} />
-              </div>
-
+            {/* Role label — above progress bar */}
+            <div className={styles.introCenter}>
               {/* Progress bar */}
-              <div className={styles.progressTrack}>
-                <motion.div
-                  className={styles.progressBar}
-                  initial={{ scaleX: 0 }}
-                  animate={{ scaleX: 1 }}
-                  transition={{ duration: 2, ease: [0.16, 1, 0.3, 1], delay: 0.5 }}
-                />
-              </div>
+              <motion.div
+                className={styles.progressWrapper}
+                initial={{ y: 20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.6, ease, delay: 0.25 }}
+              >
+                <div className={styles.progressTrack}>
+                  <motion.div
+                    className={styles.progressBar}
+                    initial={{ scaleX: 0 }}
+                    animate={{ scaleX: 1 }}
+                    transition={{ duration: 2, ease: [0.4, 0, 0.2, 1], delay: 0.5 }}
+                  />
+                </div>
+              </motion.div>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* ---- MAIN HERO: revealed after intro ---- */}
+      {/* ---- MAIN HERO ---- */}
       <section className={styles.hero}>
         {/* Geometric arc */}
         <motion.div
           className={styles.geometricArc}
           initial={{ scale: 0.8, opacity: 0 }}
-          animate={phase === "reveal" ? { scale: 1, opacity: 0.4 } : {}}
+          animate={isReveal ? { scale: 1, opacity: 0.4 } : {}}
           transition={{ duration: 1.5, ease }}
         />
 
-        {/* Center: headline + bio + CTAs */}
+        {/* Center content — only visible after reveal */}
         <div className={styles.centerContent}>
           <motion.span
             className={styles.roleLabel}
             initial={{ opacity: 0, y: 12 }}
-            animate={phase === "reveal" ? { opacity: 1, y: 0 } : {}}
+            animate={isReveal ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, ease, delay: 0.2 }}
           >
             Product Designer & Strategist
@@ -110,7 +91,7 @@ export default function Hero() {
           <motion.h1
             className={styles.headline}
             initial={{ opacity: 0, y: 20 }}
-            animate={phase === "reveal" ? { opacity: 1, y: 0 } : {}}
+            animate={isReveal ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, ease, delay: 0.35 }}
           >
             I design enterprise tools and AI-native
@@ -121,7 +102,7 @@ export default function Hero() {
           <motion.div
             className={styles.belowHeadline}
             initial={{ opacity: 0, y: 16 }}
-            animate={phase === "reveal" ? { opacity: 1, y: 0 } : {}}
+            animate={isReveal ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, ease, delay: 0.5 }}
           >
             <p className={styles.bio}>
@@ -144,23 +125,38 @@ export default function Hero() {
           </motion.div>
         </div>
 
-        {/* Bottom: massive name watermark */}
+        {/* Name — slides up, fades to watermark, vanishes on scroll */}
         <motion.div
-          className={styles.nameBlock}
-          initial={{ opacity: 0 }}
-          animate={phase === "reveal" ? { opacity: 1 } : {}}
-          transition={{ duration: 0.8, ease, delay: 0.6 }}
+          className={`${styles.nameBlock} ${isReveal ? styles.nameBlockRevealed : ''}`}
+          style={isReveal ? { opacity: nameOpacity } : undefined}
         >
           <Container>
-            <div className={styles.nameInner}>
-              <span className={styles.nameFirst}>Yash</span>
-              <span className={styles.nameLast}>Sonwaney</span>
-            </div>
+            <motion.div
+              className={styles.nameInner}
+              initial={{ y: "100%", opacity: 0 }}
+              animate={{ y: "0%", opacity: 1 }}
+              transition={{ duration: 1.2, ease, delay: 0.1 }}
+            >
+              <motion.span
+                className={styles.nameFirst}
+                animate={{ opacity: isReveal ? 0.08 : 1 }}
+                transition={{ duration: 1.4, ease: [0.4, 0, 0.2, 1] }}
+              >
+                Yash
+              </motion.span>
+              <motion.span
+                className={styles.nameLast}
+                animate={{ opacity: isReveal ? 0.12 : 1 }}
+                transition={{ duration: 1.4, ease: [0.4, 0, 0.2, 1] }}
+              >
+                Sonwaney
+              </motion.span>
+            </motion.div>
           </Container>
         </motion.div>
       </section>
 
-      {/* Experience strip with logos */}
+      {/* Experience strip */}
       <section className={styles.experienceStrip}>
         <Container>
           <motion.div
