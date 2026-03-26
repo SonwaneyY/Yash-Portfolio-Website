@@ -3,7 +3,6 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useSearchParams } from "next/navigation";
-import Link from "next/link";
 import Container from "@/components/ui/Container";
 import ProjectCard from "./ProjectCard";
 import { projects, projectCategories, type ProjectCategory } from "@/lib/data";
@@ -115,10 +114,6 @@ export default function FeaturedWork() {
             ))}
           </motion.div>
         </AnimatePresence>
-
-        <Link href="/work" className={styles.viewAll}>
-          View all work &rarr;
-        </Link>
       </Container>
     </section>
   );

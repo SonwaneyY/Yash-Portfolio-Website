@@ -11,8 +11,8 @@ import { siteConfig } from "@/lib/data";
 import styles from "./Header.module.css";
 
 const navLinks = [
-  { href: "/work", label: "Work" },
-  { href: "/about", label: "About" },
+  { href: "/", label: "Work" },
+  { href: "/about", label: "About.Me" },
   { href: `mailto:${siteConfig.email}`, label: "Contact", external: true },
 ];
 

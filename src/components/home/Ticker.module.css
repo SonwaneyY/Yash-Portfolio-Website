@@ -1,0 +1,72 @@
+.ticker {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  background-color: var(--bg-secondary);
+  border-top: 1px solid var(--border, rgba(0, 0, 0, 0.08));
+  border-bottom: 1px solid var(--border, rgba(0, 0, 0, 0.08));
+  padding: 13px 0;
+}
+
+/* Outer track — clips overflow */
+.track {
+  display: flex;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Each inner strip — two copies for seamless infinite loop */
+.inner {
+  display: flex;
+  flex-shrink: 0;
+  align-items: baseline;
+  gap: 48px;
+  white-space: nowrap;
+  animation: ticker-scroll 60s linear infinite;
+  padding-right: 48px;
+}
+
+.ticker:hover .inner {
+  animation-play-state: paused;
+}
+
+@keyframes ticker-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+.item {
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.quote {
+  font-style: italic;
+  color: var(--text-secondary);
+}
+
+.attribution {
+  font-style: normal;
+  font-weight: 500;
+  color: var(--text-primary);
+  opacity: 0.5;
+  margin-left: 4px;
+}
+
+.dot {
+  display: inline-block;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: var(--accent);
+  flex-shrink: 0;
+  opacity: 0.7;
+  vertical-align: middle;
+}
