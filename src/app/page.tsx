@@ -8,8 +8,10 @@ import Skills from "@/components/home/Skills";
 export default function Home() {
   return (
     <>
+      <div style={{ marginTop: "24px" }}>
+        <Ticker />
+      </div>
       <Hero />
-      <Ticker />
       <Suspense>
         <FeaturedWork />
       </Suspense>
