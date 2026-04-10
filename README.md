@@ -1,4 +1,4 @@
-# Portfolio Builder
+# Yash-Portfolio-Website
 
 Personal portfolio site for Yash Sonwaney — a Next.js 15 application for showcasing design and product work through editorial-style case studies.
 
