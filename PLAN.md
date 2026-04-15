@@ -24,13 +24,8 @@
 8. **loop-strategy** — minimal placeholder
 9. **beyond-efficiency** — minimal placeholder
 
-## Known Issue (Raised by User — 2026-03-25)
-The HP Learning, Scale UI, and Project SENSE case study pages only show Overview and Outcome sections on the website — the full multi-section content written in data.ts is NOT rendering. The case study page template at `src/app/work/[slug]/page.tsx` or `casestudy.module.css` may have a rendering issue, OR the sections data is being truncated somewhere. **This needs to be debugged next session.**
-
-Likely suspects:
-- `src/app/work/[slug]/page.tsx` — check how sections are rendered (map over all sections vs. just first N)
-- `src/app/work/[slug]/casestudy.module.css` — check for any display:none or overflow:hidden hiding content
-- `src/lib/data.ts` — confirm all sections array entries have correct `type` discriminators
+## Resolved Issues
+- ~~Case study sections not rendering (HP Learning, Scale UI, SENSE)~~ — **Fixed** by ScrollReveal viewport margin fix (`fix(hp-learning-casestudy-01)`). All sections render correctly. Verified 2026-04-15.
 
 ## Architecture Decisions
 - Home IS the Work page (flat hierarchy)

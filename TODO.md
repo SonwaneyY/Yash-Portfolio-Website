@@ -1,7 +1,7 @@
 # TODO.md — Task Tracker
 
-## 🔴 Immediate Fix Needed
-- [ ] **Debug case study page rendering** — HP Learning, Scale UI, SENSE only show Overview/Outcome. Full sections not rendering. Check `src/app/work/[slug]/page.tsx` and verify all `type` discriminators in data.ts sections array.
+## ✅ Recently Fixed
+- [x] **Case study page rendering** — HP Learning, Scale UI, SENSE all sections render correctly. Fixed by ScrollReveal viewport margin commit. Verified 2026-04-15.
 
 ## Current Sprint: Case Study Content
 - [x] GORE-TEX Accesswear — DONE (Growth Design arc, 3 iterations, 13 sections, 120+ subscribers, refined with UX writing principles)
