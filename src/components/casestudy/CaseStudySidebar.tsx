@@ -11,12 +11,15 @@ interface NavItem {
 
 interface CaseStudySidebarProps {
   items: NavItem[];
+  sectionsRef?: React.RefObject<HTMLDivElement | null>;
 }
 
-export default function CaseStudySidebar({ items }: CaseStudySidebarProps) {
+export default function CaseStudySidebar({ items, sectionsRef }: CaseStudySidebarProps) {
   const [activeId, setActiveId] = useState<string>(items[0]?.id ?? "");
+  const sidebarRef = useRef<HTMLElement>(null);
   const observerRef = useRef<IntersectionObserver | null>(null);
 
+  // Active section tracking
   useEffect(() => {
     if (items.length === 0) return;
 
@@ -43,8 +46,33 @@ export default function CaseStudySidebar({ items }: CaseStudySidebarProps) {
     };
   }, [items]);
 
+  // Visibility + dynamic top: direct DOM writes, zero re-renders on scroll
+  useEffect(() => {
+    const contentEl = sectionsRef?.current;
+    const sidebar = sidebarRef.current;
+    if (!contentEl || !sidebar) return;
+
+    const update = () => {
+      const rect = contentEl.getBoundingClientRect();
+      const shouldShow = rect.top <= window.innerHeight * 0.6 && rect.bottom > 100;
+      const top = Math.max(80, Math.min(Math.round(rect.top), 160));
+      sidebar.style.top = `${top}px`;
+      sidebar.style.opacity = shouldShow ? "1" : "0";
+      sidebar.style.pointerEvents = shouldShow ? "auto" : "none";
+    };
+
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update, { passive: true });
+    update();
+
+    return () => {
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    };
+  }, [sectionsRef]);
+
   return (
-    <aside className={styles.sidebar}>
+    <aside ref={sidebarRef} className={styles.sidebar}>
       <Link href="/" className={styles.backLink}>
         <span className={styles.backArrow}>←</span>
         <span>Back</span>

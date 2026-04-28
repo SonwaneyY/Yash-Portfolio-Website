@@ -25,9 +25,10 @@ export type CaseStudySection =
   | { type: "quote"; text: string; attribution?: string }
   | { type: "pull-quote"; text: string; attribution?: string }
   | { type: "callout"; label: string; body: string[] }
-  | { type: "steps"; title?: string; items: { num: string; label: string; body?: string }[] }
+  | { type: "steps"; title?: string; items: { num: string; label: string; body?: string; image?: string; imageAlt?: string; imageCaption?: string; video?: string; videoPoster?: string; videoCaption?: string }[] }
   | { type: "metrics"; items: { value: string; label: string }[] }
-  | { type: "chart"; chartId: "subscriber-growth" | "conversion-milestones" | "churn-reasons"; caption?: string };
+  | { type: "chart"; chartId: "subscriber-growth" | "conversion-milestones" | "churn-reasons"; caption?: string }
+  | { type: "video"; src: string; caption?: string; poster?: string };
 
 export interface CaseStudy {
   role: string;
@@ -42,7 +43,7 @@ export const projects = [
   {
     slug: "beyond-efficiency",
     title: "Beyond Efficiency: Understanding the Paradox of AI in Hiring",
-    subtitle: "A design research capstone investigating how automation and AI have created a paradox — employers drown in high-volume, low-relevance applications while qualified candidates are systematically excluded.",
+    subtitle: "Design research investigating how automation and AI have created a paradox: employers drown in high-volume, low-relevance applications while qualified candidates are systematically excluded.",
     category: "DESIGN RESEARCH",
     filterCategory: "Research" as ProjectCategory,
     year: "2025",
@@ -54,60 +55,63 @@ export const projects = [
       role: "Lead Researcher & Designer",
       timeline: "Fall 2025",
       tools: ["DARN Framework", "Focus Groups", "Employer Interviews", "Candidate Surveys", "Thematic Analysis", "Figma"],
-      team: "Yash Sonwaney & Ananya (Parsons Design Research Capstone)",
+      team: "Yash Sonwaney & Ananya Harshini",
       sections: [
         {
           type: "text" as const,
-          heading: "The Paradox of Efficiency",
+          heading: "Overview",
           body: [
-            "Tech hiring promised to get better with AI. Instead, it created a paradox. Employers face an overwhelming flood of applications — many AI-generated — and can't identify the right candidates. Candidates submit hundreds of applications into black-box systems and hear nothing back. Both sides are more frustrated than ever, even as the tools supposedly optimizing the process multiply.",
-            "This research project set out to understand that contradiction. Using a multi-method approach, we mapped the hiring ecosystem from both sides — candidate and employer — to identify where the system breaks down, who bears the cost, and how design might intervene.",
+            "Design research into a paradox in AI-driven tech hiring: automation made hiring worse for everyone it was meant to help. Through employer interviews, a 51-response candidate survey, focus groups, and a D-A-R-N systems map, the research identified where the system breaks down and who bears the cost, producing a theory of change and Loop, an AI communication agent that eliminates ghosting without adding to recruiter workload.",
+          ],
+        },
+        {
+          type: "text" as const,
+          heading: "The Problem",
+          body: [
+            "AI in hiring created a paradox. Employers are drowning in applications (many AI-generated) and can't identify qualified candidates. Candidates submit into black-box systems and hear nothing back. Both sides are more frustrated than ever.",
+            "Using a multi-method approach, we mapped the hiring ecosystem from both sides to identify where the system breaks down, who bears the cost, and where design can intervene.",
           ],
         },
         {
           type: "image" as const,
           src: "/case-studies/beyond-efficiency/hypothesis.png",
           alt: "Research hypothesis: the paradox of efficiency in AI-driven hiring",
-          caption: "The central hypothesis — automation creates high volume but low relevance for employers, while qualified candidates are filtered out.",
+          caption: "The central hypothesis: automation creates high volume but low relevance for employers, while qualified candidates are filtered out.",
         },
         {
           type: "metrics" as const,
           items: [
-            { value: "92%", label: "Of candidates don't trust AI to be fair in hiring" },
-            { value: "61%", label: "Of candidates are ghosted even after an interview" },
             { value: "30–50%", label: "Increase in applications in 24 months due to AI-generated resumes" },
-            { value: "53%", label: "Of recruiters report burnout from high volumes of low-quality applications" },
-            { value: "$180K", label: "Average cost of a bad hire for a mid-level tech role" },
           ],
         },
         {
           type: "callout" as const,
           label: "The Core Finding",
           body: [
-            "AI in hiring hasn't reduced inefficiency — it has displaced it. The burden has shifted from volume management to verification, from filtering to fraud detection. Both sides are working harder than before, inside a system where the tools meant to help are generating the problems they were sold to solve.",
+            "AI in hiring hasn't reduced inefficiency; it has displaced it. The burden has shifted from volume management to verification, from filtering to fraud detection. Both sides are working harder than before, inside a system where the tools meant to help are generating the problems they were sold to solve.",
           ],
         },
         {
           type: "text" as const,
-          heading: "Research Questions",
+          heading: "Questions",
           body: [
-            "Three questions oriented our inquiry. First: how has AI reshaped hiring, and where do inequities emerge for both candidates and employers? Second: how have AI hiring tools changed how recruiters and hiring managers actually work and make decisions — day to day, not in the abstract? Third: how are candidates adapting to the opacity, ghosting, and systemic inequities baked into modern hiring?",
-            "These questions were deliberately held together rather than treated separately. The hiring system is relational — understanding the candidate experience required understanding the recruiter experience, and vice versa.",
+            "Three questions shaped the inquiry: how has AI reshaped hiring and where do inequities emerge? How have AI tools changed how recruiters actually work and make decisions? How are candidates adapting to opacity, ghosting, and systemic inequity?",
+            "These weren't treated as separate tracks. The hiring system is relational: understanding the candidate experience required understanding the recruiter experience.",
           ],
         },
         {
           type: "image" as const,
           src: "/case-studies/beyond-efficiency/research-questions.png",
           alt: "Three research questions guiding the inquiry",
-          caption: "Our three research questions — held together as a relational system, not separate tracks.",
+          caption: "Our three research questions, held together as a relational system, not separate tracks.",
         },
         {
           type: "text" as const,
-          heading: "Research Methods",
+          heading: "Methods",
           body: [
-            "We used a mixed-methods approach combining primary and secondary research. On the primary side: in-depth interviews with recruiters and hiring managers, a candidate survey with 51 responses, and focus group discussions with candidates navigating active job searches.",
-            "Secondary research included a literature review of bias and automation research, social media scans of communities where candidates discuss hiring tactics (Reddit, Blind, LinkedIn), and industry market reports from Greenhouse, Joveo, and The Planet Group.",
-            "To map the system as a whole, we applied the D-A-R-N framework — Devices, Actors, Representations, Networks — a strategic design method that surfaces the material and social infrastructure underpinning a market. This helped us see how ATS platforms, AI scoring algorithms, LinkedIn Recruiter, candidate resumes, and job descriptions interact as a system, not just as individual tools.",
+            "Primary research: recruiter and hiring manager interviews, a 51-response candidate survey, and focus groups with active job seekers.",
+            "Secondary research: literature on bias and automation, social media scans (Reddit, Blind, LinkedIn), and market reports from Greenhouse, Joveo, and The Planet Group.",
+            "To map the system as a whole, we applied the D-A-R-N framework (Devices, Actors, Representations, Networks), surfacing how ATS platforms, algorithms, and actors interact as infrastructure, not just individual tools.",
           ],
         },
         {
@@ -121,42 +125,49 @@ export const projects = [
             {
               src: "/case-studies/beyond-efficiency/darn-map.png",
               alt: "D-A-R-N system map of the hiring ecosystem",
-              caption: "The D-A-R-N map — Devices, Actors, Representations, Networks — surfacing the hiring system's full infrastructure.",
+              caption: "The D-A-R-N map (Devices, Actors, Representations, Networks), surfacing the hiring system's full infrastructure.",
             },
           ],
         },
         {
           type: "text" as const,
-          heading: "The ATS Pipeline & Where AI Enters",
+          heading: "ATS Pipeline",
           body: [
-            "Most candidates interact with a 7-stage hiring pipeline: job posting, resume submission, AI-powered skill extraction, machine learning ranking by fit score, recruiter review and shortlisting, interview coordination, and final decision. AI is most densely concentrated in stages 3 and 4 — extracting qualifications and ranking candidates before any human sees the application.",
-            "What looks like a clean pipeline obscures the reality: recruiters told us that most of their work is still manual, concentrated at the stages where AI is supposed to help most. One recruiter described spending an entire week on a single role that received over a thousand applications. The AI had filtered — but the shortlist it produced still required significant human judgment to evaluate.",
+            "The 7-stage ATS pipeline has AI concentrated at stages 3 and 4 (skill extraction and fit-score ranking) before any human sees an application.",
+            "But the pipeline obscures the reality: recruiters' work is still mostly manual, heaviest exactly where AI is supposed to help. One recruiter spent an entire week on a single role with over a thousand applications. AI filtered the pile; the shortlist still required human judgment.",
           ],
         },
         {
           type: "image" as const,
           src: "/case-studies/beyond-efficiency/ats-workflow.png",
           alt: "7-stage ATS workflow showing where AI is densely integrated, integrated, or only assisting",
-          caption: "The 7-stage ATS pipeline — stages 3 and 4 have the densest AI involvement, yet recruiters report those stages still demand heavy manual effort.",
+          caption: "The 7-stage ATS pipeline: stages 3 and 4 have the densest AI involvement, yet recruiters report those stages still demand heavy manual effort.",
         },
         {
           type: "pull-quote" as const,
-          text: "It's not the rejection that hurts — it's sitting in that grey area, not knowing if any human ever even saw my application.",
+          text: "It's not the rejection that hurts. It's sitting in that grey area, not knowing if any human ever even saw my application.",
           attribution: "Candidate, Focus Group Discussion",
         },
         {
           type: "text" as const,
-          heading: "What Candidates Are Experiencing",
+          heading: "Candidate Experience",
           body: [
-            "Candidates described a hiring process defined by opacity and asymmetry. Applications disappear into ATS systems with no feedback. The rise of AI-generated resumes has made keyword optimization feel mandatory, pushing candidates to game systems rather than communicate their actual experience. 61% reported being ghosted after completing an interview — a stage where candidates have already invested significant time and emotional energy.",
-            "The 92% distrust figure for AI fairness wasn't cynicism — it reflected lived experience. Candidates who optimized their resumes by mirroring job description language reported better response rates, regardless of underlying fit. The system rewards pattern-matching over capability, and candidates know it.",
+            "Candidates described a process defined by opacity and asymmetry. Applications disappear with no feedback. Keyword optimization has become mandatory; candidates game the system rather than communicate their actual experience. 61% reported being ghosted after an interview.",
+            "The 92% AI distrust figure wasn't cynicism: it was lived experience. Candidates who mirrored job description language reported better response rates regardless of fit. The system rewards pattern-matching over capability, and candidates know it.",
+          ],
+        },
+        {
+          type: "metrics" as const,
+          items: [
+            { value: "61%", label: "Of candidates are ghosted even after an interview" },
+            { value: "92%", label: "Of candidates don't trust AI to be fair in hiring" },
           ],
         },
         {
           type: "image" as const,
           src: "/case-studies/beyond-efficiency/candidate-journey.png",
           alt: "Candidate journey map showing emotional states from awareness through offer stage",
-          caption: "The candidate journey — moving from overwhelmed and unsure at awareness, to strained during preparation, to guarded hope through screening, with relief only at offer.",
+          caption: "The candidate journey: overwhelmed at awareness, strained through preparation, guarded hope through screening, relief only at offer.",
         },
         {
           type: "quote" as const,
@@ -165,52 +176,63 @@ export const projects = [
         },
         {
           type: "text" as const,
-          heading: "What Employers Are Experiencing",
+          heading: "Employer Experience",
           body: [
-            "Recruiters and hiring managers described being overwhelmed, not empowered. AI hiring tools have increased application volume dramatically but haven't solved the quality problem. 53% of recruiters reported burnout from reviewing high volumes of low-quality, often AI-generated applications.",
-            "A new category of problem emerged: fraud. 17% of hiring managers reported interviewing a deepfake candidate — a sign that AI-generated applications are no longer just keyword-stuffed resumes but increasingly fabricated identities. The most consistent AI use case recruiters actually valued wasn't ranking or scoring — it was detecting fake profiles at the top of the funnel.",
-            "The best candidates, multiple recruiters noted, still come from outbound sourcing via LinkedIn Recruiter — a manual process. The tools meant to automate inbound hiring haven't replaced the human judgment required to identify genuine fit.",
+            "Recruiters described being overwhelmed, not empowered. AI increased volume but not quality. 53% reported burnout from reviewing low-signal, AI-generated applications.",
+            "A new problem emerged: fraud. 17% of hiring managers reported interviewing a deepfake candidate. The AI use case recruiters actually valued wasn't ranking; it was detecting fake profiles at the top of the funnel.",
+            "The best candidates still come from manual outbound sourcing via LinkedIn Recruiter. The tools built to automate inbound haven't replaced the judgment required to identify genuine fit.",
+          ],
+        },
+        {
+          type: "metrics" as const,
+          items: [
+            { value: "53%", label: "Of recruiters report burnout from high volumes of low-quality applications" },
           ],
         },
         {
           type: "image" as const,
           src: "/case-studies/beyond-efficiency/employer-journey.png",
           alt: "Employer journey map showing emotional states from awareness through decision-making",
-          caption: "The employer journey — alert at job posting, hopeful at inflow, then overloaded, stressed, and cautious as volume overwhelms the process.",
+          caption: "The employer journey: alert at job posting, hopeful at inflow, then overloaded, stressed, and cautious as volume overwhelms the process.",
         },
         {
           type: "text" as const,
           heading: "Candidate Needs",
           body: [
-            "Synthesis across survey responses and focus group sessions identified four core needs. First, trust through fair evaluation — candidates want to know the criteria for assessment and that those criteria apply consistently regardless of identity markers. Second, closure over silence — rejection is acceptable; disappearing without response is not. Third, protection from burnout — the process of applying to dozens of roles weekly, reformatting materials per ATS, and managing uncertainty is exhausting. Fourth, agency in a system that feels rigged — candidates want the process to feel like a two-way assessment, not an opaque filter.",
+            "Four needs from survey and focus group synthesis: fair evaluation with transparent, consistent criteria; closure over silence (rejection is acceptable, disappearing is not); protection from burnout (weekly applications, ATS reformatting, and sustained uncertainty are exhausting); and restored agency (candidates want a two-way assessment, not an opaque filter).",
           ],
         },
         {
           type: "image" as const,
           src: "/case-studies/beyond-efficiency/candidate-needs.png",
           alt: "Four synthesized candidate needs: Trust, Closure, Protection from Burnout, Restored Agency",
-          caption: "Four candidate needs synthesized from surveys and focus groups — trust, closure, burnout protection, and restored agency.",
+          caption: "Four candidate needs synthesized from surveys and focus groups: trust, closure, burnout protection, and restored agency.",
         },
         {
           type: "text" as const,
           heading: "Employer Needs",
           body: [
-            "Employers surfaced four parallel needs. First, identifying authentic candidates — separating real, qualified humans from AI-generated applications has become a primary concern. Second, managing application volume — the volume problem isn't solved by existing AI tools; it has been created, in part, by them. Third, closing communication gaps — ghosting persists not because recruiters are indifferent but because the process is so manual that communication falls through. Fourth, technology as a cognitive offloader — recruiters want AI to handle the mechanical parts of the process so they can invest judgment in evaluation and relationship-building.",
+            "Four parallel needs from recruiter interviews: identifying authentic candidates amid AI-generated volume; managing applications (a problem AI tools created as much as they were meant to solve); closing communication gaps (ghosting persists because the process is too manual, not because recruiters are indifferent); and technology as a cognitive offloader, handling mechanics so recruiters can focus on judgment.",
           ],
         },
         {
           type: "image" as const,
           src: "/case-studies/beyond-efficiency/employer-needs.png",
           alt: "Four synthesized employer needs: Authentic Candidates, Volume Management, Communication Gaps, Cognitive Offloading",
-          caption: "Four employer needs synthesized from recruiter and hiring manager interviews — authenticity, volume, communication, and cognitive offloading.",
+          caption: "Four employer needs synthesized from recruiter and hiring manager interviews: authenticity, volume, communication, and cognitive offloading.",
         },
         {
           type: "text" as const,
-          heading: "Opportunity & Direction",
+          heading: "Opportunity",
           body: [
-            "The research converged on a single reframe: the opportunity isn't to make hiring faster, it's to make it more legible for everyone involved. The question we carried into concept development was: how might we rebalance AI in tech hiring to reduce recruiter overload while making qualified candidates more visible?",
-            "The theory of change we developed positioned technology as a cognitive offloader — handling mechanical tasks so humans can focus on what requires judgment. In practice, this means less manual processing of applications leads to deeper evaluation of fit, which enables more consistent candidate communication, which attracts more engaged and higher-quality candidates. It's a compounding loop, not a one-time fix.",
-            "Our first concept direction was Loop: an AI candidate communication agent that keeps every candidate informed without recruiters having to send a single email themselves. Loop addresses the most emotionally costly part of the hiring process — ghosting — while freeing recruiter bandwidth for higher-value work. Prototyping and testing is underway in Spring 2026.",
+            "The research converged on a single reframe: the opportunity isn't to make hiring faster; it's to make it more legible. How might we rebalance AI in tech hiring to reduce recruiter overload while making qualified candidates more visible?",
+            "The theory of change positions technology as a cognitive offloader: less manual processing → deeper evaluation → consistent communication → higher-quality candidates. A compounding loop, not a one-time fix.",
+          ],
+        },
+        {
+          type: "metrics" as const,
+          items: [
+            { value: "$180K", label: "Average cost of a bad hire for a mid-level tech role" },
           ],
         },
         {
@@ -224,15 +246,23 @@ export const projects = [
             {
               src: "/case-studies/beyond-efficiency/theory-of-change.png",
               alt: "Theory of change: technology as cognitive offloader leading to better hiring outcomes",
-              caption: "The theory of change — cognitive offloading cascades into deeper evaluation, consistent communication, and better candidate quality.",
+              caption: "The theory of change: cognitive offloading cascades into deeper evaluation, consistent communication, and better candidate quality.",
             },
+          ],
+        },
+        {
+          type: "text" as const,
+          heading: "Solution",
+          body: [
+            "First concept: Loop, an AI communication agent that keeps every candidate informed without adding to recruiter workload. It addresses ghosting, the most emotionally costly part of the process, while freeing bandwidth for higher-value work. Prototyping underway, Spring 2026.",
+            "The name reflects the core idea: no candidate should fall out of the loop. The ATS already knows a candidate's status at every stage; it just never tells them. Loop closes that gap by turning existing pipeline events into automatic candidate-facing updates. When an application moves, stalls, or closes, Loop generates and sends a status message: no recruiter input required, no new tool to learn. The communication happens because the hiring process already happened.",
           ],
         },
         {
           type: "image" as const,
           src: "/case-studies/beyond-efficiency/loop-concept.png",
-          alt: "Loop: Candidate Communication Agent concept — keeping every candidate in the loop without sending a single email",
-          caption: "Concept I: Loop — an AI communication agent that eliminates ghosting by keeping every candidate informed, automatically.",
+          alt: "Loop: Candidate Communication Agent concept, keeping every candidate in the loop without sending a single email",
+          caption: "Concept I: Loop, an AI communication agent that eliminates ghosting by keeping every candidate informed, automatically.",
         },
       ],
     },
@@ -754,32 +784,217 @@ export const projects = [
     coverImage: "/covers/flexible-insurance.jpg",
     imageConfig: { fit: "cover" as const, position: "center center" },
     caseStudy: {
-      role: "Strategy Lead & Designer",
-      timeline: "48-hour design challenge",
-      tools: ["Figma", "Miro", "Business Model Canvas"],
-      team: "4 designers (cross-disciplinary)",
+      role: "Service Designer & Strategist",
+      timeline: "Jan — Mar 2025 (3 months)",
+      tools: ["Figma", "Miro", "User Interviews", "Netnography", "Rotman Design Challenge"],
+      team: "Team Northstar × Intact Financial (Rotman Design Challenge, 2025)",
       sections: [
         {
           type: "text" as const,
           heading: "Overview",
           body: [
-            "The Rotman Design Challenge asked teams to reimagine insurance for the future of work. Our team focused on gig workers — a growing workforce segment that traditional insurance products fundamentally fail to serve.",
-            "We designed a flexible, AI-enabled insurance platform that adapts coverage to work patterns in real-time. Instead of fixed monthly premiums, coverage activates and scales based on actual gig activity, creating a trust bridge between insurers and a historically underserved market.",
+            "1.57 million Canadians earn their primary income through gig work and can't get insurance that fits how they actually work. That gap — between the flexibility gig work demands and the rigidity insurance requires — was the brief Intact Financial handed to the Rotman Design Challenge in March 2025.",
+            "As service designer and strategist on Team Northstar, I worked across research synthesis, persona development, and solution framing on a five-person cross-disciplinary team. We won first place. This is the work behind that outcome.",
           ],
+        },
+        {
+          type: "image" as const,
+          src: "/casestudy/flexible-insurance-gig-workers/gig-workers-photo.png",
+          alt: "A delivery rider on a bicycle and a handyman with tools — two faces of the gig economy",
         },
         {
           type: "metrics" as const,
           items: [
-            { value: "1st", label: "Place — Rotman Design Challenge" },
-            { value: "48hrs", label: "From brief to final presentation" },
-            { value: "78M", label: "Gig workers in the US alone" },
+            { value: "$37Bn CAD", label: "Canadian gig insurance market, 2024" },
+            { value: "7.3M", label: "Canadians in the gig economy" },
+            { value: "1 in 2", label: "Full-time gig workers without coverage" },
+            { value: "10", label: "User interviews conducted" },
           ],
         },
         {
           type: "text" as const,
-          heading: "Outcome",
+          heading: "The Coverage Gap",
           body: [
-            "Won first place against 20+ competing teams. The judges highlighted our approach to behavioral trust-building and the AI-driven personalization model as key differentiators. The concept was later developed into a more detailed strategy proposal.",
+            "Canadian auto insurance operates on a binary: personal or commercial. Personal policies void the moment you accept a fare or delivery. Commercial policies start at six-month minimums and are priced for fleet operators, not individuals driving two nights a week.",
+            "Gig workers fall into the gap between these two worlds — often working without valid coverage, frequently without knowing it. Our netnography surfaced Reddit threads full of drivers asking 'am I actually covered right now?' and getting no clear answer. The system wasn't designed for them. It shows.",
+          ],
+        },
+        {
+          type: "image" as const,
+          src: "/casestudy/flexible-insurance-gig-workers/insurance-binary.png",
+          alt: "Auto insurance sits between personal and commercial — gig workers fall into the gap between both",
+          caption: "The binary that breaks down for gig workers — personal voids during commercial use, commercial starts at 6-month minimums.",
+        },
+        {
+          type: "callout" as const,
+          label: "The structural mismatch",
+          body: [
+            "Traditional auto insurance was built for predictable, full-time use. Gig work is neither. Workers rotate on and off platforms daily, log variable hours, and take unplanned breaks when life demands it. The system has no model for any of this — so workers either over-pay for coverage they don't use, or go uninsured and hope for the best.",
+          ],
+        },
+        {
+          type: "text" as const,
+          heading: "Research Approach",
+          body: [
+            "We ran 10 interviews across three profiles: North American auto insurance holders, a Canadian personal policyholder, and a Canadian who held both personal and commercial coverage simultaneously. That last profile was the most revealing — she'd spent months navigating the gap herself.",
+            "We supplemented with a literature review across Visa, Deloitte, the Geneva Association, Statistics Canada, and the ILO, plus netnography mapping online community conversations about gig coverage confusion across Reddit and Canadian finance forums.",
+            "Key findings from personal insurance holders: price drives selection, experience drives retention. Terminology causes confusion at signup. Bundling is preferred for simplicity. Accident reporting creates premium anxiety — a fear that pushes some drivers to stay silent after incidents.",
+            "Key findings from gig workers specifically: traditional insurance doesn't bend to flexible schedules. Language barriers contribute significantly to underinsurance in immigrant-heavy gig worker populations. Metric-based performance pressure — optimizing for ratings and delivery times — correlates with higher accident risk.",
+          ],
+        },
+        {
+          type: "two-images" as const,
+          images: [
+            {
+              src: "/casestudy/flexible-insurance-gig-workers/personal-findings.png",
+              alt: "Key findings from personal auto insurance holders — price drives selection, terminology confuses, bundling preferred",
+            },
+            {
+              src: "/casestudy/flexible-insurance-gig-workers/gig-findings.png",
+              alt: "Key findings from gig workers — traditional insurance too rigid, language barriers, metric pressure increases accident risk",
+            },
+          ],
+        },
+        {
+          type: "text" as const,
+          heading: "Meet Greg",
+          body: [
+            "Greg is an urban planner. He has a steady government job and a family to support, and he decides to supplement his income by taking on handyman gigs on evenings and weekends. He has the skills. He has the vehicle. What he doesn't have is a clear path to coverage.",
+            "When he searches for commercial insurance, the terminology walls him off immediately — 'third-party liability,' 'endorsement,' 'commercial use classification.' He makes his best guess and signs up for the shortest available plan: six months, whether he needs it or not.",
+            "A few months in, his daughter gets sick. He takes a break from gig work. Now he faces an impossible choice: cancel the policy and lose access, or keep paying for coverage on a vehicle he's not using commercially. He keeps paying. When he starts driving again — stressed, financially stretched — he gets into an accident. The money he earned goes toward repairs.",
+            "This wasn't a personal failing. The system gave Greg no good options.",
+          ],
+        },
+        {
+          type: "two-images" as const,
+          images: [
+            {
+              src: "/casestudy/flexible-insurance-gig-workers/greg-step-06.png",
+              alt: "Greg storyboard — worried about whether to cancel or keep insurance while daughter is sick",
+              caption: "The impossible choice: cancel and lose access, or keep paying for unused coverage.",
+            },
+            {
+              src: "/casestudy/flexible-insurance-gig-workers/greg-step-07.png",
+              alt: "Greg storyboard — overwhelmed while driving, gets into an accident",
+              caption: "Driving stressed and financially stretched — the system's failure becomes Greg's accident.",
+            },
+          ],
+        },
+        {
+          type: "quote" as const,
+          text: "I was told I simply had to provide proof of our regular auto insurance to be able to work for those types of companies — and also not saying it was during a delivery if you happen to be in an accident while working.",
+          attribution: "Gig worker, r/CanadaFinance",
+        },
+        {
+          type: "pull-quote" as const,
+          text: "How might we reimagine the auto insurance experience for gig workers, tailored to their flexible work conditions?",
+        },
+        {
+          type: "text" as const,
+          heading: "The Solution: Flexible Commercial Insurance",
+          body: [
+            "We designed a two-phase model with flexibility as the structural core — not a feature, but the organizing principle.",
+            "Phase 1 targets the access and cost problem: rigid minimums and no ability to pause. Phase 2 targets the comprehension and language problem: policy terminology that locks people out before they've even started. Together, they address the three research findings that kept surfacing — rigidity, language barriers, and accident risk driven by financial stress.",
+          ],
+        },
+        {
+          type: "image" as const,
+          src: "/casestudy/flexible-insurance-gig-workers/solution-overview.png",
+          alt: "Flexible Commercial Insurance — onboarding screen showing customizable duration, pause feature, and AI capabilities",
+          caption: "The Flexible Commercial Insurance onboarding — three core value props for gig workers.",
+        },
+        {
+          type: "steps" as const,
+          title: "Phase 1 — Getting covered on your terms",
+          items: [
+            {
+              num: "01",
+              label: "Customizable coverage duration",
+              body: "Choose insurance for one week, one month, or longer — not the industry-standard six-month minimum. Coverage starts when you need it and ends when you don't.",
+              image: "/casestudy/flexible-insurance-gig-workers/app-buy.png",
+              imageAlt: "Flexible Commercial Insurance — buy flow showing customizable coverage duration with 1-week option",
+              imageCaption: "Coverage duration selector — buy for a week, not six months.",
+            },
+            {
+              num: "02",
+              label: "Pause anytime, no penalty",
+              body: "Pause commercial coverage when you're not working. No premiums charged while paused. The policy stays active so you can restart without reapplying.",
+              image: "/casestudy/flexible-insurance-gig-workers/app-pause.png",
+              imageAlt: "Flexible Commercial Insurance — pause insurance modal with duration selector",
+              imageCaption: "Pause flow — no premiums while paused, coverage resumes instantly.",
+            },
+            {
+              num: "03",
+              label: "Resume with one tap",
+              body: "When life stabilizes and you're ready to work again, there's no waiting period, no re-underwriting, no gap in your record. The system holds your place.",
+            },
+          ],
+        },
+        {
+          type: "steps" as const,
+          title: "Phase 2 — Understanding your policy, in any language",
+          items: [
+            {
+              num: "01",
+              label: "Polaris — the policy explainer",
+              body: "An AI agent trained on hours of recorded Intact Customer Care conversations. Upload any policy document; Polaris returns a plain-language summary of what's covered, what isn't, and what to watch for at renewal.",
+              video: "/casestudy/flexible-insurance-gig-workers/polaris-demo.mp4",
+              videoCaption: "Polaris in action — plain-language policy summary with real-time multilingual translation.",
+            },
+            {
+              num: "02",
+              label: "Multilingual by design",
+              body: "Language barriers were a documented driver of underinsurance in our research. Polaris translates summaries on request — same conversation, any language, no quality drop.",
+              image: "/casestudy/flexible-insurance-gig-workers/app-polaris.png",
+              imageAlt: "Polaris AI agent — plain-language policy summary with multilingual translation",
+              imageCaption: "Polaris summarizes any policy in plain language, translates on request.",
+            },
+            {
+              num: "03",
+              label: "AI-assisted claims filing",
+              body: "A guided claims flow that reduces documentation burden after an incident — especially important for workers managing stress and financial pressure while still needing to earn.",
+              image: "/casestudy/flexible-insurance-gig-workers/app-claims.png",
+              imageAlt: "Phase 2 claims — AI-assisted claims filing",
+              imageCaption: "AI-assisted claims filing reduces documentation burden after an incident.",
+            },
+          ],
+        },
+        {
+          type: "text" as const,
+          heading: "Greg's Journey, After",
+          body: [
+            "Greg signs up for Intact's Flexible Commercial Insurance. He uploads his policy to Polaris, gets a plain-language summary in minutes, and picks the right coverage tier without confusion. He earns for two months.",
+            "His daughter gets sick. He opens the app and pauses his coverage. No cancellation, no penalty, no financial spiral. When she recovers, he resumes. He drives with a clear head. No accident. The system bent to fit his life instead of the other way around.",
+          ],
+        },
+        {
+          type: "two-images" as const,
+          images: [
+            {
+              src: "/casestudy/flexible-insurance-gig-workers/greg-after-06.png",
+              alt: "Greg storyboard after — pausing insurance with peace of mind while daughter recovers",
+              caption: "Pause. No penalty. Resume when ready.",
+            },
+            {
+              src: "/casestudy/flexible-insurance-gig-workers/greg-happy.png",
+              alt: "Greg and his daughter happy — the system bent to fit his life",
+              caption: "The system bent to fit his life instead of the other way around.",
+            },
+          ],
+        },
+        {
+          type: "image" as const,
+          src: "/casestudy/flexible-insurance-gig-workers/1743129747494.jpeg",
+          alt: "Team Northstar receiving first place cheque at the Rotman Design Challenge x Intact 2025",
+          caption: "Team Northstar — First Place, Rotman Design Challenge x Intact 2025. $5,000 prize.",
+        },
+        {
+          type: "text" as const,
+          heading: "Outcome & Reflection",
+          body: [
+            "Team Northstar placed first at the Rotman Design Challenge. Judges highlighted the before/after service narrative and the two-phase solution structure as strong differentiators — particularly the way Phase 2 addressed language barriers as a systemic design problem rather than an edge case.",
+            "My specific contribution spanned the research synthesis, the Greg persona and journey mapping, the before/after service arc, and the Polaris concept framing. This was a pitch and concept project — validated through research and judges, not shipped to users. That distinction matters, and it's worth naming.",
+            "What the work demonstrated: when you design for the person with the fewest options, you build something that works better for everyone.",
           ],
         },
       ],

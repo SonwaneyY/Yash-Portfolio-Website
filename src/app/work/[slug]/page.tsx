@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
@@ -20,7 +20,7 @@ function headingToId(heading: string): string {
     .replace(/(^-|-$)/g, "");
 }
 
-function SectionRenderer({ section }: { section: CaseStudySection }) {
+function SectionRenderer({ section, onImageClick }: { section: CaseStudySection; onImageClick: (src: string) => void }) {
   switch (section.type) {
     case "text":
       return (
@@ -40,12 +40,20 @@ function SectionRenderer({ section }: { section: CaseStudySection }) {
           <div className={styles.imageSection}>
             {section.layout === "mobile" ? (
               <div className={styles.imageMobilePanel}>
-                <div className={styles.imageMobileFrame}>
+                <div
+                  className={styles.imageMobileFrame}
+                  onClick={() => onImageClick(section.src)}
+                  style={{ cursor: "zoom-in" }}
+                >
                   <Image src={section.src} alt={section.alt} fill />
                 </div>
               </div>
             ) : (
-              <div className={styles.imageFull}>
+              <div
+                className={styles.imageFull}
+                onClick={() => onImageClick(section.src)}
+                style={{ cursor: "zoom-in" }}
+              >
                 <Image src={section.src} alt={section.alt} fill />
               </div>
             )}
@@ -62,7 +70,11 @@ function SectionRenderer({ section }: { section: CaseStudySection }) {
           <div className={styles.twoImages}>
             {section.images.map((img, i) => (
               <div key={i} className={styles.twoImageItem}>
-                <div className={styles.twoImageWrapper}>
+                <div
+                  className={styles.twoImageWrapper}
+                  onClick={() => onImageClick(img.src)}
+                  style={{ cursor: "zoom-in" }}
+                >
                   <Image src={img.src} alt={img.alt} fill />
                 </div>
                 {img.caption && (
@@ -123,6 +135,26 @@ function SectionRenderer({ section }: { section: CaseStudySection }) {
               <div key={i} className={styles.step}>
                 <span className={styles.stepNum}>{item.num}</span>
                 <div className={styles.stepContent}>
+                  {item.video && (
+                    <div className={styles.stepMedia}>
+                      <video
+                        src={item.video}
+                        poster={item.videoPoster}
+                        controls
+                        playsInline
+                        className={styles.stepVideo}
+                      />
+                      {item.videoCaption && <p className={styles.imageCaption}>{item.videoCaption}</p>}
+                    </div>
+                  )}
+                  {item.image && (
+                    <div className={styles.stepMedia}>
+                      <div className={styles.stepImageWrapper}>
+                        <Image src={item.image} alt={item.imageAlt || item.label} fill style={{ objectFit: "contain" }} />
+                      </div>
+                      {item.imageCaption && <p className={styles.imageCaption}>{item.imageCaption}</p>}
+                    </div>
+                  )}
                   <span className={styles.stepLabel}>{item.label}</span>
                   {item.body && <p className={styles.stepBody}>{item.body}</p>}
                 </div>
@@ -167,6 +199,24 @@ function SectionRenderer({ section }: { section: CaseStudySection }) {
       );
     }
 
+    case "video":
+      return (
+        <ScrollReveal>
+          <div className={styles.videoSection}>
+            <video
+              src={section.src}
+              poster={section.poster}
+              controls
+              playsInline
+              className={styles.videoPlayer}
+            />
+            {section.caption && (
+              <p className={styles.imageCaption}>{section.caption}</p>
+            )}
+          </div>
+        </ScrollReveal>
+      );
+
     default:
       return null;
   }
@@ -175,6 +225,15 @@ function SectionRenderer({ section }: { section: CaseStudySection }) {
 export default function CaseStudyPage() {
   const params = useParams();
   const slug = params.slug as string;
+  const [lightboxSrc, setLightboxSrc] = useState<string | null>(null);
+  const sectionsRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!lightboxSrc) return;
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setLightboxSrc(null); };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [lightboxSrc]);
 
   const projectIndex = projects.findIndex((p) => p.slug === slug);
   const project = projects[projectIndex];
@@ -276,10 +335,10 @@ export default function CaseStudyPage() {
       {/* Content Sections */}
       <Container>
         <div className={styles.contentLayout}>
-          <CaseStudySidebar items={navItems} />
-          <div className={styles.sections}>
+          <CaseStudySidebar items={navItems} sectionsRef={sectionsRef} />
+          <div className={styles.sections} ref={sectionsRef}>
             {cs.sections.map((section, i) => (
-              <SectionRenderer key={i} section={section} />
+              <SectionRenderer key={i} section={section} onImageClick={setLightboxSrc} />
             ))}
           </div>
         </div>
@@ -306,6 +365,17 @@ export default function CaseStudyPage() {
           )}
         </nav>
       </Container>
+
+      {/* Lightbox */}
+      {lightboxSrc && (
+        <div className={styles.lightboxOverlay} onClick={() => setLightboxSrc(null)}>
+          <button className={styles.lightboxClose} onClick={() => setLightboxSrc(null)} aria-label="Close">✕</button>
+          <div className={styles.lightboxImageWrap} onClick={(e) => e.stopPropagation()}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={lightboxSrc} alt="Full size" className={styles.lightboxImage} />
+          </div>
+        </div>
+      )}
 
       {/* CTA */}
       <section className={styles.cta}>

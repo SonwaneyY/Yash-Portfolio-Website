@@ -57,8 +57,14 @@
   margin-top: var(--space-8);
   overflow: hidden;
   position: relative;
-  aspect-ratio: 21 / 9;
+  aspect-ratio: 16 / 9;
   border: 1px solid var(--rule);
+}
+
+@media (min-width: 768px) {
+  .coverImageWrapper {
+    aspect-ratio: 21 / 9;
+  }
 }
 
 .coverImage {
@@ -69,11 +75,19 @@
 .meta {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: var(--space-4);
-  padding: var(--space-5) 0;
+  gap: var(--space-3);
+  padding: var(--space-4) 0;
   border-top: 1px solid var(--rule);
   border-bottom: 1px solid var(--rule);
-  margin: var(--space-6) 0;
+  margin: var(--space-5) 0;
+}
+
+@media (min-width: 768px) {
+  .meta {
+    gap: var(--space-4);
+    padding: var(--space-5) 0;
+    margin: var(--space-6) 0;
+  }
 }
 
 @media (min-width: 768px) {
@@ -106,9 +120,7 @@
 
 /* ---- Content Layout ---- */
 .contentLayout {
-  display: flex;
-  gap: var(--space-8);
-  align-items: flex-start;
+  display: block;
 }
 
 .sections {
@@ -116,14 +128,70 @@
   flex-direction: column;
   gap: var(--space-10);
   padding-bottom: var(--space-10);
-  flex: 1;
-  min-width: 0;
+  width: 100%;
 }
 
-/* Text block — reading-room measure */
+@media (min-width: 1024px) {
+  .sections {
+    /* Push content right to clear fixed sidebar (192px wide) minus container's own left padding */
+    padding-left: max(0px, calc(192px - var(--container-pad)));
+  }
+}
+
+/* ---- Lightbox ---- */
+.lightboxOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.92);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: zoom-out;
+}
+
+.lightboxClose {
+  position: fixed;
+  top: 24px;
+  right: 28px;
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 18px;
+  line-height: 1;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1001;
+  transition: color 200ms ease, border-color 200ms ease;
+}
+
+.lightboxClose:hover {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.6);
+}
+
+.lightboxImageWrap {
+  max-width: 92vw;
+  max-height: 92vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: default;
+}
+
+.lightboxImage {
+  max-width: 92vw;
+  max-height: 92vh;
+  object-fit: contain;
+  display: block;
+}
+
+/* Text block */
 .textSection {
-  max-width: 620px;
-  margin: 0 auto;
   width: 100%;
 }
 
@@ -172,10 +240,11 @@
   aspect-ratio: 16 / 10;
   overflow: hidden;
   border: 1px solid var(--rule);
+  background: var(--bg-secondary);
 }
 
 .imageFull img {
-  object-fit: cover;
+  object-fit: contain;
 }
 
 /* Mobile / phone screenshots */
@@ -246,16 +315,15 @@
   aspect-ratio: 4 / 3;
   overflow: hidden;
   border: 1px solid var(--rule);
+  background: var(--bg-secondary);
 }
 
 .twoImageWrapper img {
-  object-fit: cover;
+  object-fit: contain;
 }
 
 /* Quote — field note style */
 .quoteSection {
-  max-width: 620px;
-  margin: 0 auto;
   width: 100%;
   padding: var(--space-5) 0 var(--space-5) var(--space-5);
   border-left: 1px solid var(--accent);
@@ -286,9 +354,15 @@
   margin: var(--space-4) auto;
   width: 100%;
   text-align: center;
-  padding: var(--space-8) 0;
+  padding: var(--space-5) 0;
   border-top: 1px solid var(--rule);
   border-bottom: 1px solid var(--rule);
+}
+
+@media (min-width: 768px) {
+  .pullQuote {
+    padding: var(--space-8) 0;
+  }
 }
 
 .pullQuoteText {
@@ -313,16 +387,20 @@
 
 /* Callout — structured insight block */
 .callout {
-  max-width: 620px;
-  margin: 0 auto;
   width: 100%;
   background: var(--bg-secondary);
   border: 1px solid var(--rule);
   border-left: 2px solid var(--accent);
-  padding: var(--space-4) var(--space-5);
+  padding: var(--space-3) var(--space-4);
   display: flex;
   flex-direction: column;
   gap: var(--space-2);
+}
+
+@media (min-width: 768px) {
+  .callout {
+    padding: var(--space-4) var(--space-5);
+  }
 }
 
 .calloutLabel {
@@ -344,8 +422,6 @@
 
 /* Steps — sequential process */
 .steps {
-  max-width: 620px;
-  margin: 0 auto;
   width: 100%;
 }
 
@@ -403,6 +479,28 @@
   margin: 0;
 }
 
+.stepMedia {
+  width: 100%;
+  margin-bottom: var(--space-3);
+}
+
+.stepImageWrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border: 1px solid var(--rule);
+  background: var(--bg-secondary);
+}
+
+.stepVideo {
+  width: 100%;
+  max-width: 360px;
+  display: block;
+  border: 1px solid var(--rule);
+  background: #000;
+}
+
 /* Metrics — instrument-panel style, big floating numbers */
 .metricsGrid {
   display: grid;
@@ -449,6 +547,22 @@
   color: var(--text-tertiary);
   line-height: 1.5;
   text-transform: uppercase;
+}
+
+/* ---- Video Section ---- */
+.videoSection {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.videoPlayer {
+  width: 100%;
+  max-width: 420px;
+  display: block;
+  border: 1px solid var(--rule);
+  background: #000;
 }
 
 /* ---- Chart Sections ---- */
