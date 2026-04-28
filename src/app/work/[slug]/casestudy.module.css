@@ -673,3 +673,200 @@
 .ctaLink:hover::after {
   transform: scaleX(1);
 }
+
+/* ---- Insight Card ---- */
+.insightCard {
+  max-width: 620px;
+  margin: 0 auto;
+  width: 100%;
+  background: var(--bg-secondary);
+  border-left: 2px solid var(--accent);
+  border: 1px solid var(--rule);
+  border-left: 2px solid var(--accent);
+  padding: var(--space-5);
+}
+
+.insightCardTheme {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: var(--space-3);
+  display: block;
+}
+
+.insightCardInsight {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-primary);
+  line-height: 1.65;
+  margin-bottom: var(--space-4);
+}
+
+.insightCardVerbatim {
+  font-family: var(--font-serif);
+  font-size: 15px;
+  font-style: italic;
+  color: var(--text-secondary);
+  line-height: 1.75;
+  margin-bottom: var(--space-2);
+}
+
+.insightCardAttribution {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--text-tertiary);
+}
+
+/* ---- Problem Gap (Current / Desired) ---- */
+.problemGap {
+  max-width: 620px;
+  margin: 0 auto;
+  width: 100%;
+  border: 1px solid var(--rule);
+  overflow: hidden;
+}
+
+.problemGapHeader {
+  padding: var(--space-3) var(--space-5);
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--rule);
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+}
+
+.problemGapLabel {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+.problemGapHeading {
+  font-family: var(--font-serif);
+  font-size: 20px;
+  font-weight: 400;
+  color: var(--text-primary);
+}
+
+.problemGapBody {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 768px) {
+  .problemGapBody {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.problemGapColumn {
+  padding: var(--space-5);
+}
+
+.problemGapColumn:first-child {
+  border-bottom: 1px solid var(--rule);
+}
+
+@media (min-width: 768px) {
+  .problemGapColumn:first-child {
+    border-bottom: none;
+    border-right: 1px solid var(--rule);
+  }
+}
+
+.problemGapColumnLabel {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  margin-bottom: var(--space-2);
+  display: block;
+}
+
+.problemGapColumnText {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.75;
+}
+
+/* ---- Concepts Grid ---- */
+.conceptsSection {
+  width: 100%;
+}
+
+.conceptsSectionHeading {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: var(--space-4);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--rule);
+  display: block;
+}
+
+.conceptsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+}
+
+.conceptCard {
+  background: var(--bg-secondary);
+  border: 1px solid var(--rule);
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.conceptCardSelected {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.conceptTag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  display: inline-block;
+  width: fit-content;
+}
+
+.conceptTagSelected {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.conceptName {
+  font-family: var(--font-serif);
+  font-size: clamp(20px, 2vw, 26px);
+  font-weight: 400;
+  color: var(--text-primary);
+  line-height: 1.1;
+}
+
+.conceptNameSelected {
+  color: white;
+}
+
+.conceptDesc {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.65;
+}
+
+.conceptDescSelected {
+  color: rgba(255, 255, 255, 0.85);
+}

@@ -217,6 +217,58 @@ function SectionRenderer({ section, onImageClick }: { section: CaseStudySection;
         </ScrollReveal>
       );
 
+    case "insight-card":
+      return (
+        <ScrollReveal>
+          <div className={styles.insightCard}>
+            <p className={styles.insightCardTheme}>{section.theme}</p>
+            <p className={styles.insightCardInsight}>{section.insight}</p>
+            <p className={styles.insightCardVerbatim}>&ldquo;{section.verbatim}&rdquo;</p>
+            <p className={styles.insightCardAttribution}>&mdash; {section.attribution}</p>
+          </div>
+        </ScrollReveal>
+      );
+
+    case "problem-gap":
+      return (
+        <ScrollReveal>
+          <div className={styles.problemGap}>
+            <div className={styles.problemGapHeader}>
+              <span className={styles.problemGapLabel}>{section.label}</span>
+              <span className={styles.problemGapHeading}>{section.heading}</span>
+            </div>
+            <div className={styles.problemGapBody}>
+              <div className={styles.problemGapColumn}>
+                <p className={styles.problemGapColumnLabel}>Current State</p>
+                <p className={styles.problemGapColumnText}>{section.current}</p>
+              </div>
+              <div className={styles.problemGapColumn}>
+                <p className={styles.problemGapColumnLabel}>Desired State</p>
+                <p className={styles.problemGapColumnText}>{section.desired}</p>
+              </div>
+            </div>
+          </div>
+        </ScrollReveal>
+      );
+
+    case "concepts-grid":
+      return (
+        <ScrollReveal>
+          <div className={styles.conceptsSection}>
+            <p className={styles.conceptsSectionHeading}>{section.heading}</p>
+            <div className={styles.conceptsGrid}>
+              {section.items.map((item, i) => (
+                <div key={i} className={`${styles.conceptCard} ${item.selected ? styles.conceptCardSelected : ""}`}>
+                  <span className={`${styles.conceptTag} ${item.selected ? styles.conceptTagSelected : ""}`}>{item.tag}</span>
+                  <p className={`${styles.conceptName} ${item.selected ? styles.conceptNameSelected : ""}`}>{item.name}</p>
+                  <p className={`${styles.conceptDesc} ${item.selected ? styles.conceptDescSelected : ""}`}>{item.description}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </ScrollReveal>
+      );
+
     default:
       return null;
   }
