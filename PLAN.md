@@ -20,9 +20,9 @@
 4. **hp-learning** — FULL CONTENT ✓ REFINED (case-study skill applied: added Habit Loop + Parent Aha Moments section, new "Finding the Parent's Aha Moment" section, strengthened cross-functional delivery, sharpened all narrative, images in `/public/casestudy/hp-learning/`)
 5. **hp-scale-ui** — FULL CONTENT ✓ (written from PDF portfolio, card cover in `/public/casestudy/hp-scale-ui/`)
 6. **project-sense** — FULL CONTENT ✓ (written from PDF portfolio, real images + video in `/public/casestudy/project-sense/`)
-7. **flexible-insurance-gig-workers** — minimal placeholder
+7. **flexible-insurance-gig-workers** — FULL CONTENT ✓ (Phase 1+2 step media embedded inline, team win photo added above Outcome, video player reduced to 420px)
 8. **loop-strategy** — minimal placeholder
-9. **beyond-efficiency** — minimal placeholder
+9. **beyond-efficiency** — FULL CONTENT ✓ (new section types: insight-card, problem-gap, concepts-grid)
 
 ## Known Issue (Raised by User — 2026-03-25)
 The HP Learning, Scale UI, and Project SENSE case study pages only show Overview and Outcome sections on the website — the full multi-section content written in data.ts is NOT rendering. The case study page template at `src/app/work/[slug]/page.tsx` or `casestudy.module.css` may have a rendering issue, OR the sections data is being truncated somewhere. **This needs to be debugged next session.**
@@ -36,7 +36,8 @@ Likely suspects:
 - Home IS the Work page (flat hierarchy)
 - CSS Modules over Tailwind for unique design
 - All content centralized in `data.ts`
-- Case studies use flexible typed section blocks: `text | image | two-images | quote | metrics | chart`
+- Case studies use flexible typed section blocks: `text | image | two-images | quote | pull-quote | callout | steps | metrics | chart | video | insight-card | problem-gap | concepts-grid`
+- Step items support inline `image` and `video` fields rendered above each step label
 - No "View all work" button — projects are right there on the homepage
 
 ## Image Assets
@@ -59,4 +60,4 @@ Likely suspects:
 ## Git Workflow
 - Work on `dev` branch only
 - Merge to `main` only when explicitly told by user
-- Last commit: unknown — user needs to commit HP Learning/Scale UI/SENSE additions
+- Last push: 2026-04-28 — step media + team win photo + merge with beyond-efficiency new sections
