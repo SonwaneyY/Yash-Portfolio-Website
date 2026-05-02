@@ -12,6 +12,7 @@ import type { CaseStudySection } from "@/lib/data";
 import styles from "./casestudy.module.css";
 import { SubscriberGrowthChart, ConversionMilestonesChart, ChurnReasonsChart } from "@/components/casestudy/CaseStudyCharts";
 import CaseStudySidebar from "@/components/casestudy/CaseStudySidebar";
+import CaseStudyMobileNav from "@/components/casestudy/CaseStudyMobileNav";
 
 function headingToId(heading: string): string {
   return heading
@@ -54,7 +55,9 @@ function SectionRenderer({ section, onImageClick }: { section: CaseStudySection;
                 onClick={() => onImageClick(section.src)}
                 style={{ cursor: "zoom-in" }}
               >
-                <Image src={section.src} alt={section.alt} fill />
+                <div className={styles.imageInner}>
+                  <Image src={section.src} alt={section.alt} fill />
+                </div>
               </div>
             )}
             {section.caption && (
@@ -75,7 +78,9 @@ function SectionRenderer({ section, onImageClick }: { section: CaseStudySection;
                   onClick={() => onImageClick(img.src)}
                   style={{ cursor: "zoom-in" }}
                 >
-                  <Image src={img.src} alt={img.alt} fill />
+                  <div className={styles.imageInner}>
+                    <Image src={img.src} alt={img.alt} fill />
+                  </div>
                 </div>
                 {img.caption && (
                   <p className={styles.imageCaption}>{img.caption}</p>
@@ -150,7 +155,9 @@ function SectionRenderer({ section, onImageClick }: { section: CaseStudySection;
                   {item.image && (
                     <div className={styles.stepMedia}>
                       <div className={styles.stepImageWrapper}>
-                        <Image src={item.image} alt={item.imageAlt || item.label} fill style={{ objectFit: "contain" }} />
+                        <div className={styles.imageInner}>
+                          <Image src={item.image} alt={item.imageAlt || item.label} fill style={{ objectFit: "contain" }} />
+                        </div>
                       </div>
                       {item.imageCaption && <p className={styles.imageCaption}>{item.imageCaption}</p>}
                     </div>
@@ -279,6 +286,7 @@ export default function CaseStudyPage() {
   const slug = params.slug as string;
   const [lightboxSrc, setLightboxSrc] = useState<string | null>(null);
   const sectionsRef = useRef<HTMLDivElement>(null);
+  const touchStartY = useRef<number>(0);
 
   useEffect(() => {
     if (!lightboxSrc) return;
@@ -286,6 +294,15 @@ export default function CaseStudyPage() {
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
   }, [lightboxSrc]);
+
+  const handleLightboxTouchStart = (e: React.TouchEvent) => {
+    touchStartY.current = e.touches[0]?.clientY ?? 0;
+  };
+
+  const handleLightboxTouchEnd = (e: React.TouchEvent) => {
+    const deltaY = (e.changedTouches[0]?.clientY ?? 0) - touchStartY.current;
+    if (deltaY > 80) setLightboxSrc(null);
+  };
 
   const projectIndex = projects.findIndex((p) => p.slug === slug);
   const project = projects[projectIndex];
@@ -345,17 +362,19 @@ export default function CaseStudyPage() {
               backgroundColor: project.imageConfig?.bg || "var(--bg-secondary)",
             }}
           >
-            <Image
-              src={project.coverImage}
-              alt={project.title}
-              fill
-              className={styles.coverImage}
-              style={{
-                objectFit: (project.imageConfig?.fit as "cover" | "contain") || "cover",
-                objectPosition: project.imageConfig?.position || "center center",
-              }}
-              priority
-            />
+            <div className={styles.imageInner}>
+              <Image
+                src={project.coverImage}
+                alt={project.title}
+                fill
+                className={styles.coverImage}
+                style={{
+                  objectFit: (project.imageConfig?.fit as "cover" | "contain") || "cover",
+                  objectPosition: project.imageConfig?.position || "center center",
+                }}
+                priority
+              />
+            </div>
           </div>
         </ScrollReveal>
       </Container>
@@ -386,6 +405,7 @@ export default function CaseStudyPage() {
 
       {/* Content Sections */}
       <Container>
+        <CaseStudyMobileNav items={navItems} sectionsRef={sectionsRef} />
         <div className={styles.contentLayout}>
           <CaseStudySidebar items={navItems} sectionsRef={sectionsRef} />
           <div className={styles.sections} ref={sectionsRef}>
@@ -420,7 +440,12 @@ export default function CaseStudyPage() {
 
       {/* Lightbox */}
       {lightboxSrc && (
-        <div className={styles.lightboxOverlay} onClick={() => setLightboxSrc(null)}>
+        <div
+          className={styles.lightboxOverlay}
+          onClick={() => setLightboxSrc(null)}
+          onTouchStart={handleLightboxTouchStart}
+          onTouchEnd={handleLightboxTouchEnd}
+        >
           <button className={styles.lightboxClose} onClick={() => setLightboxSrc(null)} aria-label="Close">✕</button>
           <div className={styles.lightboxImageWrap} onClick={(e) => e.stopPropagation()}>
             {/* eslint-disable-next-line @next/next/no-img-element */}

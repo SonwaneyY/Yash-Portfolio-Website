@@ -4,6 +4,7 @@ import { JetBrains_Mono } from "next/font/google";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import SmoothScroll from "@/components/ui/SmoothScroll";
+import PageTransition from "@/components/ui/PageTransition";
 import "./globals.css";
 
 const scotchText = localFont({
@@ -53,7 +54,9 @@ export default function RootLayout({
         <a href="#main-content" className="skip-link">Skip to content</a>
         <SmoothScroll />
         <Header />
-        <main id="main-content">{children}</main>
+        <main id="main-content">
+          <PageTransition>{children}</PageTransition>
+        </main>
         <Footer />
       </body>
     </html>

@@ -59,6 +59,7 @@
   position: relative;
   aspect-ratio: 16 / 9;
   border: 1px solid var(--rule);
+  border-radius: 12px;
 }
 
 @media (min-width: 768px) {
@@ -229,6 +230,14 @@
   margin-bottom: 0;
 }
 
+/* Inner image container — sits 8px inside parent, clips fill images to rounded rect */
+.imageInner {
+  position: absolute;
+  inset: 8px;
+  overflow: hidden;
+  border-radius: 6px;
+}
+
 /* Full-width image */
 .imageSection {
   width: 100%;
@@ -241,10 +250,12 @@
   overflow: hidden;
   border: 1px solid var(--rule);
   background: var(--bg-secondary);
+  border-radius: 12px;
 }
 
 .imageFull img {
   object-fit: contain;
+  object-position: top center;
 }
 
 /* Mobile / phone screenshots */
@@ -285,11 +296,9 @@
   letter-spacing: 0.06em;
   color: var(--text-tertiary);
   margin-top: var(--space-3);
-  text-align: center;
+  text-align: left;
   line-height: 1.5;
-  max-width: 560px;
-  margin-left: auto;
-  margin-right: auto;
+  max-width: 680px;
 }
 
 /* Two-image grid */
@@ -316,10 +325,12 @@
   overflow: hidden;
   border: 1px solid var(--rule);
   background: var(--bg-secondary);
+  border-radius: 12px;
 }
 
 .twoImageWrapper img {
   object-fit: contain;
+  object-position: top center;
 }
 
 /* Quote — field note style */
@@ -354,25 +365,25 @@
   margin: var(--space-4) auto;
   width: 100%;
   text-align: center;
-  padding: var(--space-5) 0;
+  padding: var(--space-8) 0;
   border-top: 1px solid var(--rule);
   border-bottom: 1px solid var(--rule);
 }
 
 @media (min-width: 768px) {
   .pullQuote {
-    padding: var(--space-8) 0;
+    padding: var(--space-10) 0;
   }
 }
 
 .pullQuoteText {
   font-family: var(--font-serif);
-  font-size: clamp(22px, 2.8vw, 38px);
+  font-size: clamp(26px, 3.5vw, 56px);
   font-weight: 400;
   font-style: italic;
   color: var(--text-primary);
-  line-height: 1.3;
-  letter-spacing: -0.01em;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
 }
 
 .pullQuoteAttribution {
@@ -491,6 +502,11 @@
   overflow: hidden;
   border: 1px solid var(--rule);
   background: var(--bg-secondary);
+  border-radius: 12px;
+}
+
+.stepImageWrapper img {
+  object-position: top center;
 }
 
 .stepVideo {
@@ -499,6 +515,7 @@
   display: block;
   border: 1px solid var(--rule);
   background: #000;
+  border-radius: 12px;
 }
 
 /* Metrics — instrument-panel style, big floating numbers */
@@ -563,6 +580,7 @@
   display: block;
   border: 1px solid var(--rule);
   background: #000;
+  border-radius: 12px;
 }
 
 /* ---- Chart Sections ---- */

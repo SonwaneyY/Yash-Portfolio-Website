@@ -948,11 +948,6 @@ export const projects = [
           ],
         },
         {
-          type: "quote" as const,
-          text: "I was told I simply had to provide proof of our regular auto insurance to be able to work for those types of companies — and also not saying it was during a delivery if you happen to be in an accident while working.",
-          attribution: "Gig worker, r/CanadaFinance",
-        },
-        {
           type: "pull-quote" as const,
           text: "How might we reimagine the auto insurance experience for gig workers, tailored to their flexible work conditions?",
         },

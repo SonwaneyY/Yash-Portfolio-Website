@@ -252,21 +252,25 @@
   line-height: 1.4;
 }
 
-/* Toolkit */
+/* Toolkit — flowing inline text, no chrome */
 .toolkit {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
+  display: block;
+  line-height: 2;
 }
 
 .toolPill {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  letter-spacing: -0.005em;
+  color: var(--text-secondary);
+}
+
+.toolSep {
   font-family: var(--font-mono);
   font-size: 11px;
-  letter-spacing: 0.06em;
-  color: var(--text-secondary);
-  border: 1px solid var(--rule);
-  padding: 5px 12px;
-  border-radius: 9999px;
+  color: var(--text-tertiary);
+  margin: 0 6px;
+  user-select: none;
 }
 
 /* Beyond work */

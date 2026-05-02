@@ -108,8 +108,13 @@ export default function AboutPage() {
                   <span className={styles.markerLabel}>Toolkit</span>
                 </div>
                 <div className={styles.toolkit}>
-                  {skills.map((skill) => (
-                    <span key={skill} className={styles.toolPill}>{skill}</span>
+                  {skills.map((skill, i) => (
+                    <span key={skill}>
+                      <span className={styles.toolPill}>{skill}</span>
+                      {i < skills.length - 1 && (
+                        <span className={styles.toolSep} aria-hidden="true">·</span>
+                      )}
+                    </span>
                   ))}
                 </div>
               </div>
