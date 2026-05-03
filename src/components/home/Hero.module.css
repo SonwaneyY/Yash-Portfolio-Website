@@ -1,23 +1,4 @@
 /* ============================================
-   INTRO OVERLAY
-   ============================================ */
-.introOverlay {
-  position: fixed;
-  inset: 0;
-  z-index: 90;
-  background-color: var(--bg-primary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.introSvg {
-  width: min(280px, 50vw);
-  height: 100px;
-  overflow: visible;
-}
-
-/* ============================================
    MAIN HERO
    ============================================ */
 .hero {
@@ -99,6 +80,31 @@
   letter-spacing: -0.025em;
   max-width: 900px;
   margin-bottom: var(--space-6);
+}
+
+.statementPhrase {
+  display: inline-block;
+  color: var(--text-secondary);
+  /* ease-in-out for natural hue blend (color is a bidirectional change, not entrance) */
+  transition: color 0.75s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: color, transform, opacity;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .statementPhrase {
+    color: var(--text-primary);
+    transition: none;
+  }
+}
+
+.statementPhrase[data-revealed="true"] {
+  color: var(--text-primary);
+}
+
+.statementConnector {
+  display: inline;
+  color: var(--text-primary);
+  white-space: pre-wrap;
 }
 
 /* ---- Subline ---- */

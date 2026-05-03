@@ -3,6 +3,7 @@
 import { useState, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { motion } from "framer-motion";
 import clsx from "clsx";
 import Container from "@/components/ui/Container";
 import MobileMenu from "./MobileMenu";
@@ -48,9 +49,19 @@ export default function Header() {
     }
   }
 
+  const isHome = pathname === "/";
+  // Sync with Hero phase 2 cascade: reveal fires at ~2.55s on home, header joins at +0.32s
+  const headerDelay = isHome ? 2.87 : 0;
+  const headerInitialY = isHome ? -32 : 0;
+
   return (
     <>
-      <header className={styles.header}>
+      <motion.header
+        className={styles.header}
+        initial={{ opacity: 0, y: headerInitialY }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1], delay: headerDelay }}
+      >
         <Container>
           <div className={styles.inner}>
             <Link href="/" className={styles.monogram}>
@@ -110,7 +121,7 @@ export default function Header() {
             </button>
           </div>
         </Container>
-      </header>
+      </motion.header>
 
       <MobileMenu
         isOpen={menuOpen}

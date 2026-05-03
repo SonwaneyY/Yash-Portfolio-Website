@@ -1,98 +1,78 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import Container from "@/components/ui/Container";
 import Ticker from "./Ticker";
 import styles from "./Hero.module.css";
 
-const ease = [0.22, 1, 0.36, 1] as const;
-
-const TANGLED_PATH =
-  "M -140 0 C -180 -200 40 -200 -93 -80 C -200 40 -20 200 -47 60 C 80 -20 -100 -160 0 -70 C 100 -20 -80 180 47 60 C 180 160 80 -180 93 -50 C 120 -100 160 60 140 0";
-const STRAIGHT_PATH =
-  "M -140 0 C -126 0 -107 0 -93 0 C -79 0 -61 0 -47 0 C -33 0 -14 0 0 0 C 14 0 33 0 47 0 C 61 0 79 0 93 0 C 107 0 126 0 140 0";
+const easeOut = [0.22, 1, 0.36, 1] as const;
 
 const GREETING = "Hi, I'm Yash Sonwaney.";
-const GREETING_BODY = GREETING.slice(0, -1); // without trailing period
-const CHAR_DELAY = 82; // ms per character — slightly slower feels more intentional
+const GREETING_BODY = GREETING.slice(0, -1);
+const CHAR_DELAY = 70; // ms per character
+
+const PHRASE_DURATION = 0.65;
+const PHRASE_STAGGER = 0.45; // gap between each phrase entrance
+const PHRASE_COUNT = 3;
+const HOLD_AFTER_WORDS_MS = 1000; // hold after last phrase lands before sentence resolves
+const REVEAL_DELAY_MS =
+  (PHRASE_STAGGER * (PHRASE_COUNT - 1) + PHRASE_DURATION) * 1000 + HOLD_AFTER_WORDS_MS;
 
 export default function Hero() {
-  const seen = typeof sessionStorage !== "undefined" && sessionStorage.getItem("intro-seen") === "1";
-  const [phase, setPhase] = useState<"intro" | "reveal">(seen ? "reveal" : "intro");
-  const [typedCount, setTypedCount] = useState(0);
+  const reduceMotion = useReducedMotion();
+  const [phase, setPhase] = useState<"words" | "reveal">(
+    reduceMotion ? "reveal" : "words"
+  );
+  const [typedCount, setTypedCount] = useState(reduceMotion ? GREETING.length : 0);
   const [cursorOn, setCursorOn] = useState(true);
 
   const isReveal = phase === "reveal";
   const typingDone = typedCount >= GREETING.length;
 
   useEffect(() => {
-    if (seen) return;
+    if (reduceMotion) return;
+    const timer = setTimeout(() => setPhase("reveal"), REVEAL_DELAY_MS);
+    return () => clearTimeout(timer);
+  }, [reduceMotion]);
 
-    document.body.style.overflow = "hidden";
-    document.body.classList.add("intro-active");
-
-    const timer = setTimeout(() => {
-      setPhase("reveal");
-      document.body.style.overflow = "";
-      document.body.classList.remove("intro-active");
-      sessionStorage.setItem("intro-seen", "1");
-    }, 2400);
-
-    return () => {
-      clearTimeout(timer);
-      document.body.style.overflow = "";
-      document.body.classList.remove("intro-active");
-    };
-  }, []);
-
-  // Type one character at a time after reveal
+  // Type one char at a time once reveal phase fires (slight delay for greeting fade-in)
   useEffect(() => {
-    if (!isReveal || typingDone) return;
+    if (reduceMotion || !isReveal || typingDone) return;
     const t = setTimeout(() => setTypedCount((c) => c + 1), CHAR_DELAY);
     return () => clearTimeout(t);
-  }, [isReveal, typedCount, typingDone]);
+  }, [reduceMotion, isReveal, typedCount, typingDone]);
 
-  // Blink the cursor (while typing) or the period (when done)
+  // Cursor / period blink
   useEffect(() => {
     const t = setInterval(() => setCursorOn((v) => !v), 530);
     return () => clearInterval(t);
   }, []);
 
-  return (
-    <>
-      {/* ---- INTRO OVERLAY — thin rule draws itself ---- */}
-      <AnimatePresence>
-        {!isReveal && (
-          <motion.div
-            className={styles.introOverlay}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.6, ease }}
-          >
-            <svg className={styles.introSvg} viewBox="-150 -100 300 200" fill="none">
-              <motion.path
-                variants={{
-                  tangle: { d: TANGLED_PATH },
-                  straight: { d: STRAIGHT_PATH },
-                }}
-                initial="tangle"
-                animate="straight"
-                transition={{ duration: 1.8, ease: [0.4, 0, 0.2, 1] }}
-                stroke="var(--text-tertiary)"
-                strokeWidth={1.5}
-                strokeLinecap="round"
-              />
-            </svg>
-          </motion.div>
-        )}
-      </AnimatePresence>
+  const phraseInitial = reduceMotion ? false : { opacity: 0, y: 12, scale: 0.98 };
+  const phraseAnimate = { opacity: 1, y: 0, scale: 1 };
+  const phraseTransition = (delay: number) => ({
+    duration: PHRASE_DURATION,
+    ease: easeOut,
+    delay,
+  });
 
-      {/* ---- MAIN HERO ---- */}
-      <section className={styles.hero}>
-        <div className={styles.heroContent}>
+  const connectorInitial = reduceMotion ? false : { opacity: 0 };
+  const connectorAnimate = isReveal ? { opacity: 1 } : {};
+  const connectorTransition = { duration: 0.7, ease: easeOut };
+
+  return (
+    <section className={styles.hero}>
+      <div className={styles.heroContent}>
         <Container>
-          {/* Typed greeting */}
-          <div className={styles.greeting} aria-label={GREETING}>
+          {/* Greeting — hidden during phase 1, fades in with sentence resolve */}
+          <motion.div
+            className={styles.greeting}
+            aria-label={GREETING}
+            initial={reduceMotion ? false : { opacity: 0, y: 8 }}
+            animate={isReveal ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.65, ease: easeOut, delay: 0.05 }}
+          >
             <span aria-hidden="true">
               {typingDone ? (
                 <>
@@ -106,41 +86,93 @@ export default function Hero() {
                 </>
               )}
             </span>
-          </div>
+          </motion.div>
 
-          {/* Display statement */}
-          <motion.h1
-            className={styles.statement}
-            initial={{ opacity: 0, y: 24 }}
-            animate={isReveal ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7, ease, delay: 0.25 }}
-          >
-            A strategic design generalist bridging business strategy, systems thinking, and emerging technology.
-          </motion.h1>
+          {/* Display statement — phrases enter one by one, then sentence resolves */}
+          <h1 className={styles.statement}>
+            <motion.span
+              className={styles.statementConnector}
+              initial={connectorInitial}
+              animate={connectorAnimate}
+              transition={connectorTransition}
+            >
+              A strategic design generalist bridging{" "}
+            </motion.span>
+            <motion.span
+              className={styles.statementPhrase}
+              data-revealed={isReveal}
+              initial={phraseInitial}
+              animate={phraseAnimate}
+              transition={phraseTransition(0)}
+            >
+              business strategy
+            </motion.span>
+            <motion.span
+              className={styles.statementConnector}
+              initial={connectorInitial}
+              animate={connectorAnimate}
+              transition={connectorTransition}
+            >
+              ,{" "}
+            </motion.span>
+            <motion.span
+              className={styles.statementPhrase}
+              data-revealed={isReveal}
+              initial={phraseInitial}
+              animate={phraseAnimate}
+              transition={phraseTransition(PHRASE_STAGGER)}
+            >
+              systems thinking
+            </motion.span>
+            <motion.span
+              className={styles.statementConnector}
+              initial={connectorInitial}
+              animate={connectorAnimate}
+              transition={connectorTransition}
+            >
+              , and{" "}
+            </motion.span>
+            <motion.span
+              className={styles.statementPhrase}
+              data-revealed={isReveal}
+              initial={phraseInitial}
+              animate={phraseAnimate}
+              transition={phraseTransition(PHRASE_STAGGER * 2)}
+            >
+              emerging technology
+            </motion.span>
+            <motion.span
+              className={styles.statementConnector}
+              initial={connectorInitial}
+              animate={connectorAnimate}
+              transition={connectorTransition}
+            >
+              .
+            </motion.span>
+          </h1>
 
           {/* Subline */}
           <motion.p
             className={styles.subline}
-            initial={{ opacity: 0, y: 16 }}
+            initial={reduceMotion ? false : { opacity: 0, y: 12 }}
             animate={isReveal ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7, ease, delay: 0.4 }}
+            transition={{ duration: 0.65, ease: easeOut, delay: 0.18 }}
           >
             Senior product designer operating between enterprise tools, service ecosystems, and AI-native workflows.
           </motion.p>
 
         </Container>
-        </div>
+      </div>
 
-        {/* ---- TICKER — pinned to bottom ---- */}
-        <motion.div
-          className={styles.tickerContainer}
-          initial={{ opacity: 0 }}
-          animate={isReveal ? { opacity: 1 } : {}}
-          transition={{ duration: 0.6, ease, delay: 0.8 }}
-        >
-          <Ticker />
-        </motion.div>
-      </section>
-    </>
+      {/* ---- TICKER — slides up from below ---- */}
+      <motion.div
+        className={styles.tickerContainer}
+        initial={reduceMotion ? false : { opacity: 0, y: 36 }}
+        animate={isReveal ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.75, ease: easeOut, delay: 0.32 }}
+      >
+        <Ticker />
+      </motion.div>
+    </section>
   );
 }

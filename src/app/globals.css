@@ -199,15 +199,3 @@ p {
   border-width: 0;
 }
 
-/* ============================================
-   INTRO STATE
-   ============================================ */
-
-body.intro-active header {
-  opacity: 0;
-  pointer-events: none;
-}
-
-header {
-  transition: opacity 0.5s ease;
-}
