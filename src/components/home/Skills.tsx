@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import Container from "@/components/ui/Container";
-import { skills } from "@/lib/data";
+import { skillCategories } from "@/lib/data";
 import { viewportOnce } from "@/lib/animations";
 import styles from "./Skills.module.css";
 
@@ -28,19 +28,26 @@ export default function Skills() {
       <Container>
         <span className={styles.header}>Capabilities</span>
 
-        <motion.div
-          className={styles.pills}
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={viewportOnce}
-        >
-          {skills.map((skill) => (
-            <motion.span key={skill} className={styles.pill} variants={pillVariants}>
-              {skill}
-            </motion.span>
+        <div className={styles.categories}>
+          {Object.entries(skillCategories).map(([category, skills]) => (
+            <div key={category} className={styles.category}>
+              <span className={styles.categoryLabel}>{category}</span>
+              <motion.div
+                className={styles.pills}
+                variants={containerVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={viewportOnce}
+              >
+                {skills.map((skill) => (
+                  <motion.span key={skill} className={styles.pill} variants={pillVariants}>
+                    {skill}
+                  </motion.span>
+                ))}
+              </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </div>
       </Container>
     </section>
   );

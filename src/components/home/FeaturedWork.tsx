@@ -70,7 +70,7 @@ export default function FeaturedWork() {
                 data-active={isActive}
                 onClick={() => setActive(cat)}
               >
-                {cat} ({countFor(cat)})
+                {cat}
               </button>
             );
           })}

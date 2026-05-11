@@ -32,15 +32,23 @@
 .filterBar {
   display: flex;
   align-items: center;
-  flex-wrap: wrap;
   gap: 8px;
   margin-bottom: var(--space-4);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--bg-primary);
+  margin-left: calc(-1 * var(--container-pad));
+  margin-right: calc(-1 * var(--container-pad));
+  padding: 16px var(--container-pad);
 }
 
 .filterBtn {
   all: unset;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
+  flex: 1;
   font-family: var(--font-mono);
   font-size: 11px;
   font-weight: 400;

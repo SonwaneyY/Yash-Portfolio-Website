@@ -10,7 +10,28 @@
   text-transform: uppercase;
   color: var(--text-tertiary);
   display: block;
-  margin-bottom: var(--space-4);
+  margin-bottom: var(--space-5);
+}
+
+.categories {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.category {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.categoryLabel {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
 }
 
 .pills {

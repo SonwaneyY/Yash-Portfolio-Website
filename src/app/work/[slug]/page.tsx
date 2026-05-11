@@ -27,7 +27,10 @@ function SectionRenderer({ section, onImageClick }: { section: CaseStudySection;
       return (
         <ScrollReveal>
           <div id={headingToId(section.heading)} className={styles.textSection}>
-            <h2 className={styles.textHeading}>{section.heading}</h2>
+            <div className={styles.textHeadingGroup}>
+              {section.label && <span className={styles.textHeadingLabel}>{section.label}</span>}
+              <h2 className={styles.textHeading}>{section.heading}</h2>
+            </div>
             {section.body.map((p, i) => (
               <p key={i} className={i === 0 ? styles.textBodyLead : styles.textBody}>{p}</p>
             ))}
@@ -109,7 +112,7 @@ function SectionRenderer({ section, onImageClick }: { section: CaseStudySection;
       return (
         <ScrollReveal>
           <blockquote className={styles.pullQuote}>
-            <p className={styles.pullQuoteText}>&ldquo;{section.text}&rdquo;</p>
+            <p className={styles.pullQuoteText}>{section.text}</p>
             {section.attribution && (
               <cite className={styles.pullQuoteAttribution}>
                 &mdash; {section.attribution}
@@ -327,7 +330,7 @@ export default function CaseStudyPage() {
   // Build sidebar nav from text sections only
   const navItems = cs.sections
     .filter((s): s is Extract<typeof s, { type: "text" }> => s.type === "text")
-    .map((s) => ({ label: s.heading, id: headingToId(s.heading) }));
+    .map((s) => ({ label: s.label || s.heading, id: headingToId(s.heading) }));
 
   // Prev / Next
   const prevProject = projectIndex > 0 ? projects[projectIndex - 1] : null;

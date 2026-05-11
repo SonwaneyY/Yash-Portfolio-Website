@@ -19,7 +19,7 @@ export const projectCategories = ["All", "Product Design", "Strategy", "Research
 export type ProjectCategory = (typeof projectCategories)[number];
 
 export type CaseStudySection =
-  | { type: "text"; heading: string; body: string[] }
+  | { type: "text"; heading: string; label?: string; body: string[] }
   | { type: "image"; src: string; alt: string; caption?: string; layout?: "default" | "mobile" }
   | { type: "two-images"; images: { src: string; alt: string; caption?: string }[]; layout?: "default" | "mobile" }
   | { type: "quote"; text: string; attribution?: string }
@@ -46,7 +46,7 @@ export const projects = [
   {
     slug: "beyond-efficiency",
     title: "Beyond Efficiency: Understanding the Paradox of AI in Hiring",
-    subtitle: "A Parsons design research capstone mapping how AI and automation have made hiring faster but less human — flooding employers with noise while systematically filtering out qualified candidates.",
+    subtitle: "A design research investigation mapping how AI and automation have made hiring faster but less human — flooding employers with noise while systematically filtering out qualified candidates.",
     category: "DESIGN RESEARCH",
     filterCategory: "Research" as ProjectCategory,
     year: "2025",
@@ -58,10 +58,11 @@ export const projects = [
       role: "Lead Researcher & Designer",
       timeline: "Fall 2025",
       tools: ["DARN Framework", "Semi-structured Interviews", "Focus Group Discussion", "Candidate Survey (n=52)", "Thematic Analysis", "Dovetail", "Figma"],
-      team: "Yash Sonwaney & Ananya Harshini — Parsons School of Design, MS Strategic Design & Management",
+      team: "Yash Sonwaney & Ananya Harshini",
       sections: [
         {
           type: "text" as const,
+          label: "Context",
           heading: "Overview",
           body: [
             "Between 2022 and 2025, more than 600,000 workers were laid off across major technology companies. At the same time, over 95–98% of Fortune 500 companies adopted applicant tracking systems that automatically filter out 70–75% of applications before any human reviews them. The result: a hiring ecosystem that moves faster than ever — and works worse than ever.",
@@ -77,7 +78,6 @@ export const projects = [
         {
           type: "metrics" as const,
           items: [
-            { value: "52", label: "Survey respondents — active tech job seekers" },
             { value: "93%", label: "Of candidates distrust AI hiring tools to be fair" },
             { value: "60%", label: "Report severe mental health impact from job searching" },
             { value: "1000:1", label: "Application-to-interview ratios reported by recruiters" },
@@ -94,7 +94,8 @@ export const projects = [
         },
         {
           type: "text" as const,
-          heading: "Questions",
+          label: "Inquiry",
+          heading: "Research Questions",
           body: [
             "Six questions shaped the inquiry: How has the hiring ecosystem in US tech evolved since commercial AI tools emerged alongside mass layoffs and policy changes? How do AI-driven hiring technologies shape recruiter workflows and perceived efficiency? What coping strategies do candidates adopt in response to opacity, ghosting, and inequities? How has technology integration impacted hiring manager and recruiter workflows day-to-day? Where do breakdowns and inequities occur most across the hiring funnel? And how can design interventions improve the process for both sides?",
             "These questions were held together deliberately. The hiring ecosystem is relational — what breaks down for candidates is inseparable from what breaks down for recruiters. You can't understand one without the other.",
@@ -108,9 +109,10 @@ export const projects = [
         },
         {
           type: "text" as const,
+          label: "Methodology",
           heading: "Mixed-Methods Approach",
           body: [
-            "Primary research: 10 employer-side interviews across three tiers — 4 recruiters and HR specialists, 1 hiring manager, and 5 leadership participants including Chief People Officers and Directors of Talent Acquisition. A 52-response candidate survey targeting early-to-mid career designers and software engineers actively job seeking within 12 months. A 40-minute focus group discussion with 11 MS Strategic Design & Management peers at Parsons.",
+            "Primary research: 10 employer-side interviews across three tiers — 4 recruiters and HR specialists, 1 hiring manager, and 5 leadership participants including Chief People Officers and Directors of Talent Acquisition. A 52-response candidate survey targeting early-to-mid career designers and software engineers actively job seeking within 12 months. A 40-minute focus group discussion with 11 design and strategy professionals.",
             "Secondary research: a literature review drawing on Harvard Business Review, SHRM, Goldman Sachs, and the St. Louis Federal Reserve; a social media scan across LinkedIn, Reddit (r/UXDesign), and Blind; and a detailed ATS market analysis spanning Greenhouse, Workday, Lever, SAP SuccessFactors, Ashby, and eight other platforms.",
             "To map the system as a whole, we applied the D-A-R-N framework — Devices, Actors, Representations, Networks — a sociotechnical method that reveals how ATS platforms, AI scoring algorithms, LinkedIn Recruiter, resumes, job descriptions, and referral networks interact as infrastructure. This surfaced where power actually concentrates: not at the employer or candidate layer, but in the Representatives and Network layers controlled by ATS vendors and platforms.",
           ],
@@ -132,7 +134,8 @@ export const projects = [
         },
         {
           type: "text" as const,
-          heading: "ATS Pipeline",
+          label: "System Mapping",
+          heading: "Applicant Tracking System Pipeline",
           body: [
             "Most candidates move through a 7-stage pipeline: job posting, resume submission, AI-powered skill extraction, ML ranking by fit score, recruiter review and shortlisting, interview coordination, and final decision. Stages 3 and 4 — skill extraction and ranking — have the densest AI involvement and the least human oversight.",
             "What looks like a clean automated funnel conceals a different reality. Recruiters consistently described their work as still largely manual, concentrated precisely at the stages AI is supposed to streamline. One recruiter spent an entire week on a single role that received over a thousand applications. The AI filtered — but the shortlist still required substantial human judgment, and the 800 candidates never reviewed were simply abandoned.",
@@ -143,6 +146,14 @@ export const projects = [
           src: "/case-studies/beyond-efficiency/ats-workflow.png",
           alt: "7-stage ATS workflow showing where AI is densely integrated vs. only assisting",
           caption: "The 7-stage ATS pipeline — stages 3 and 4 have the densest AI involvement, yet recruiters report those stages still require the heaviest manual effort.",
+        },
+        {
+          type: "text" as const,
+          label: "Findings",
+          heading: "What the Research Revealed",
+          body: [
+            "Across interviews, surveys, and focus groups, four dominant themes emerged — each revealing a different dimension of how AI-driven hiring is reshaping the relationship between employers and candidates.",
+          ],
         },
         {
           type: "insight-card" as const,
@@ -174,6 +185,7 @@ export const projects = [
         },
         {
           type: "text" as const,
+          label: "Candidate Side",
           heading: "What Candidates Are Experiencing",
           body: [
             "Survey data and focus group discussions paint a consistent picture: the hiring process has become psychologically punishing in ways that have nothing to do with merit. 60% of respondents reported severe mental health impacts — stress, burnout, discouragement. The dominant driver isn't rejection; it's opacity. Candidates describe applying to dozens of roles with no indication that a human ever reviewed their work.",
@@ -194,6 +206,7 @@ export const projects = [
         },
         {
           type: "text" as const,
+          label: "Employer Side",
           heading: "What Employers Are Experiencing",
           body: [
             "Recruiters described being overwhelmed, not empowered. One agency lead received 1,000 applicants within days of posting a role, manually reviewed 160, surfaced 20 strong candidates, shared 10 with the client — and left 800 people who were never seen at all. Another recruiter estimated that 70% of inbound applications were fake.",
@@ -214,6 +227,7 @@ export const projects = [
         },
         {
           type: "text" as const,
+          label: "Synthesis",
           heading: "Synthesis: Three Problem Areas",
           body: [
             "Following data collection, we used the Theme–Insight–Verbatim framework to cluster findings across all methods into three problem gap areas. Each gap is defined by a current state — what is actually happening — and a desired state — what should be happening instead. Together they form the design surface.",
@@ -242,6 +256,7 @@ export const projects = [
         },
         {
           type: "text" as const,
+          label: "Needs",
           heading: "Synthesized Needs: Both Sides",
           body: [
             "From surveys and focus groups, four core candidate needs: trust through fair and consistent evaluation criteria; closure — rejection is acceptable, disappearing is not; protection from process burnout; and restored agency in a system that currently feels rigged.",
@@ -265,11 +280,37 @@ export const projects = [
         },
         {
           type: "text" as const,
+          label: "Ideation",
           heading: "From Insights to Ideation",
           body: [
             "Synthesis crystallized two design principles: automate the administrative, not the evaluative — let technology handle mechanical tasks so humans can bring judgment to decisions that matter; and close the feedback loop — every interaction in the hiring funnel should produce a legible signal for the person on the receiving end.",
             "These principles informed four concept directions, each targeting a distinct breakdown identified in the research.",
           ],
+        },
+        {
+          type: "text" as const,
+          label: "Opportunity",
+          heading: "Reframed Opportunity Statement",
+          body: [],
+        },
+        {
+          type: "pull-quote" as const,
+          text: "How might we rebalance AI in tech hiring, to reduce recruiter overload while making qualified candidates more visible?",
+        },
+        {
+          type: "text" as const,
+          label: "Theory of Change",
+          heading: "Theory of Change",
+          body: [
+            "The theory of change maps how a single design intervention — cognitive offloading of recruiter communication — cascades into systemic improvement. When AI handles status updates, rejections, and follow-ups, recruiters reclaim time for deeper candidate evaluation. Candidates receive consistent, timely signals instead of silence. Trust rebuilds on both sides.",
+            "Less unintentional silence leads to more trust, which attracts more engaged and higher-quality candidates, which produces better hiring outcomes at lower cost. AI as a cognitive offloader for communication — not a gatekeeper for exclusion.",
+          ],
+        },
+        {
+          type: "image" as const,
+          src: "/case-studies/beyond-efficiency/theory-of-change.png",
+          alt: "Theory of change: cognitive offloading cascades into better hiring outcomes",
+          caption: "Theory of change — cognitive offloading enables deeper evaluation, consistent communication, and higher-quality candidates.",
         },
         {
           type: "concepts-grid" as const,
@@ -302,27 +343,12 @@ export const projects = [
           ],
         },
         {
-          type: "two-images" as const,
-          images: [
-            {
-              src: "/case-studies/beyond-efficiency/opportunity-statement.png",
-              alt: "How might we rebalance AI in tech hiring for clarity, trust, and relevance",
-              caption: "The opportunity statement — from optimizing for speed to designing for legibility.",
-            },
-            {
-              src: "/case-studies/beyond-efficiency/theory-of-change.png",
-              alt: "Theory of change: cognitive offloading cascades into better hiring outcomes",
-              caption: "Theory of change — cognitive offloading enables deeper evaluation, consistent communication, and higher-quality candidates.",
-            },
-          ],
-        },
-        {
           type: "text" as const,
+          label: "Solution",
           heading: "Final Proposition: Loop",
           body: [
-            "After the final review, Loop was selected as the capstone proposition for deeper development. The selection was driven by research signal strength: ghosting appeared as a breakdown across every data collection method — recruiter interviews, the candidate survey, the focus group, and the social media scan. It was the most consistent and emotionally costly failure in the funnel, and critically, both sides agreed it was structural rather than intentional.",
+            "After the final review, Loop was selected as the primary proposition for deeper development. The selection was driven by research signal strength: ghosting appeared as a breakdown across every data collection method — recruiter interviews, the candidate survey, the focus group, and the social media scan. It was the most consistent and emotionally costly failure in the funnel, and critically, both sides agreed it was structural rather than intentional.",
             "Recruiters described ghosting as an inevitable outcome of volume, manual process, and tool constraints — not indifference. Candidates described it as the primary driver of distrust in companies and the hiring process itself. Loop addresses this shared pain point by intervening precisely where transparency has eroded, without adding manual burden to already-overwhelmed recruiters.",
-            "The theory of change: less unintentional silence leads to more trust on both sides, which attracts more engaged and higher-quality candidates, which produces better hiring outcomes at lower cost. AI as a cognitive offloader for communication — not a gatekeeper for exclusion. Prototype development and user testing is underway for Spring 2026.",
           ],
         },
         {
@@ -353,6 +379,7 @@ export const projects = [
       sections: [
         {
           type: "text" as const,
+          label: "Context",
           heading: "Overview",
           body: [
             "Ghosting is recruiting's dirty secret. Recruiters handle hundreds of candidates simultaneously, and the ones who don't get the job simply... never hear back. Loop is an AI intelligence layer that autonomously manages rejection conversations — turning the worst part of recruiting into a relationship-building opportunity.",
@@ -369,6 +396,7 @@ export const projects = [
         },
         {
           type: "text" as const,
+          label: "Impact",
           heading: "Outcome",
           body: [
             "Loop demonstrated that AI can handle sensitive human conversations when designed with empathy as a constraint, not an afterthought. The prototype was validated with 3 recruiting teams and is being developed further as a standalone product.",
@@ -396,6 +424,7 @@ export const projects = [
       sections: [
         {
           type: "text" as const,
+          label: "Context",
           heading: "Overview",
           body: [
             "GORE-TEX AccessWear is a circular outerwear subscription — $50/month for seasonal access to premium jackets across 10+ brands. I joined as the sole designer and growth strategist two weeks after launch, when the platform had 200 waitlisted users but fewer than 5 paying subscribers. Over nine months, I redesigned the end-to-end service experience and built the growth infrastructure that scaled the business to 120+ active subscribers, a 10/10 NPS, and validated product-market fit.",
@@ -413,6 +442,7 @@ export const projects = [
         },
         {
           type: "text" as const,
+          label: "Problem",
           heading: "Problem Framing",
           body: [
             "Two weeks after launch, the conversion funnel told a clear story: a 4.7% waitlist-to-subscriber rate against a 10% target, and 65% of homepage visitors dropping off above the fold. The platform ran on a fragmented Shopify\u2013Stripe\u2013customer portal stack with multiple broken handoffs in the checkout flow.",
@@ -426,6 +456,7 @@ export const projects = [
         },
         {
           type: "text" as const,
+          label: "Research",
           heading: "Research & Synthesis",
           body: [
             "Sixteen moderated usability sessions in month one surfaced three failure patterns that cut across participant types.",
@@ -436,6 +467,7 @@ export const projects = [
         },
         {
           type: "text" as const,
+          label: "Constraints",
           heading: "Constraints",
           body: [
             "There was no dedicated engineering — I owned the full platform stack. Every Shopify change, checkout fix, and product upload was mine to execute alongside the design work. Every order involved manual procurement, inspection, packaging, and shipping. I built the inventory tracking system from scratch mid-project.",
@@ -444,6 +476,7 @@ export const projects = [
         },
         {
           type: "text" as const,
+          label: "Strategy",
           heading: "Design Strategy",
           body: [
             "I structured the work as a three-phase strategy, sequenced around the product\u2019s seasonal demand curve rather than arbitrary sprint cycles.",
@@ -465,6 +498,7 @@ export const projects = [
         },
         {
           type: "text" as const,
+          label: "Phase 1",
           heading: "Phase 1 \u2014 UX Stabilization",
           body: [
             "My first sprint targeted the homepage and checkout flow. I redesigned the above-the-fold section to address the 65% drop-off, restructured the browse experience with activity-based filters, and repaired the Shopify\u2013Stripe integration to close the broken checkout handoffs. I launched a lead capture modal that generated 15 sign-ups in its first weekend.",
@@ -473,6 +507,7 @@ export const projects = [
         },
         {
           type: "text" as const,
+          label: "Phase 2",
           heading: "Phase 2 \u2014 Messaging & Lifecycle Infrastructure",
           body: [
             "With a stable conversion funnel, I turned to the top of the funnel — specifically, which value propositions moved people. I designed and launched 18 awareness ads testing distinct framings: try-before-you-buy, activity-specific gear, multi-brand access, sustainability, and travel use cases. Try-before-you-buy consistently outperformed, with CTRs reaching 6.56% and CPCs as low as $0.24.",
@@ -490,6 +525,7 @@ export const projects = [
         },
         {
           type: "text" as const,
+          label: "Phase 3",
           heading: "Phase 3 \u2014 Conversion & Community",
           body: [
             "October marked the shift from awareness to conversion. I activated brand co-marketing with 7mesh, GOREWEAR, and Mountain Hardwear — each campaign drove 90+ new followers. Outreach across 500+ accounts per week generated 1,500+ conversations at a 10% response rate.",
@@ -499,6 +535,7 @@ export const projects = [
         },
         {
           type: "text" as const,
+          label: "Impact",
           heading: "Outcomes",
           body: [
             "The pilot validated the core hypothesis: premium outdoor consumers will engage with a subscription access model when the service experience is frictionless and the product variety is compelling. Active subscribers gave a 10/10 NPS, and organic community behavior — members sharing trip photos, recruiting peers, requesting new gear categories — provided qualitative signal that went well beyond the headline metrics.",
@@ -522,6 +559,7 @@ export const projects = [
         },
         {
           type: "text" as const,
+          label: "Reflection",
           heading: "Retrospective",
           body: [
             "The email lifecycle I built in September should have been live from July — the delay cost conversions during the months when trust-building mattered most. The Supercycle integration, which would have resolved the fragmented checkout experience, was deprioritized for too long. The Discord community, which became the most valuable feedback mechanism in the project, should have been part of the initial service design — not a month-four addition.",
@@ -550,6 +588,7 @@ export const projects = [
       sections: [
         {
           type: "text" as const,
+          label: "Context",
           heading: "Shipped to 56 Million Customers. On a 2.7\u2033 Screen.",
           body: [
             "Scale UI is HP's proprietary design system and shared codebase for printer control panels — ensuring design consistency and reducing time to market by reusing code across platforms. The first product built on Scale UI shipped globally as the HP Color LaserJet Pro 4310dw. I shipped multiple printer programs for HP's 56 million customers worldwide.",
@@ -567,6 +606,7 @@ export const projects = [
         },
         {
           type: "text" as const,
+          label: "Constraints",
           heading: "The Constraints Were the Design",
           body: [
             "Scale UI presented four compounding challenges that don't exist in typical software design. First, a myriad of archetypes: printers are used by multiple personas in many contexts — from Ella (Home Consumer) to Joe (SMB IT Admin) to Wen (Small Business Owner). My design files had to deliver a smooth experience for all of them. Second, wide range responsive: printer program teams can use any display size, so every design had to work responsively across XL-L (21\u2033 to 8\u2033), S (4.3\u2033), and XS (2.7\u2033) displays.",
@@ -579,6 +619,7 @@ export const projects = [
         },
         {
           type: "text" as const,
+          label: "Process",
           heading: "Task Analysis and Rigorous Delivery",
           body: [
             "For each use case, I created task flows and Data Flow Diagrams (DFDs) mapping the happy path and all edge case scenarios. I documented every error case and error handling scenario, then validated the workflow with Subject Matter Experts from both design and development. This wasn't just thoroughness — it was how firmware teams built the product.",
@@ -587,6 +628,7 @@ export const projects = [
         },
         {
           type: "text" as const,
+          label: "Validation",
           heading: "Design Validation in the Lab",
           body: [
             "Once development milestones were achieved, I conducted implementation reviews on physical devices and documented issues in Jira to ensure the build matched design to pixel perfection. The Print from USB user journey: Plug in USB → Menu > Print > Print from USB → Browse and choose file → Select copies and print options → Print successful. The Contacts app: Menu > Contacts → View list → Add/edit contacts and groups — all on a resistive touchscreen in a physical office environment.",
@@ -615,6 +657,7 @@ export const projects = [
       sections: [
         {
           type: "text" as const,
+          label: "Context",
           heading: "Overview",
           body: [
             "HP Learning is a premium supplemental learning platform for pre-primary and primary school students, backed by strategic educational partnerships. HP already had a presence in millions of homes through its printers. The bet: use that footprint to drive educational engagement — and in turn, drive print revenue.",
@@ -632,6 +675,7 @@ export const projects = [
         },
         {
           type: "text" as const,
+          label: "Challenge",
           heading: "The Challenge",
           body: [
             "HP Learning had a structural challenge most EdTech products don't face: the person paying (parent), the person assigning (teacher), and the person learning (child) are three distinct actors with entirely different needs and motivations. The Parent and The Teacher are the design center archetypes — The Child is inexplicit in decision-making, but absolutely central to the experience.",
@@ -647,6 +691,7 @@ export const projects = [
         },
         {
           type: "text" as const,
+          label: "Research",
           heading: "Research",
           body: [
             "The global EdTech market was worth US$185.20Bn. Major players — Khan Academy, Toppr, IXL, Byju's, Education.com, Outschool — had launched digital solutions with real, measurable impact. Before designing a single screen, I conducted an in-depth analysis of 16 platforms, mapping existing user flows, interaction patterns, and content systems.",
@@ -655,6 +700,7 @@ export const projects = [
         },
         {
           type: "text" as const,
+          label: "Framework",
           heading: "Habit Loop",
           body: [
             "Activation mapping meant identifying the exact moments that would turn a curious new user into a committed one. I mapped 10 distinct Aha Moments for parents — from finding the right content by their child's age, grade, and activity type, to watching their child score well on a printed exercise, to having the platform surface teacher recommendations before the parent even thought to ask. The product needed to feel less like a utility and more like an educational partner.",
@@ -663,6 +709,7 @@ export const projects = [
         },
         {
           type: "text" as const,
+          label: "Journey",
           heading: "User Journey",
           body: [
             "The hero scenario tied all three actors together. A child goes to school and learns theoretical principles from a teacher. After class, the teacher selects exercises aligned with the day's curriculum and assigns them through HP Learning. The parent finds the homework, prints the activity, and monitors progress. The child revises school-learnt knowledge in a fun, physical, interactive way.",
@@ -678,6 +725,7 @@ export const projects = [
         },
         {
           type: "text" as const,
+          label: "Execution",
           heading: "Design & Delivery",
           body: [
             "I led strategic workshops in FigJam and Miro to build alignment across adjacent partners — Development Lead, Product Owner (Marketing), Legal & Security Council, and the Analytics Dev Team. We iterated hero user flows end-to-end, annotating directly in Figma with development notes, copy review flags, and analytics instrumentation points.",
@@ -693,6 +741,7 @@ export const projects = [
         },
         {
           type: "text" as const,
+          label: "Detail",
           heading: "The Interstitial",
           body: [
             "Most EdTech products leave the space between lessons undesigned. I treated it as a product moment. The interstitial reinforced progress, surfaced the next learning step, and gave parents a passive visibility window into their child's activity — all without interrupting the flow.",
@@ -712,6 +761,7 @@ export const projects = [
         },
         {
           type: "text" as const,
+          label: "Impact",
           heading: "Impact",
           body: [
             "The pilot launched in Russia and Turkey in 2021. My contributions directly drove 2M printed pages across 60K users. Every printed exercise wasn't just educational engagement — it was a tangible signal of print revenue for HP's core business. The redesigned onboarding and activation flow, built on the habit loop framework, measurably improved engagement metrics across the pilot markets.",
@@ -720,6 +770,7 @@ export const projects = [
         },
         {
           type: "text" as const,
+          label: "Reflection",
           heading: "Reflection",
           body: [
             "The sharpest shift in my thinking on this project was moving from 'what features does an EdTech platform need?' to 'what moment makes a parent come back tomorrow?' Framing the design problem around habit formation — not content completeness — changed every decision we made downstream, from the activation flow to the interstitial mechanic to how we sequenced the teacher-parent-child journey.",
@@ -748,6 +799,7 @@ export const projects = [
       sections: [
         {
           type: "text" as const,
+          label: "Context",
           heading: "No One Was Building for the Specialists",
           body: [
             "Specialized education teachers — ESL instructors, speech pathologists, reading intervention specialists — manage their own schedules across multiple classrooms, write individualized plans for every student, and coordinate through hallway conversations and after-hours texts. No AI tool on the market was built for how they actually work. Bridgit changed that.",
@@ -765,6 +817,7 @@ export const projects = [
         },
         {
           type: "text" as const,
+          label: "Brief",
           heading: "Open Brief, Documented Assumptions",
           body: [
             "Microsoft gave us no target user, no domain, no constraints. Our team gravitated toward education — specifically, AI's role in elementary learning. Before any fieldwork, we logged six assumptions: 'AI will replace teachers,' 'Parents are nervous about AI,' 'Learning with AI is better than without.' Most turned out to be incomplete.",
@@ -773,6 +826,7 @@ export const projects = [
         },
         {
           type: "text" as const,
+          label: "Research",
           heading: "The Same Bottleneck, Every Interview",
           body: [
             "Seven interviews. Four recurring patterns. Administrative overload: Meher, a speech pathologist, spends more time making her schedule than working with students. Broken parent communication: Olivia described texting, emailing, calling, and sending backpack notes to a parent and still getting no response. Technology adopted without support: Stephanie, 42 years in the classroom, recounted getting Apple computers with no training — 'nobody knew how to turn them on.' And foundational skills being sacrificed to screen time.",
@@ -786,6 +840,7 @@ export const projects = [
         },
         {
           type: "text" as const,
+          label: "Pivots",
           heading: "Three Pivots",
           body: [
             "The research took three significant turns. The first came after interviews: we'd started centered on children. Every participant — regardless of role — pointed to teacher burden as the systemic bottleneck. We reframed the entire project around educators. The second pivot happened in co-design Round 2, when Meher and Stephanie revealed that specialist teachers experience every pain point at higher intensity than general classroom teachers — fragmented schedules across multiple classrooms, per-student documentation, and the lowest priority in school-wide scheduling. Competitive analysis confirmed no product addressed their workflow: Magic School, Brisk, and ClassDojo all target general classrooms.",
@@ -808,6 +863,7 @@ export const projects = [
         },
         {
           type: "text" as const,
+          label: "Product",
           heading: "From Research to Product",
           body: [
             "The traceability between research and product was explicit. Color-coded scheduling came from concept validation: 'simple UI, color-coding needed — I'm moving between classrooms all day.' Proactive absence handling came from workshop data showing specialist schedules are highly prone to disruption. Structured note import came from Meher's finding that documentation consumes more time than instruction. Specialist-to-teacher messaging was validated as the single highest-value feature across all three co-design rounds.",
@@ -830,6 +886,7 @@ export const projects = [
         },
         {
           type: "text" as const,
+          label: "Reflection",
           heading: "Reflection",
           body: [
             "Documenting assumptions before fieldwork created accountability — we couldn't rationalize around findings that contradicted our starting point. Shifting from generative to participatory methods at the right moment maintained momentum and gave participants ownership of the solution direction.",
@@ -858,6 +915,7 @@ export const projects = [
       sections: [
         {
           type: "text" as const,
+          label: "Context",
           heading: "Overview",
           body: [
             "1.57 million Canadians earn their primary income through gig work and can't get insurance that fits how they actually work. That gap — between the flexibility gig work demands and the rigidity insurance requires — was the brief Intact Financial handed to the Rotman Design Challenge in March 2025.",
@@ -880,6 +938,7 @@ export const projects = [
         },
         {
           type: "text" as const,
+          label: "Problem",
           heading: "The Coverage Gap",
           body: [
             "Canadian auto insurance operates on a binary: personal or commercial. Personal policies void the moment you accept a fare or delivery. Commercial policies start at six-month minimums and are priced for fleet operators, not individuals driving two nights a week.",
@@ -901,6 +960,7 @@ export const projects = [
         },
         {
           type: "text" as const,
+          label: "Research",
           heading: "Research Approach",
           body: [
             "We ran 10 interviews across three profiles: North American auto insurance holders, a Canadian personal policyholder, and a Canadian who held both personal and commercial coverage simultaneously. That last profile was the most revealing — she'd spent months navigating the gap herself.",
@@ -924,6 +984,7 @@ export const projects = [
         },
         {
           type: "text" as const,
+          label: "Persona",
           heading: "Meet Greg",
           body: [
             "Greg is an urban planner. He has a steady government job and a family to support, and he decides to supplement his income by taking on handyman gigs on evenings and weekends. He has the skills. He has the vehicle. What he doesn't have is a clear path to coverage.",
@@ -953,6 +1014,7 @@ export const projects = [
         },
         {
           type: "text" as const,
+          label: "Solution",
           heading: "The Solution: Flexible Commercial Insurance",
           body: [
             "We designed a two-phase model with flexibility as the structural core — not a feature, but the organizing principle.",
@@ -1023,6 +1085,7 @@ export const projects = [
         },
         {
           type: "text" as const,
+          label: "Journey",
           heading: "Greg's Journey, After",
           body: [
             "Greg signs up for Intact's Flexible Commercial Insurance. He uploads his policy to Polaris, gets a plain-language summary in minutes, and picks the right coverage tier without confusion. He earns for two months.",
@@ -1052,6 +1115,7 @@ export const projects = [
         },
         {
           type: "text" as const,
+          label: "Impact",
           heading: "Outcome & Reflection",
           body: [
             "Team Northstar placed first at the Rotman Design Challenge. Judges highlighted the before/after service narrative and the two-phase solution structure as strong differentiators — particularly the way Phase 2 addressed language barriers as a systemic design problem rather than an edge case.",
@@ -1077,21 +1141,29 @@ export const testimonials = [
   },
 ];
 
-export const skills = [
-  "UX Design",
-  "Product Strategy",
-  "User Research",
-  "Design Systems",
-  "Service Design",
-  "AI Prototyping",
-  "Enterprise B2B",
-  "Figma",
-  "Cursor",
-  "Claude Code",
-  "Stakeholder Management",
-  "Workshop Facilitation",
-  "Information Architecture",
-];
+export const skillCategories: Record<string, string[]> = {
+  Research: [
+    "User Research",
+    "Information Architecture",
+    "Workshop Facilitation",
+    "AI Prototyping",
+  ],
+  Design: [
+    "UX Design",
+    "Design Systems",
+    "Service Design",
+    "Figma",
+    "Cursor",
+    "Claude Code",
+  ],
+  Strategy: [
+    "Product Strategy",
+    "Stakeholder Management",
+    "Enterprise B2B",
+  ],
+};
+
+export const skills = Object.values(skillCategories).flat();
 
 export const aboutData = {
   subtitle: "Product Designer & Strategist based in New York",

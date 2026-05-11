@@ -5,6 +5,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import SmoothScroll from "@/components/ui/SmoothScroll";
 import PageTransition from "@/components/ui/PageTransition";
+import { Agentation } from "agentation";
 import "./globals.css";
 
 const scotchText = localFont({
@@ -58,6 +59,7 @@ export default function RootLayout({
           <PageTransition>{children}</PageTransition>
         </main>
         <Footer />
+        {process.env.NODE_ENV === 'development' && <Agentation endpoint="http://localhost:4747" />}
       </body>
     </html>
   );

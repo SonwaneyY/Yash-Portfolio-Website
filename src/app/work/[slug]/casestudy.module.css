@@ -196,16 +196,30 @@
   width: 100%;
 }
 
-.textHeading {
+.textHeadingGroup {
+  margin-bottom: var(--space-4);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--rule);
+}
+
+.textHeadingLabel {
   font-family: var(--font-mono);
   font-size: 10px;
   font-weight: 400;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--accent);
-  margin-bottom: var(--space-4);
-  padding-bottom: var(--space-3);
-  border-bottom: 1px solid var(--rule);
+  display: block;
+  margin-bottom: 8px;
+}
+
+.textHeading {
+  font-family: var(--font-serif);
+  font-size: clamp(24px, 2.5vw, 32px);
+  font-weight: 400;
+  color: var(--text-primary);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
 }
 
 /* Lead paragraph — first in each section, slightly brighter */
@@ -220,7 +234,7 @@
 .textBody {
   font-family: var(--font-sans);
   font-size: 16px;
-  color: var(--text-secondary);
+  color: var(--text-primary);
   line-height: 1.8;
   margin-bottom: var(--space-3);
 }
@@ -255,7 +269,7 @@
 
 .imageFull img {
   object-fit: contain;
-  object-position: top center;
+  object-position: center center;
 }
 
 /* Mobile / phone screenshots */
@@ -330,7 +344,7 @@
 
 .twoImageWrapper img {
   object-fit: contain;
-  object-position: top center;
+  object-position: center center;
 }
 
 /* Quote — field note style */
@@ -366,8 +380,6 @@
   width: 100%;
   text-align: center;
   padding: var(--space-8) 0;
-  border-top: 1px solid var(--rule);
-  border-bottom: 1px solid var(--rule);
 }
 
 @media (min-width: 768px) {
@@ -545,7 +557,6 @@
 @media (min-width: 768px) {
   .metricCard { border-right: 1px solid var(--rule); }
   .metricCard:nth-child(3n) { border-right: none; }
-  .metricCard:nth-child(even) { border-right: 1px solid var(--rule); }
 }
 
 .metricValue {
