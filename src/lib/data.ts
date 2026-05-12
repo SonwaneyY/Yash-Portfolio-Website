@@ -42,7 +42,18 @@ export interface CaseStudy {
 }
 
 
-export const projects = [
+const draftSlugs = new Set([
+  "goretex-accesswear",
+  "hp-scale-ui",
+  "hp-learning",
+  "bridgit",
+]);
+
+const isPreview =
+  process.env.NEXT_PUBLIC_VERCEL_ENV === "preview" ||
+  process.env.NODE_ENV === "development";
+
+const allProjects = [
   {
     slug: "beyond-efficiency",
     title: "Beyond Efficiency: Understanding the Paradox of AI in Hiring",
@@ -1416,6 +1427,10 @@ export const projects = [
     },
   },
 ];
+
+export const projects = isPreview
+  ? allProjects
+  : allProjects.filter((p) => !draftSlugs.has(p.slug));
 
 export const testimonials = [
   {
