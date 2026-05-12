@@ -55,27 +55,29 @@ export default function FeaturedWork() {
           <span className={styles.markerNum}>02 /</span>
           <span className={styles.markerLabel}>Selected Work</span>
         </h2>
+      </Container>
 
-        {/* Filter bar */}
-        <div className={styles.filterBar} role="tablist" aria-label="Filter projects by category">
-          {projectCategories.map((cat) => {
-            const isActive = active === cat;
-            return (
-              <button
-                key={cat}
-                role="tab"
-                aria-selected={isActive}
-                aria-controls="project-list"
-                className={styles.filterBtn}
-                data-active={isActive}
-                onClick={() => setActive(cat)}
-              >
-                {cat}
-              </button>
-            );
-          })}
-        </div>
+      {/* Filter bar — outside Container for full-width sticky */}
+      <div className={styles.filterBar} role="tablist" aria-label="Filter projects by category">
+        {projectCategories.map((cat) => {
+          const isActive = active === cat;
+          return (
+            <button
+              key={cat}
+              role="tab"
+              aria-selected={isActive}
+              aria-controls="project-list"
+              className={styles.filterBtn}
+              data-active={isActive}
+              onClick={() => setActive(cat)}
+            >
+              {cat}
+            </button>
+          );
+        })}
+      </div>
 
+      <Container>
         {/* Entry list */}
         <div
           id="project-list"

@@ -151,15 +151,6 @@ export default function Hero() {
             </motion.span>
           </h1>
 
-          {/* Subline */}
-          <motion.p
-            className={styles.subline}
-            initial={reduceMotion ? false : { opacity: 0, y: 12 }}
-            animate={isReveal ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.65, ease: easeOut, delay: 0.18 }}
-          >
-            Senior product designer operating between enterprise tools, service ecosystems, and AI-native workflows.
-          </motion.p>
 
         </Container>
       </div>

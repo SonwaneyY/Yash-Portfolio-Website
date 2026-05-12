@@ -340,6 +340,7 @@
   border: 1px solid var(--rule);
   background: var(--bg-secondary);
   border-radius: 12px;
+  padding: 8px 0;
 }
 
 .twoImageWrapper img {

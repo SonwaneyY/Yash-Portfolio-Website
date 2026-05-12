@@ -1,4 +1,4 @@
-// v2 — updated 2026-03-25
+﻿// v2 — updated 2026-03-25
 export const siteConfig = {
   name: "Yash Sonwaney",
   initials: "YS",
@@ -118,19 +118,10 @@ export const projects = [
           ],
         },
         {
-          type: "two-images" as const,
-          images: [
-            {
-              src: "/case-studies/beyond-efficiency/research-methods.png",
-              alt: "Primary and secondary research methods overview",
-              caption: "Mixed-method design: 10 employer interviews, 52-response survey, FGD, literature review, social scan, ATS market analysis.",
-            },
-            {
-              src: "/case-studies/beyond-efficiency/darn-map.png",
-              alt: "D-A-R-N system map of the hiring ecosystem",
-              caption: "The D-A-R-N map — where power concentrates in the Representatives and Network layers while both sides experience the system as opaque.",
-            },
-          ],
+          type: "image" as const,
+          src: "/case-studies/beyond-efficiency/research-methods.png",
+          alt: "Primary and secondary research methods overview",
+          caption: "Mixed-method design: 10 employer interviews, 52-response survey, FGD, literature review, social scan, ATS market analysis.",
         },
         {
           type: "text" as const,
@@ -146,6 +137,12 @@ export const projects = [
           src: "/case-studies/beyond-efficiency/ats-workflow.png",
           alt: "7-stage ATS workflow showing where AI is densely integrated vs. only assisting",
           caption: "The 7-stage ATS pipeline — stages 3 and 4 have the densest AI involvement, yet recruiters report those stages still require the heaviest manual effort.",
+        },
+        {
+          type: "image" as const,
+          src: "/case-studies/beyond-efficiency/darn-map.png",
+          alt: "D-A-R-N system map of the hiring ecosystem",
+          caption: "The D-A-R-N map — where power concentrates in the Representatives and Network layers while both sides experience the system as opaque.",
         },
         {
           type: "text" as const,
@@ -363,43 +360,230 @@ export const projects = [
   {
     slug: "loop-strategy",
     title: "Loop : Strategy",
-    subtitle: "Solving the problem of ghosting, Loop is an AI intelligence layer that autonomously manages rejection conversations for recruiters.",
+    subtitle: "From research insight to validated AI product — Loop is an intelligence layer that turns candidate rejection into a brand equity opportunity for recruiters.",
     category: "PRODUCT DESIGN · STRATEGY · AI PRODUCT",
-    filterCategory: "Product Design" as ProjectCategory,
-    year: "2024",
+    filterCategory: "Strategy" as ProjectCategory,
+    year: "2025",
     cardBg: "#1C1C1A",
     cardTextColor: "light" as const,
     coverImage: "/covers/loop-strategy.png",
     imageConfig: { fit: "contain" as const, position: "center center", bg: "#faf9f7" },
     caseStudy: {
       role: "Product Designer & Strategist",
-      timeline: "Oct — Dec 2024",
-      tools: ["Figma", "Claude API", "Business Model Canvas", "User Interviews"],
-      team: "2 designers + 1 engineer",
+      timeline: "Oct 2025 — Apr 2026",
+      tools: ["Figma", "Claude API", "Business Model Canvas", "Vignette Study", "Concept Testing", "LinkedIn Ads", "Vercel", "Dovetail"],
+      team: "Yash Sonwaney & Ananya Harshini",
       sections: [
         {
           type: "text" as const,
           label: "Context",
           heading: "Overview",
           body: [
-            "Ghosting is recruiting's dirty secret. Recruiters handle hundreds of candidates simultaneously, and the ones who don't get the job simply... never hear back. Loop is an AI intelligence layer that autonomously manages rejection conversations — turning the worst part of recruiting into a relationship-building opportunity.",
-            "I led the product strategy and interaction design, defining the AI's conversational tone, the recruiter's control surface, and the candidate experience. The core design challenge was making automated rejection feel genuinely human and constructive.",
+            "Every open role receives an average of 400 applications. One person gets hired. The other 399 hear nothing — or receive a generic template that tells them less than silence would. Ghosting is not a recruiter character flaw; it is a structural failure. Recruiters are buried under volume and manual process, and existing tools simply stop at the hiring decision. The rejection moment — the single highest-volume brand interaction most companies have — goes entirely undesigned.",
+            "Loop is an AI intelligence layer that autonomously manages rejection conversations on behalf of recruiters. I led product strategy and validation, building on six months of mixed-methods research into AI-driven hiring breakdowns. The core strategic reframe: rejection is not an HR operations problem. It is a brand equity problem.",
           ],
         },
         {
           type: "metrics" as const,
           items: [
-            { value: "85%", label: "Of candidates preferred Loop rejection over silence" },
-            { value: "3x", label: "Faster closure on open candidate loops" },
-            { value: "60%", label: "Reduction in recruiter time on rejection tasks" },
+            { value: "$47B", label: "Spent on brand marketing by top 5 US brands" },
+            { value: "$0", label: "Allocated to the applicant rejection experience" },
+            { value: "399:1", label: "Rejected-to-hired ratio per role (avg 400 applicants)" },
+            { value: "$5.5M", label: "Revenue lost by Virgin Media from poor rejection experiences" },
           ],
+        },
+        {
+          type: "callout" as const,
+          label: "The Strategic Reframe",
+          body: [
+            "Virgin Media discovered this the hard way: 18% of their 123,000 rejected applicants were existing customers, and 6% cancelled their subscriptions after a poor rejection experience. Published behavioral research confirmed the pattern — positive rejection experiences fully mitigate negative effects, while silence or generic templates actively erode employer brand perception. The rejection moment is a measurable business liability, not an HR inconvenience.",
+          ],
+        },
+        {
+          type: "problem-gap" as const,
+          label: "Market Gap",
+          heading: "No One Owns the Rejection Journey",
+          current: "ATS platforms manage candidate pipelines up to the hiring decision. After rejection, candidates enter a communication void — receiving either a generic template email or total silence. No market player handles what happens after 'no.' Recruiters lack the bandwidth, and existing tools lack the capability.",
+          desired: "An intelligent layer that activates after the hiring decision, autonomously managing personalized rejection conversations — closing the loop with constructive feedback, handling follow-up questions, and converting a negative moment into brand equity.",
+        },
+        {
+          type: "image" as const,
+          src: "/case-studies/loop-strategy/market-gap.png",
+          alt: "Market landscape showing no existing solution for the post-rejection candidate journey",
+          caption: "ATS market analysis — every major platform drops the candidate at the rejection decision. The post-rejection journey is undesigned territory.",
+        },
+        {
+          type: "text" as const,
+          label: "Product",
+          heading: "How Loop Works",
+          body: [
+            "Loop is not a chatbot bolted onto an ATS. It is an AI intelligence layer trained on organizational context — company structure, team skill graphs, hiring trends, and culture-versus-talent profiles. It activates at a specific moment: after the first human interview round, when the recruiter has decided to reject a candidate but lacks the bandwidth to communicate that decision meaningfully.",
+          ],
+        },
+        {
+          type: "steps" as const,
+          title: "The Loop Workflow",
+          items: [
+            {
+              num: "01",
+              label: "Setup",
+              body: "Loop ingests organizational context — structure, policies, team skill graphs, hiring trends, and culture-versus-talent profiles. We designed this as a prerequisite because generic rejection is what candidates already get. Without company-specific context, Loop would just be a faster template.",
+              image: "/case-studies/loop-strategy/step-setup.png",
+              imageAlt: "Loop setup: organizational context ingestion",
+            },
+            {
+              num: "02",
+              label: "Activation",
+              body: "Loop activates after the first human interview round. We chose this trigger point deliberately — earlier and there's no meaningful feedback to give; later and the candidate has already been ghosted. The recruiter makes the rejection decision; Loop handles the communication.",
+              image: "/case-studies/loop-strategy/step-activation.png",
+              imageAlt: "Loop activation trigger after interview round",
+            },
+            {
+              num: "03",
+              label: "AI Outreach",
+              body: "Loop transforms raw interview notes into a personalized rejection email with constructive, role-specific feedback. The tone was designed to be direct but warm — no corporate hedging, no false encouragement. Specific enough to be useful, honest enough to be respected.",
+              image: "/case-studies/loop-strategy/step-outreach.png",
+              imageAlt: "Personalized rejection email with constructive feedback",
+            },
+            {
+              num: "04",
+              label: "Conversation",
+              body: "If the candidate replies, Loop manages follow-up questions. A key design constraint: responses are growth-focused and never numerical. When candidates asked 'rate me 1-10,' Loop redirects to actionable self-improvement without feeling evasive — because ranking candidates against each other undermines the dignity the rejection was designed to preserve.",
+              image: "/case-studies/loop-strategy/step-conversation.png",
+              imageAlt: "Loop managing a follow-up conversation with a candidate",
+            },
+            {
+              num: "05",
+              label: "Closure",
+              body: "Loop closes conversations gracefully — ensuring every candidate reaches a dignified endpoint rather than fading into silence. The closing pattern was iterated through applicant workshops until participants consistently described it as complete rather than abrupt.",
+              image: "/case-studies/loop-strategy/step-closure.png",
+              imageAlt: "Loop closing a conversation with a candidate",
+            },
+          ],
+        },
+        {
+          type: "image" as const,
+          src: "/case-studies/loop-strategy/product-demo.png",
+          alt: "Loop product interface showing rejection email generation from raw interview notes",
+          caption: "From raw interview notes to personalized rejection with constructive feedback — the core transformation Loop performs.",
+        },
+        {
+          type: "text" as const,
+          label: "Design",
+          heading: "Designing the Conversation",
+          body: [
+            "The hardest design challenge was tone. Automated rejection easily reads as cold or performative. We iterated through three tonal registers — clinical, empathetic-corporate, and direct-warm — and tested each with applicants. Direct-warm won consistently: specific about what happened, honest about the decision, and focused on what the candidate could do next. No softening language, no hollow encouragement.",
+            "The conversation design followed a principle we called 'structured honesty.' Loop discloses what it can (process-specific feedback, skill gaps observed, team composition context) and draws clear boundaries around what it cannot (comparative rankings, internal deliberation, numerical scores). Candidates respected the boundaries more when they were explicitly stated than when information was deflected.",
+          ],
+        },
+        {
+          type: "text" as const,
+          label: "Validation",
+          heading: "Concept Testing with Stakeholders",
+          body: [
+            "We tested the Loop concept with recruiting professionals across organizations, with particular focus on high-volume hiring contexts where rejection communication breaks down most severely. The concept resonated strongest in environments with 12-month hiring cycles, where the scale of unmanaged rejections compounds into measurable reputation risk.",
+            "Stakeholders immediately grasped the strategic value: this was not about making recruiters' lives easier — it was about protecting the organization from a brand liability that scales linearly with hiring volume.",
+          ],
+        },
+        {
+          type: "insight-card" as const,
+          theme: "Stakeholder Validation",
+          insight: "Recruiters validated both the problem severity and Loop's positioning — framing reputation risk as the primary concern, not workflow efficiency.",
+          verbatim: "Especially for really high-volume roles, or recruiting departments that routinely have both high-volume roles and many recs at the same time. I think this concept could be a real gamechanger.",
+          attribution: "Recruiting Professional, Concept Testing Session",
+        },
+        {
+          type: "text" as const,
+          label: "Applicant Testing",
+          heading: "Vignette Study with Applicants",
+          body: [
+            "To validate the candidate-facing experience, we conducted a vignette study using a functional prototype built on the Claude API. Participants received a Loop-generated rejection email based on realistic interview scenarios, then interacted with the conversational agent in real time — asking follow-up questions, probing for detail, and testing boundaries.",
+            "The most revealing moments came when candidates pushed back. One asked Loop to rate their application on a scale of 1 to 10. Another asked what the hired candidate had that they lacked. These were the interactions we designed for — and the ones that proved the conversation architecture worked. Loop redirected without deflecting, and candidates described the experience as respectful rather than evasive.",
+          ],
+        },
+        {
+          type: "two-images" as const,
+          images: [
+            {
+              src: "/case-studies/loop-strategy/vignette-email.png",
+              alt: "Loop-generated rejection email with personalized constructive feedback",
+              caption: "The rejection email — specific, constructive, and grounded in the candidate's actual interview performance.",
+            },
+            {
+              src: "/case-studies/loop-strategy/vignette-conversation.png",
+              alt: "Candidate follow-up conversation with Loop agent",
+              caption: "Follow-up conversation — growth-focused responses that answer hard questions without ranking or comparing candidates.",
+            },
+          ],
+        },
+        {
+          type: "pull-quote" as const,
+          text: "It's easily a 30-40% improvement over a standard rejection. The company feels more humanistic, like it actually cares.",
+          attribution: "Applicant, Vignette Study Participant",
+        },
+        {
+          type: "insight-card" as const,
+          theme: "Boundary Testing",
+          insight: "Candidates tested the AI's limits by asking for numerical ratings and comparative rankings — the exact scenarios that reveal whether conversation design holds under pressure.",
+          verbatim: "If you had to rate my application between 1-10, what would the recruiter rate it? What qualities worked best for the hired candidate?",
+          attribution: "Applicant Questions During Vignette Study",
+        },
+        {
+          type: "text" as const,
+          label: "Strategy",
+          heading: "Four-Dimensional Value Proposition",
+          body: [
+            "Loop's value proposition operates across four distinct dimensions, each addressing a different stakeholder need. This was a deliberate strategic choice: a single-value-prop product in this space would be dismissed as a nice-to-have. Loop needed to be defensible across brand, operations, candidate experience, and internal retention to earn budget allocation.",
+          ],
+        },
+        {
+          type: "concepts-grid" as const,
+          heading: "Value Proposition Framework",
+          items: [
+            {
+              name: "Brand Equity",
+              tag: "External",
+              description: "Turns rejected applicants into brand ambassadors. Every rejection becomes a positive brand touchpoint instead of a reputation liability.",
+            },
+            {
+              name: "Recruiting Operations",
+              tag: "Efficiency",
+              description: "Reduces manual effort on rejection communication autonomously. Recruiters reclaim bandwidth for evaluation and relationship-building.",
+            },
+            {
+              name: "Applicant Experience",
+              tag: "Human",
+              description: "Rejection with dignity. Growth-focused feedback that preserves self-worth and separates the outcome from the person.",
+            },
+            {
+              name: "Recruiter Retention",
+              tag: "Internal",
+              description: "Reduces emotional labor and burnout from delivering bad news at scale. Contributes to lower recruiter turnover year-over-year.",
+            },
+          ],
+        },
+        {
+          type: "text" as const,
+          label: "Go-to-Market",
+          heading: "Market Validation",
+          body: [
+            "To validate real-world demand beyond research participants, we launched a go-to-market experiment: a waitlist website, a LinkedIn company page running three posts per week with boosted ads targeting founders and talent acquisition specialists, and a pricing model stress-tested against competitor pricing in the ATS ecosystem. The goal was not to build a business — it was to generate a demand signal strong enough to validate that the problem we identified in research was felt acutely enough for people to raise their hand.",
+            "Early results confirmed the signal: 12 waitlist signups from targeted outreach, over 3,000 impressions across LinkedIn campaigns, and 2,100 community members reached. Small numbers for a launch — meaningful numbers for a concept validation from a two-person team with no marketing budget beyond a boosted post.",
+          ],
+        },
+        {
+          type: "image" as const,
+          src: "/case-studies/loop-strategy/gtm-artifacts.png",
+          alt: "Loop go-to-market artifacts: waitlist site, LinkedIn page, and ad campaigns",
+          caption: "Go-to-market experiment — waitlist site, LinkedIn company page, and targeted ad campaigns validating demand signal.",
         },
         {
           type: "text" as const,
           label: "Impact",
           heading: "Outcome",
           body: [
-            "Loop demonstrated that AI can handle sensitive human conversations when designed with empathy as a constraint, not an afterthought. The prototype was validated with 3 recruiting teams and is being developed further as a standalone product.",
+            "Loop demonstrated that the rejection moment — the single most neglected touchpoint in the hiring funnel — is designable, automatable, and strategically valuable. The concept was validated across three dimensions: stakeholders confirmed the business case, applicants confirmed the experience quality, and market signals confirmed real-world demand.",
+            "The deeper finding was about AI's role in sensitive communication. Loop works not because it pretends to be human, but because it provides what humans intend but consistently fail to deliver at scale: timely, specific, growth-oriented feedback after a difficult decision. The constraint was empathy — and the AI honored it.",
           ],
         },
       ],
@@ -589,19 +773,25 @@ export const projects = [
         {
           type: "text" as const,
           label: "Context",
-          heading: "Shipped to 56 Million Customers. On a 2.7\u2033 Screen.",
+          heading: "Shipped to 56 Million Customers. On a 2.7″ Screen.",
           body: [
-            "Scale UI is HP's proprietary design system and shared codebase for printer control panels — ensuring design consistency and reducing time to market by reusing code across platforms. The first product built on Scale UI shipped globally as the HP Color LaserJet Pro 4310dw. I shipped multiple printer programs for HP's 56 million customers worldwide.",
-            "As Interaction Designer, I owned design delivery for three key use cases: Print from USB/Network/Source experience, Contacts Management app, and Active Jobs app (Print/Copy/Scan/Fax). My collaborators spanned Visual Design, Product CX Architects, UX Writing teams, and cross-segment design teams. Partners included Scale UI FW Developers, Product Development Firmware, Product Managers, and Design Leadership.",
+            "Scale UI is HP’s proprietary design system and shared codebase for printer control panels — ensuring design consistency and reducing time to market by reusing code across platforms. The first product built on Scale UI shipped globally as the HP Color LaserJet Pro 4310dw. I shipped multiple printer programs for HP’s 56 million customers worldwide.",
+            "As Interaction Designer, I owned design delivery for three key use cases: Print from Source (USB, Network), Contacts Management app, and Active Jobs app (Print/Copy/Scan/Fax). My collaborators spanned Visual Design, Product CX Architects, UX Writing teams, and cross-segment design teams. Partners included Firmware Developers, Platform Product Leadership, Program Product Managers, and Design Leadership.",
           ],
+        },
+        {
+          type: "image" as const,
+          src: "/casestudy/hp-scale-ui/scale-ui-hero.png",
+          alt: "HP Color LaserJet Pro printer with Scale UI touchscreen control panel displaying the home screen",
+          caption: "The HP Color LaserJet Pro 4310dw — the first product launched on Scale UI, shipped globally to 56 million customers.",
         },
         {
           type: "metrics" as const,
           items: [
             { value: "56M", label: "HP customers reached worldwide" },
             { value: "4", label: "Market segments — Home, SoHo, SMB, Enterprise" },
-            { value: "4", label: "Display sizes from 21\u2033 to 2.7\u2033" },
-            { value: "4\u2605", label: "Rated on PC Mag, Amazon, Digital Trends" },
+            { value: "4", label: "Display sizes from 21″ to 2.7″" },
+            { value: "4★", label: "Rated on PC Mag, Amazon, Digital Trends" },
           ],
         },
         {
@@ -609,30 +799,129 @@ export const projects = [
           label: "Constraints",
           heading: "The Constraints Were the Design",
           body: [
-            "Scale UI presented four compounding challenges that don't exist in typical software design. First, a myriad of archetypes: printers are used by multiple personas in many contexts — from Ella (Home Consumer) to Joe (SMB IT Admin) to Wen (Small Business Owner). My design files had to deliver a smooth experience for all of them. Second, wide range responsive: printer program teams can use any display size, so every design had to work responsively across XL-L (21\u2033 to 8\u2033), S (4.3\u2033), and XS (2.7\u2033) displays.",
-            "Third, a unified design system: all design output had to fit existing patterns, managing one-off changes and code customization within product timelines. Fourth, segment adherence: a single design file had to incorporate requirements from Home, SoHo, SMB, and Large Format Printing — simultaneously.",
+            "Scale UI presented four compounding challenges that don’t exist in typical software design. First, a myriad of archetypes: printers are used by multiple personas in many contexts — from a home user with 1–5 people sharing a printer, to an SMB office with 10–125 users, to enterprise environments with 125–250 users, to large-format operators managing 5–25 jobs at once. My design files had to deliver a smooth experience for all of them.",
+            "Second, wide range responsive: printer program teams can use any display size, so every design had to work responsively across XL–L (21″ to 8″), S (4.3″), and XS (2.7″) displays. Third, a unified design system: all design output had to fit existing patterns, managing one-off changes and code customization within product timelines. Fourth, segment adherence: a single design file had to incorporate requirements from Home, SoHo, SMB, and Large Format Printing — simultaneously.",
+          ],
+        },
+        {
+          type: "two-images" as const,
+          images: [
+            {
+              src: "/casestudy/hp-scale-ui/challenges-archetypes-responsive.png",
+              alt: "Scale UI design challenges — myriad of user archetypes and wide range responsive design across display sizes from 22 inches to 2.7 inches",
+              caption: "Challenge 1 & 2: Multiple user archetypes across contexts, and responsive design spanning 21″ to 2.7″ displays.",
+            },
+            {
+              src: "/casestudy/hp-scale-ui/challenges-system-segments.png",
+              alt: "Scale UI design challenges — unified design system with dropdown variations and segment adherence across Home, SMB, Enterprise, and Large-format",
+              caption: "Challenge 3 & 4: Unified design system with component variations, and a single design file serving all market segments.",
+            },
+          ],
+        },
+        {
+          type: "text" as const,
+          label: "Information Architecture",
+          heading: "Mapping Every Path and Edge Case",
+          body: [
+            "For each use case, I created task flows and Data Flow Diagrams (DFDs) mapping the happy path and every edge case scenario. I documented all error cases and error handling scenarios, then validated each workflow with Subject Matter Experts from both design and development. This wasn’t documentation for documentation’s sake — it was how firmware teams actually built the product.",
+            "The Print from USB flow alone had multiple decision branches: USB detection, format support checks, folder navigation, multi-file selection, and error states for unsupported formats. Every branch had to be accounted for before a single line of firmware was written.",
+          ],
+        },
+        {
+          type: "image" as const,
+          src: "/casestudy/hp-scale-ui/information-architecture.png",
+          alt: "Print from USB Data Flow Diagram showing happy path, edge cases, and error handling scenarios mapped in detail",
+          caption: "Print from USB: Data Flow Diagram mapping every decision point, error state, and UI screen in the flow.",
+        },
+        {
+          type: "text" as const,
+          label: "Delivery",
+          heading: "Design Delivery Principles",
+          body: [
+            "Design delivery followed five clear principles: Wide Range Responsive, Detailed, Modular, Cohesive, and Predecessor Product Compatibility. Each atomic-level element of the design system responsively trickled down from a 21″ display to a 2.7″ display — not by scaling down, but by rethinking layout, information density, and interaction patterns at each breakpoint.",
+            "On the XL–M displays (21″ to 8″), users got full grid layouts with thumbnail previews and inline actions. On S size (4.3″), the same flow compressed into a list-based interface with a persistent action bar. On XS (2.7″), every interaction had to survive a resistive touchscreen with limited real estate — no gestures, no hover states, no room for ambiguity.",
+          ],
+        },
+        {
+          type: "image" as const,
+          src: "/casestudy/hp-scale-ui/design-delivery-responsive.png",
+          alt: "Scale UI responsive design delivery showing Print from USB wireframes across XL-M, S, and XS display sizes",
+          caption: "Responsive design delivery: the same Print from USB flow adapted across XL–M (21″ to 8″), S (4.3″), and XS (2.7″) displays.",
+        },
+        {
+          type: "text" as const,
+          label: "Collaboration",
+          heading: "Pattern Tables and Behavior Tables",
+          body: [
+            "I defined Pattern Buildup Tables — documenting every interactive element used in every screen across Scale UI. Each element was mapped with its layout description, availability flags, and properties. I adapted the verbiage to match internal code repositories, so developers could trace any UI element directly to its codebase equivalent. This reduced development effort and made change management between design and engineering seamless.",
+            "Behavior Tables went a level deeper: specifying the interactive behavior of every component and list used in the UI. Constraint states, filter behaviors, sort persistence rules, modal triggers — any information that would otherwise require a meeting between a designer and a developer was captured in the table. The goal was to eliminate ambiguity before it reached the firmware build.",
+          ],
+        },
+        {
+          type: "two-images" as const,
+          images: [
+            {
+              src: "/casestudy/hp-scale-ui/pattern-tables.png",
+              alt: "Pattern Buildup Table documenting every interactive element, layout description, and properties per screen area in Scale UI",
+              caption: "Pattern Tables: every interactive element mapped by screen area, with layout descriptions matched to internal code repositories.",
+            },
+            {
+              src: "/casestudy/hp-scale-ui/behavior-tables.png",
+              alt: "Behavior Table specifying interactive component behavior, constraint states, and filter/sort rules for Scale UI",
+              caption: "Behavior Tables: component-level interaction specs — constraint states, filter behavior, sort persistence, and modal triggers.",
+            },
           ],
         },
         {
           type: "quote" as const,
-          text: "Designing for hardware means your mistakes ship in plastic. There's no hotfix for a bad touchscreen interaction.",
-        },
-        {
-          type: "text" as const,
-          label: "Process",
-          heading: "Task Analysis and Rigorous Delivery",
-          body: [
-            "For each use case, I created task flows and Data Flow Diagrams (DFDs) mapping the happy path and all edge case scenarios. I documented every error case and error handling scenario, then validated the workflow with Subject Matter Experts from both design and development. This wasn't just thoroughness — it was how firmware teams built the product.",
-            "Design delivery followed a set of clear principles: Wide Range Responsive, Detailed, Modular, Cohesive, and Predecessor product compatibility. Each atomic element of the design system trickled responsively from 21\u2033 down to 2.7\u2033 display. I defined Pattern Buildup Tables — documenting every interactive element in every workflow, with verbiage matched to internal code repositories for easier change management. Behavior Tables specified interactive component behavior to reduce manual communication overhead between teams.",
-          ],
+          text: "Designing for hardware means your mistakes ship in plastic. There’s no hotfix for a bad touchscreen interaction.",
         },
         {
           type: "text" as const,
           label: "Validation",
           heading: "Design Validation in the Lab",
           body: [
-            "Once development milestones were achieved, I conducted implementation reviews on physical devices and documented issues in Jira to ensure the build matched design to pixel perfection. The Print from USB user journey: Plug in USB → Menu > Print > Print from USB → Browse and choose file → Select copies and print options → Print successful. The Contacts app: Menu > Contacts → View list → Add/edit contacts and groups — all on a resistive touchscreen in a physical office environment.",
-            "The HP Color LaserJet Pro MFP 4301fdw — the first product launched on Scale UI — received 4-star reviews from PC Mag, Amazon, and was named a top pick by Digital Trends. The design system continues to ship across HP's global printer portfolio.",
+            "Once development milestones were achieved, I conducted implementation reviews on physical devices and documented issues in Jira to ensure the build matched design to pixel perfection. The Print from USB user journey: Plug in USB → Menu > Print > Print from USB → Browse and choose file → Select copies and print options → Print successful. Every step validated on the actual hardware.",
+            "The Contacts app followed a parallel validation cycle: Menu > Contacts → View list of contacts → Search/Sort/Filter → Add new contact or group → Edit contact or group. Both flows were tested on resistive touchscreens in a physical office environment — not emulators, not Figma prototypes, but the actual printer sitting on a desk.",
+          ],
+        },
+        {
+          type: "two-images" as const,
+          images: [
+            {
+              src: "/casestudy/hp-scale-ui/validation-print-usb.png",
+              alt: "Design validation of Print from USB flow on a physical HP printer, showing the touchscreen UI with Print menu and simplified user journey",
+              caption: "Print from USB: validated on physical hardware. Plug in USB → Browse → Select options → Print.",
+            },
+            {
+              src: "/casestudy/hp-scale-ui/validation-contacts.png",
+              alt: "Design validation of Contacts app on a physical HP printer, showing the touchscreen UI with app menu and user journey flow",
+              caption: "Contacts app: dedicated app for managing device contacts, private groups, and PDLs — validated on hardware.",
+            },
+          ],
+        },
+        {
+          type: "text" as const,
+          label: "Impact",
+          heading: "Impact & Reception",
+          body: [
+            "The HP Color LaserJet Pro MFP 4301fdw — the first product launched on Scale UI — received 4-star reviews from PC Mag, strong ratings on Amazon, and was named one of the best laser multifunction printers by Digital Trends. The design system proved that a unified codebase could serve Home, SMB, and Enterprise segments without compromising the experience for any of them.",
+            "Scale UI continues to ship across HP’s global printer portfolio. The Pattern Tables and Behavior Tables I created became the standard documentation format for cross-functional handoff between design and firmware teams — reducing back-and-forth and accelerating development cycles across subsequent printer programs.",
+          ],
+        },
+        {
+          type: "image" as const,
+          src: "/casestudy/hp-scale-ui/impact-feedback.png",
+          alt: "Impact and feedback — 4-star reviews from PC Mag, Amazon, and Digital Trends for the HP Color LaserJet Pro MFP 4301fdw",
+          caption: "Press reception: 4-star reviews across PC Mag, Amazon, and Digital Trends.",
+        },
+        {
+          type: "text" as const,
+          label: "Reflection",
+          heading: "Reflection",
+          body: [
+            "The hardest lesson from Scale UI was that a design system for hardware isn’t a component library — it’s a contract. Every dropdown, every list behavior, every error state I documented became firmware that shipped in millions of physical units. There was no iterating in production. The documentation had to be the product, because by the time the printer was manufactured, the design was permanent.",
+            "If I could revisit this work, I’d invest earlier in automated design-to-firmware validation. The manual review cycles on physical devices were thorough but slow. I’d also push for a shared design token layer between the Figma toolkit and the firmware codebase — we got close with the Pattern Tables, but a true token-based bridge would have cut handoff friction further.",
           ],
         },
       ],

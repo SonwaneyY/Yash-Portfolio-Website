@@ -33,14 +33,13 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-bottom: var(--space-4);
   position: sticky;
   top: 0;
   z-index: 10;
   background: var(--bg-primary);
-  margin-left: calc(-1 * var(--container-pad));
-  margin-right: calc(-1 * var(--container-pad));
+  width: 100%;
   padding: 16px var(--container-pad);
+  border-bottom: 1px solid var(--rule);
 }
 
 .filterBtn {
