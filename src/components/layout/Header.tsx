@@ -50,9 +50,9 @@ export default function Header() {
   }
 
   const isHome = pathname === "/";
-  // Sync with Hero phase 2 cascade: reveal fires at ~2.55s on home, header joins at +0.32s
-  const headerDelay = isHome ? 2.87 : 0;
-  const headerInitialY = isHome ? -32 : 0;
+  // Sync with Hero phase 2 cascade: reveal fires at ~1.75s on home, header joins at +0.25s
+  const headerDelay = isHome ? 2.0 : 0;
+  const headerInitialY = isHome ? -24 : 0;
 
   return (
     <>
@@ -60,7 +60,7 @@ export default function Header() {
         className={styles.header}
         initial={{ opacity: 0, y: headerInitialY }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1], delay: headerDelay }}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: headerDelay }}
       >
         <Container>
           <div className={styles.inner}>
@@ -127,6 +127,8 @@ export default function Header() {
         isOpen={menuOpen}
         onClose={() => setMenuOpen(false)}
         links={navLinks}
+        onCopyEmail={handleCopyEmail}
+        emailCopied={copied}
       />
     </>
   );

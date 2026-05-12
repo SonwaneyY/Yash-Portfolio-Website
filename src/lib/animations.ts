@@ -1,11 +1,11 @@
 import type { Variants, Transition } from "framer-motion";
 
-// Shared easing curve — smooth deceleration
-const ease = [0.25, 0.1, 0.25, 1] as const;
+// Shared easing curve — smooth deceleration (ease-out)
+const ease = [0.22, 1, 0.36, 1] as const;
 
-// Standard transition
+// Standard transition — snappy for scroll reveals
 export const defaultTransition: Transition = {
-  duration: 0.6,
+  duration: 0.45,
   ease,
 };
 
@@ -13,7 +13,7 @@ export const defaultTransition: Transition = {
 export const fadeInUp: Variants = {
   hidden: {
     opacity: 0,
-    y: 20,
+    y: 16,
   },
   visible: {
     opacity: 1,
@@ -74,7 +74,7 @@ export const fadeIn: Variants = {
   visible: {
     opacity: 1,
     transition: {
-      duration: 0.8,
+      duration: 0.5,
       ease,
     },
   },
@@ -83,27 +83,27 @@ export const fadeIn: Variants = {
 // For delayed sequential reveals (hero sections)
 export const heroSequence = {
   tagline: {
-    hidden: { opacity: 0, y: 12 },
+    hidden: { opacity: 0, y: 10 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6, ease, delay: 0.3 },
+      transition: { duration: 0.5, ease, delay: 0.2 },
     },
   },
   bio: {
-    hidden: { opacity: 0, y: 12 },
+    hidden: { opacity: 0, y: 10 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6, ease, delay: 0.5 },
+      transition: { duration: 0.5, ease, delay: 0.35 },
     },
   },
   cta: {
-    hidden: { opacity: 0, y: 12 },
+    hidden: { opacity: 0, y: 10 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6, ease, delay: 0.7 },
+      transition: { duration: 0.5, ease, delay: 0.5 },
     },
   },
 };

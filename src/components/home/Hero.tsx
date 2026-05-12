@@ -12,10 +12,10 @@ const GREETING = "Hi, I'm Yash Sonwaney.";
 const GREETING_BODY = GREETING.slice(0, -1);
 const CHAR_DELAY = 70; // ms per character
 
-const PHRASE_DURATION = 0.65;
-const PHRASE_STAGGER = 0.45; // gap between each phrase entrance
+const PHRASE_DURATION = 0.55;
+const PHRASE_STAGGER = 0.3; // gap between each phrase entrance
 const PHRASE_COUNT = 3;
-const HOLD_AFTER_WORDS_MS = 1000; // hold after last phrase lands before sentence resolves
+const HOLD_AFTER_WORDS_MS = 600; // hold after last phrase lands before sentence resolves
 const REVEAL_DELAY_MS =
   (PHRASE_STAGGER * (PHRASE_COUNT - 1) + PHRASE_DURATION) * 1000 + HOLD_AFTER_WORDS_MS;
 
@@ -59,7 +59,7 @@ export default function Hero() {
 
   const connectorInitial = reduceMotion ? false : { opacity: 0 };
   const connectorAnimate = isReveal ? { opacity: 1 } : {};
-  const connectorTransition = { duration: 0.7, ease: easeOut };
+  const connectorTransition = { duration: 0.5, ease: easeOut };
 
   return (
     <section className={styles.hero}>
@@ -71,7 +71,7 @@ export default function Hero() {
             aria-label={GREETING}
             initial={reduceMotion ? false : { opacity: 0, y: 8 }}
             animate={isReveal ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.65, ease: easeOut, delay: 0.05 }}
+            transition={{ duration: 0.5, ease: easeOut, delay: 0.05 }}
           >
             <span aria-hidden="true">
               {typingDone ? (
@@ -158,9 +158,9 @@ export default function Hero() {
       {/* ---- TICKER — slides up from below ---- */}
       <motion.div
         className={styles.tickerContainer}
-        initial={reduceMotion ? false : { opacity: 0, y: 36 }}
+        initial={reduceMotion ? false : { opacity: 0, y: 24 }}
         animate={isReveal ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.75, ease: easeOut, delay: 0.32 }}
+        transition={{ duration: 0.6, ease: easeOut, delay: 0.2 }}
       >
         <Ticker />
       </motion.div>

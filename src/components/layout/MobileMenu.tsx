@@ -15,6 +15,8 @@ interface MobileMenuProps {
   isOpen: boolean;
   onClose: () => void;
   links: NavLink[];
+  onCopyEmail?: () => void;
+  emailCopied?: boolean;
 }
 
 const overlayVariants = {
@@ -23,17 +25,23 @@ const overlayVariants = {
   exit: { opacity: 0, transition: { duration: 0.2 } },
 };
 
+const navVariants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.08, delayChildren: 0.1 } },
+  exit: {},
+};
+
 const linkVariants = {
   hidden: { opacity: 0, y: 20 },
-  visible: (i: number) => ({
+  visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.3, delay: 0.1 + i * 0.08, ease: [0.25, 0.1, 0.25, 1] as const },
-  }),
+    transition: { duration: 0.3, ease: [0.25, 0.1, 0.25, 1] as const },
+  },
   exit: { opacity: 0, y: -10, transition: { duration: 0.15 } },
 };
 
-export default function MobileMenu({ isOpen, onClose, links }: MobileMenuProps) {
+export default function MobileMenu({ isOpen, onClose, links, onCopyEmail, emailCopied }: MobileMenuProps) {
   const closeRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
@@ -85,7 +93,7 @@ export default function MobileMenu({ isOpen, onClose, links }: MobileMenuProps) 
             Close
           </button>
 
-          <nav className={styles.nav}>
+          <motion.nav className={styles.nav} variants={navVariants}>
             {links.map((link, i) =>
               link.external ? (
                 <motion.a
@@ -114,7 +122,31 @@ export default function MobileMenu({ isOpen, onClose, links }: MobileMenuProps) 
                 </motion.div>
               )
             )}
-          </nav>
+
+            {onCopyEmail && (
+              <motion.div
+                className={styles.emailWrapper}
+                variants={linkVariants}
+                custom={links.length}
+              >
+                <button
+                  className={styles.emailButton}
+                  onClick={() => { onCopyEmail(); }}
+                  aria-label="Copy email address"
+                >
+                  Email
+                </button>
+                {emailCopied && (
+                  <span className={styles.copiedToast} role="status" aria-live="polite">
+                    <svg width="11" height="9" viewBox="0 0 11 9" fill="none" aria-hidden="true">
+                      <path d="M1 4L4 7L10 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                    Copied
+                  </span>
+                )}
+              </motion.div>
+            )}
+          </motion.nav>
         </motion.div>
       )}
     </AnimatePresence>
