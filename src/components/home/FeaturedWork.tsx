@@ -57,24 +57,26 @@ export default function FeaturedWork() {
         </h2>
       </Container>
 
-      {/* Filter bar — outside Container for full-width sticky */}
+      {/* Filter bar — full-width sticky bg, inner content matches Container */}
       <div className={styles.filterBar} role="tablist" aria-label="Filter projects by category">
-        {projectCategories.map((cat) => {
-          const isActive = active === cat;
-          return (
-            <button
-              key={cat}
-              role="tab"
-              aria-selected={isActive}
-              aria-controls="project-list"
-              className={styles.filterBtn}
-              data-active={isActive}
-              onClick={() => setActive(cat)}
-            >
-              {cat}
-            </button>
-          );
-        })}
+        <div className={styles.filterBarInner}>
+          {projectCategories.map((cat) => {
+            const isActive = active === cat;
+            return (
+              <button
+                key={cat}
+                role="tab"
+                aria-selected={isActive}
+                aria-controls="project-list"
+                className={styles.filterBtn}
+                data-active={isActive}
+                onClick={() => setActive(cat)}
+              >
+                {cat}
+              </button>
+            );
+          })}
+        </div>
       </div>
 
       <Container>

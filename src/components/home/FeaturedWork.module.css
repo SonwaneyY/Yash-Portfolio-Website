@@ -30,9 +30,6 @@
 
 /* ---- Filter bar ---- */
 .filterBar {
-  display: flex;
-  align-items: center;
-  gap: 8px;
   position: sticky;
   top: 0;
   z-index: 10;
@@ -47,6 +44,15 @@
 
 .filterBar::-webkit-scrollbar {
   display: none;
+}
+
+.filterBarInner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  max-width: var(--max-width);
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .filterBtn {
