@@ -85,8 +85,18 @@
   color: var(--text-secondary);
 }
 
-/* ---- Entry list ---- */
+/* ---- Project grid ---- */
 .entryList {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: var(--space-6);
+  row-gap: var(--space-8);
+  padding-top: var(--space-6);
+}
+
+@media (max-width: 767px) {
+  .entryList {
+    grid-template-columns: 1fr;
+    row-gap: var(--space-6);
+  }
 }

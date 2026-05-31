@@ -1,52 +1,41 @@
-.entry {
+.card {
   position: relative;
   display: flex;
-  align-items: baseline;
-  gap: 20px;
-  padding: 28px 0;
-  border-bottom: 1px solid var(--rule);
+  flex-direction: column;
+  gap: var(--space-3);
   text-decoration: none;
   overflow: visible;
-  transition: background-color 400ms ease;
 }
 
-.entry:first-child {
-  border-top: 1px solid var(--rule);
+/* ---- Cover media ---- */
+.media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
 }
 
-.index {
-  font-family: var(--font-mono);
-  font-size: var(--text-eyebrow);
-  font-weight: 400;
-  letter-spacing: 0.08em;
-  color: var(--text-tertiary);
-  flex-shrink: 0;
-  width: 32px;
+.cover {
+  transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+.card:hover .cover {
+  transform: scale(1.04);
+}
+
+/* ---- Text block ---- */
 .body {
-  flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  min-width: 0;
-}
-
-.title {
-  font-family: var(--font-sans);
-  font-size: var(--text-body);
-  font-weight: 400;
-  color: var(--text-secondary);
-  line-height: 1.3;
-  letter-spacing: -0.01em;
-  transition: color 400ms ease;
-}
-
-.entry:hover .title {
-  color: var(--text-primary);
+  gap: 10px;
 }
 
 .meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   font-family: var(--font-mono);
   font-size: var(--text-eyebrow);
   font-weight: 400;
@@ -55,55 +44,38 @@
   color: var(--text-tertiary);
 }
 
-.arrow {
-  font-family: var(--font-sans);
-  font-size: 16px;
-  color: var(--text-tertiary);
-  flex-shrink: 0;
-  transition: color 400ms ease, transform 400ms cubic-bezier(0.22, 1, 0.36, 1);
+.index {
+  color: var(--accent);
 }
 
-.entry:hover .arrow {
+.title {
+  font-family: var(--font-serif);
+  font-size: var(--text-h3);
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
   color: var(--text-primary);
-  transform: translateX(6px);
+  transition: color 400ms ease;
 }
 
-/* ---- Thumbnail — reveals on hover ---- */
-.thumbnail {
-  position: absolute;
-  right: 56px;
-  top: 50%;
-  transform: translateY(-70%);
-  width: 220px;
-  height: 148px;
+.subtitle {
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  line-height: 1.55;
+  color: var(--text-secondary);
+  max-width: 46ch;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
   overflow: hidden;
-  opacity: 0;
-  pointer-events: none;
-  z-index: 10;
-  border: 1px solid var(--rule);
-  transition: opacity 400ms ease;
-}
-
-.entry:hover .thumbnail {
-  opacity: 1;
 }
 
 @media (max-width: 767px) {
-  .entry {
-    align-items: center;
+  .media {
+    aspect-ratio: 16 / 11;
   }
 
-  .thumbnail {
-    position: relative;
-    top: auto;
-    right: auto;
-    transform: none;
-    width: 64px;
-    height: 44px;
-    opacity: 0.65;
-    flex-shrink: 0;
-    pointer-events: none;
-    border-radius: var(--radius);
-    order: -1; /* show before index */
+  .title {
+    font-size: var(--text-h4);
   }
 }

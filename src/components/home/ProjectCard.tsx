@@ -3,7 +3,7 @@
 import { useRef, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { gsap, ScrollTrigger } from "@/lib/gsap";
+import { gsap } from "@/lib/gsap";
 import styles from "./ProjectCard.module.css";
 
 interface ProjectCardProps {
@@ -28,6 +28,7 @@ export default function ProjectCard({
   slug,
   title,
   cardTitle,
+  subtitle,
   category,
   year,
   cardBg,
@@ -70,29 +71,28 @@ export default function ProjectCard({
   }, []);
 
   return (
-    <Link href={`/work/${slug}`} className={styles.entry} ref={cardRef} data-project-card>
-      <span className={styles.index}>{num} /</span>
-
-      <div className={styles.body}>
-        <h3 className={styles.title}>{displayTitle}</h3>
-        <span className={styles.meta}>
-          {category}{year ? ` · ${year}` : ""}
-        </span>
-      </div>
-
-      <span className={styles.arrow}>→</span>
-
-      <div className={styles.thumbnail} style={{ background: thumbBg }}>
+    <Link href={`/work/${slug}`} className={styles.card} ref={cardRef} data-project-card>
+      <div className={styles.media} style={{ background: thumbBg }}>
         <Image
           src={coverImage}
           alt={displayTitle}
           fill
-          sizes="240px"
+          sizes="(max-width: 767px) 100vw, 46vw"
+          className={styles.cover}
           style={{
             objectFit: imageConfig.fit,
             objectPosition: imageConfig.position,
           }}
         />
+      </div>
+
+      <div className={styles.body}>
+        <span className={styles.meta}>
+          <span className={styles.index}>{num}</span>
+          {category}{year ? ` · ${year}` : ""}
+        </span>
+        <h3 className={styles.title}>{displayTitle}</h3>
+        {subtitle ? <p className={styles.subtitle}>{subtitle}</p> : null}
       </div>
     </Link>
   );
