@@ -4,55 +4,50 @@
 
 .header {
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: var(--text-eyebrow);
   font-weight: 400;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--text-tertiary);
   display: block;
-  margin-bottom: var(--space-5);
+  margin-bottom: var(--space-6);
 }
 
 .categories {
   display: flex;
-  flex-direction: column;
-  gap: var(--space-5);
+  gap: var(--space-6);
 }
 
 .category {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 18px;
+  border-top: 1px solid var(--rule);
+  padding-top: var(--space-3);
 }
 
 .categoryLabel {
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: var(--text-eyebrow);
   font-weight: 400;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--text-tertiary);
+  color: var(--accent);
 }
 
-.pills {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.pill {
-  font-family: var(--font-mono);
-  font-size: 11px;
+.skillList {
+  font-family: var(--font-serif);
+  font-size: 22px;
   font-weight: 400;
-  letter-spacing: 0.06em;
-  color: var(--text-secondary);
-  border: 1px solid var(--rule);
-  padding: 6px 14px;
-  border-radius: 9999px;
-  transition: border-color 400ms ease, color 400ms ease;
+  color: var(--text-primary);
+  line-height: 1.7;
+  letter-spacing: -0.01em;
 }
 
-.pill:hover {
-  border-color: var(--text-tertiary);
-  color: var(--text-primary);
+@media (max-width: 767px) {
+  .categories {
+    flex-direction: column;
+    gap: var(--space-5);
+  }
 }

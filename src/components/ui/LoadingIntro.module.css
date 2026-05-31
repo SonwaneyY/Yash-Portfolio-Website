@@ -1,0 +1,62 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  background: var(--bg-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  will-change: transform;
+}
+
+.center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.lineRow {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.monogram {
+  font-family: var(--font-serif);
+  font-size: clamp(28px, 4vw, 52px);
+  font-weight: 400;
+  color: var(--text-primary);
+  letter-spacing: 0.08em;
+  line-height: 1;
+  white-space: nowrap;
+  text-transform: uppercase;
+  will-change: transform, opacity;
+  perspective: 600px;
+}
+
+.lineLeft,
+.lineRight {
+  width: clamp(40px, 8vw, 100px);
+  height: 1px;
+  background: var(--accent);
+  will-change: transform;
+}
+
+.lineLeft {
+  transform-origin: right center;
+}
+
+.lineRight {
+  transform-origin: left center;
+}
+
+.tagline {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  will-change: transform, opacity;
+}

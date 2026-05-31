@@ -91,21 +91,13 @@ export default function Hero() {
           {/* Display statement — phrases enter one by one, then sentence resolves */}
           <h1 className={styles.statement}>
             <motion.span
-              className={styles.statementConnector}
-              initial={connectorInitial}
-              animate={connectorAnimate}
-              transition={connectorTransition}
-            >
-              A strategic design generalist bridging{" "}
-            </motion.span>
-            <motion.span
               className={styles.statementPhrase}
               data-revealed={isReveal}
               initial={phraseInitial}
               animate={phraseAnimate}
               transition={phraseTransition(0)}
             >
-              business strategy
+              Strategic Product Designer
             </motion.span>
             <motion.span
               className={styles.statementConnector}
@@ -113,7 +105,7 @@ export default function Hero() {
               animate={connectorAnimate}
               transition={connectorTransition}
             >
-              ,{" "}
+              {" "}helping organizations turn{" "}
             </motion.span>
             <motion.span
               className={styles.statementPhrase}
@@ -122,7 +114,7 @@ export default function Hero() {
               animate={phraseAnimate}
               transition={phraseTransition(PHRASE_STAGGER)}
             >
-              systems thinking
+              ambiguous problems
             </motion.span>
             <motion.span
               className={styles.statementConnector}
@@ -130,7 +122,7 @@ export default function Hero() {
               animate={connectorAnimate}
               transition={connectorTransition}
             >
-              , and{" "}
+              {" "}into{" "}
             </motion.span>
             <motion.span
               className={styles.statementPhrase}
@@ -139,7 +131,7 @@ export default function Hero() {
               animate={phraseAnimate}
               transition={phraseTransition(PHRASE_STAGGER * 2)}
             >
-              emerging technology
+              purposeful, scalable experiences
             </motion.span>
             <motion.span
               className={styles.statementConnector}
@@ -151,7 +143,15 @@ export default function Hero() {
             </motion.span>
           </h1>
 
-
+          {/* Subline — scope: full-stack, generalist, global shipping */}
+          <motion.p
+            className={styles.subline}
+            initial={reduceMotion ? false : { opacity: 0, y: 16 }}
+            animate={isReveal ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, ease: easeOut, delay: 0.35 }}
+          >
+            As a full-stack designer, I combine 7+ years of UX design experience, a strategic design practice, and an AI-native toolkit to operate end to end, from problem framing to shipped product, with a strong product sense.
+          </motion.p>
         </Container>
       </div>
 

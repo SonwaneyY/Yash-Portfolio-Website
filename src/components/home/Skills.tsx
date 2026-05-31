@@ -1,50 +1,88 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useRef, useEffect } from "react";
 import Container from "@/components/ui/Container";
 import { skillCategories } from "@/lib/data";
-import { viewportOnce } from "@/lib/animations";
+import { gsap, ScrollTrigger } from "@/lib/gsap";
 import styles from "./Skills.module.css";
 
-const containerVariants = {
-  hidden: {},
-  visible: {
-    transition: { staggerChildren: 0.03, delayChildren: 0.1 },
-  },
-};
-
-const pillVariants = {
-  hidden: { opacity: 0, y: 8 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.4, ease: [0.25, 0.1, 0.25, 1] as const },
-  },
-};
-
 export default function Skills() {
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (!sectionRef.current) return;
+
+    const ctx = gsap.context(() => {
+      // Header — slide in from left
+      const header = sectionRef.current!.querySelector("[data-skills-header]");
+      if (header) {
+        gsap.from(header, {
+          opacity: 0,
+          x: -30,
+          duration: 0.6,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: header,
+            start: "top 90%",
+            toggleActions: "play none none none",
+          },
+        });
+      }
+
+      // Each column: label slides in, then the serif list fades up
+      const categories = sectionRef.current!.querySelectorAll("[data-skill-category]");
+      categories.forEach((cat) => {
+        const label = cat.querySelector("[data-category-label]");
+        const list = cat.querySelector("[data-skill-list]");
+
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: cat,
+            start: "top 88%",
+            toggleActions: "play none none none",
+          },
+        });
+
+        if (label) {
+          tl.from(label, {
+            opacity: 0,
+            x: -16,
+            duration: 0.4,
+            ease: "power2.out",
+          });
+        }
+
+        if (list) {
+          tl.from(
+            list,
+            {
+              opacity: 0,
+              y: 12,
+              duration: 0.5,
+              ease: "power3.out",
+            },
+            "-=0.2"
+          );
+        }
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section className={styles.section}>
+    <section className={styles.section} ref={sectionRef}>
       <Container>
-        <span className={styles.header}>Capabilities</span>
+        <span className={styles.header} data-skills-header>Capabilities</span>
 
         <div className={styles.categories}>
           {Object.entries(skillCategories).map(([category, skills]) => (
-            <div key={category} className={styles.category}>
-              <span className={styles.categoryLabel}>{category}</span>
-              <motion.div
-                className={styles.pills}
-                variants={containerVariants}
-                initial="hidden"
-                whileInView="visible"
-                viewport={viewportOnce}
-              >
-                {skills.map((skill) => (
-                  <motion.span key={skill} className={styles.pill} variants={pillVariants}>
-                    {skill}
-                  </motion.span>
-                ))}
-              </motion.div>
+            <div key={category} className={styles.category} data-skill-category>
+              <span className={styles.categoryLabel} data-category-label>{category}</span>
+              <p className={styles.skillList} data-skill-list>
+                {skills.join(" · ")}
+              </p>
             </div>
           ))}
         </div>

@@ -22,7 +22,7 @@
 /* ---- Typed greeting ---- */
 .greeting {
   font-family: var(--font-mono);
-  font-size: 13px;
+  font-size: 16px;
   font-weight: 400;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -73,7 +73,7 @@
 /* ---- Display statement ---- */
 .statement {
   font-family: var(--font-serif);
-  font-size: clamp(36px, 3.5vw, 64px);
+  font-size: clamp(40px, 5.2vw, 73px);
   font-weight: 400;
   color: var(--text-primary);
   line-height: 1.08;

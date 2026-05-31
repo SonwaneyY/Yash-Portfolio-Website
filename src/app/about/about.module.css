@@ -30,7 +30,7 @@
 
 .heading {
   font-family: var(--font-serif);
-  font-size: clamp(36px, 5.5vw, 80px);
+  font-size: var(--text-h1);
   font-weight: 400;
   color: var(--text-primary);
   line-height: 1.05;
@@ -50,7 +50,7 @@
 
 .narrativeParagraph {
   font-family: var(--font-sans);
-  font-size: clamp(16px, 1.2vw, 18px);
+  font-size: var(--text-body);
   font-weight: 400;
   color: var(--text-secondary);
   line-height: 1.7;
@@ -58,7 +58,7 @@
 }
 
 .narrativeParagraph:first-child {
-  font-size: clamp(18px, 1.5vw, 22px);
+  font-size: var(--text-lead);
   color: var(--text-primary);
   line-height: 1.5;
 }
@@ -156,7 +156,7 @@
 .expLogo {
   width: 28px;
   height: 28px;
-  border-radius: 4px;
+  border-radius: var(--radius);
   border: 1px solid var(--rule);
   object-fit: contain;
   background-color: var(--bg-tertiary);
@@ -245,7 +245,7 @@
 
 .beliefItem {
   font-family: var(--font-serif);
-  font-size: clamp(16px, 1.3vw, 19px);
+  font-size: var(--text-body);
   font-weight: 400;
   font-style: italic;
   color: var(--text-primary);
@@ -289,7 +289,7 @@
 
 .ctaHeading {
   font-family: var(--font-serif);
-  font-size: clamp(32px, 4vw, 56px);
+  font-size: var(--text-h2);
   font-weight: 400;
   color: var(--text-primary);
   line-height: 1.1;

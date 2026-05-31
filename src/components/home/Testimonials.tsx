@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import clsx from "clsx";
 import Container from "@/components/ui/Container";
 import { testimonials } from "@/lib/data";
+import { gsap, ScrollTrigger } from "@/lib/gsap";
 import styles from "./Testimonials.module.css";
 
 const quoteVariants = {
@@ -18,8 +19,8 @@ export default function Testimonials() {
   const [paused, setPaused] = useState(false);
   const [maxHeight, setMaxHeight] = useState(0);
   const measureRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
 
-  // Measure tallest testimonial to prevent layout shift
   useEffect(() => {
     if (!measureRef.current) return;
     const items = measureRef.current.children;
@@ -40,6 +41,31 @@ export default function Testimonials() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  // GSAP scroll reveal for whole section
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (!sectionRef.current) return;
+
+    const ctx = gsap.context(() => {
+      const inner = sectionRef.current!.querySelector("[data-testimonial-inner]");
+      if (inner) {
+        gsap.from(inner, {
+          opacity: 0,
+          y: 30,
+          duration: 0.7,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 80%",
+            toggleActions: "play none none none",
+          },
+        });
+      }
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   const next = useCallback(() => {
     setActive((prev) => (prev + 1) % testimonials.length);
   }, []);
@@ -57,9 +83,9 @@ export default function Testimonials() {
       className={styles.section}
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
+      ref={sectionRef}
     >
       <Container>
-        {/* Hidden measurer — renders all testimonials to find tallest */}
         <div ref={measureRef} className={styles.measurer} aria-hidden="true">
           {testimonials.map((t, i) => (
             <div key={i} className={styles.quoteWrapper}>
@@ -71,7 +97,7 @@ export default function Testimonials() {
           ))}
         </div>
 
-        <div className={styles.inner}>
+        <div className={styles.inner} data-testimonial-inner>
           <div
             className={styles.quoteArea}
             style={maxHeight ? { minHeight: maxHeight } : undefined}

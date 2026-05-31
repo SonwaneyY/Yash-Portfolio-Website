@@ -39,7 +39,7 @@
 
 .quote {
   font-family: var(--font-sans);
-  font-size: clamp(16px, 1.6vw, 18px);
+  font-size: var(--text-lead);
   font-weight: 400;
   font-style: normal;
   color: var(--text-secondary);
@@ -48,9 +48,9 @@
 
 .attribution {
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: var(--text-eyebrow);
   font-weight: 400;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--text-tertiary);
   margin-top: var(--space-3);

@@ -5,6 +5,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import SmoothScroll from "@/components/ui/SmoothScroll";
 import PageTransition from "@/components/ui/PageTransition";
+import AppShell from "@/components/ui/AppShell";
 import { Agentation } from "agentation";
 import "./globals.css";
 
@@ -54,11 +55,13 @@ export default function RootLayout({
       <body>
         <a href="#main-content" className="skip-link">Skip to content</a>
         <SmoothScroll />
-        <Header />
-        <main id="main-content">
-          <PageTransition>{children}</PageTransition>
-        </main>
-        <Footer />
+        <AppShell>
+          <Header />
+          <main id="main-content">
+            <PageTransition>{children}</PageTransition>
+          </main>
+          <Footer />
+        </AppShell>
         {process.env.NODE_ENV === 'development' && <Agentation endpoint="http://localhost:4747" />}
       </body>
     </html>

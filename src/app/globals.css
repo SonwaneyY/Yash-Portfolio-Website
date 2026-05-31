@@ -3,27 +3,43 @@
    ============================================ */
 
 :root {
-  /* Field / dark canvas */
-  --bg-primary:    #0E0D0B;
-  --bg-secondary:  #161512;
-  --bg-tertiary:   #1E1C19;
+  /* Field / dark canvas — oklch, warm hue ~84 */
+  --bg-primary:    oklch(15.95% 0.0045 84.59);
+  --bg-secondary:  oklch(19.57% 0.0061 91.65);
+  --bg-tertiary:   oklch(22.76% 0.0065 78.19);
 
   /* Paper / text */
-  --text-primary:   #EEE8DC;
-  --text-secondary: #8A857A;   /* ~5.7:1 on --bg-primary ✓ */
-  --text-tertiary:  #7E7B78;   /* ~4.8:1 on --bg-primary ✓ (was #4A4742, failed at 2.4:1) */
+  --text-primary:   oklch(93.24% 0.0173 84.59);
+  --text-secondary: oklch(61.78% 0.0173 86.45);   /* ~5.7:1 on --bg-primary ✓ */
+  --text-tertiary:  oklch(58.46% 0.0058 67.71);   /* ~4.8:1 on --bg-primary ✓ */
 
-  /* Single accent — deep ember */
-  --accent: #C4502A;
+  /* Single accent — deep ember, hue 38 */
+  --accent: oklch(57.76% 0.1575 38.02);
 
   /* Rules — barely visible against field */
-  --border: #2A2824;
-  --rule:   #2A2824;
+  --border: oklch(27.75% 0.0078 84.59);
+  --rule:   oklch(27.75% 0.0078 84.59);
 
   /* Typography */
   --font-serif: var(--font-scotch-display), Georgia, 'Times New Roman', serif;
   --font-sans:  var(--font-general-sans), -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
   --font-mono:  var(--font-jetbrains-mono), 'JetBrains Mono', 'Courier New', monospace;
+
+  /* Fluid type scale — clamp(min, vw, max), no breakpoint jumps */
+  --text-display: clamp(40px, 7vw, 96px);
+  --text-h1:      clamp(36px, 5.5vw, 80px);
+  --text-h2:      clamp(32px, 4vw, 56px);
+  --text-h3:      clamp(24px, 2.5vw, 32px);
+  --text-h4:      clamp(20px, 2vw, 26px);
+  --text-lead:    clamp(18px, 1.5vw, 22px);
+  --text-body:    clamp(15px, 1vw, 17px);
+  --text-small:   14px;
+  --text-eyebrow: 11px;
+
+  /* Shape — sharp editorial default. Round carve-outs for pills/avatars. */
+  --radius: 0px;
+  --radius-pill: 9999px;
+  --radius-circle: 50%;
 
   /* Spacing — 8px base */
   --space-1:  8px;
@@ -148,7 +164,7 @@ p {
 :focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 4px;
-  border-radius: 2px;
+  border-radius: var(--radius);
 }
 
 /* Skip navigation link — visually hidden until focused */
@@ -185,6 +201,22 @@ p {
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--text-tertiary);
+}
+
+/* Editorial eyebrow — tracked uppercase label above headings (skills.re pattern) */
+.eyebrow {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: var(--text-eyebrow);
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.eyebrow--muted {
+  color: var(--text-tertiary);
+  letter-spacing: 0.16em;
 }
 
 .visually-hidden {

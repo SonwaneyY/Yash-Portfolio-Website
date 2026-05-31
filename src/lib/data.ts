@@ -31,7 +31,24 @@ export type CaseStudySection =
   | { type: "insight-card"; theme: string; insight: string; verbatim: string; attribution: string }
   | { type: "problem-gap"; label: string; heading: string; current: string; desired: string }
   | { type: "concepts-grid"; heading: string; items: { name: string; tag: string; description: string; selected?: boolean }[] }
-  | { type: "video"; src: string; caption?: string; poster?: string };
+  | { type: "video"; src: string; caption?: string; poster?: string }
+  | { type: "loop"; label?: string; heading?: string; stages: { name: string; targetId?: string; active?: boolean }[]; caption?: string }
+  | { type: "triage"; label?: string; heading: string; intro?: string; noise: string[]; cards: { client: string; signal: string; delta?: string; urgency?: "high" | "med" | "low" }[]; note?: string }
+  | {
+      type: "sandbox";
+      label?: string;
+      heading: string;
+      intro?: string;
+      externalities: { id: string; name: string; hint?: string }[];
+      outputs: { id: string; label: string; base: number; unit?: string; format?: "percent" | "number"; sensitivities: Record<string, number>; goodDirection?: "up" | "down" }[];
+      cohortSize?: number;
+      note?: string;
+    }
+  | { type: "timeline"; label?: string; title?: string; items: { num: string; label: string; body?: string }[] }
+  | { type: "divider" }
+  | { type: "placeholder"; media: "image" | "video" | "gif"; label: string; ratio?: string; width?: "content" | "wide" }
+  | { type: "features"; label?: string; heading?: string; items: { name: string; tag?: string; body: string; media?: "image" | "video" | "gif"; mediaLabel?: string; ratio?: string }[] }
+  | { type: "embed"; label?: string; heading?: string; intro?: string; url: string; ratio?: string; note?: string };
 
 export interface CaseStudy {
   role: string;
@@ -47,6 +64,7 @@ const draftSlugs = new Set([
   "hp-scale-ui",
   "hp-learning",
   "bridgit",
+  "greenbox-tempo",
 ]);
 
 const isPreview =
@@ -57,6 +75,7 @@ const allProjects = [
   {
     slug: "beyond-efficiency",
     title: "Beyond Efficiency: Understanding the Paradox of AI in Hiring",
+    cardTitle: "Exposing the Paradox of AI-Driven Hiring",
     subtitle: "A design research investigation mapping how AI and automation have made hiring faster but less human — flooding employers with noise while systematically filtering out qualified candidates.",
     category: "DESIGN RESEARCH",
     filterCategory: "Research" as ProjectCategory,
@@ -371,6 +390,7 @@ const allProjects = [
   {
     slug: "loop-strategy",
     title: "Loop : Strategy",
+    cardTitle: "Turning Rejection into Recruiter Brand Equity",
     subtitle: "From research insight to validated AI product — Loop is an intelligence layer that turns candidate rejection into a brand equity opportunity for recruiters.",
     category: "PRODUCT DESIGN · STRATEGY · AI PRODUCT",
     filterCategory: "Strategy" as ProjectCategory,
@@ -603,6 +623,7 @@ const allProjects = [
   {
     slug: "goretex-accesswear",
     title: "GORE-TEX Accesswear",
+    cardTitle: "Designing a Circular Outerwear Subscription",
     subtitle: "End-to-end service design and growth strategy for a circular outerwear subscription — from 1 subscriber to 120 and a 10/10 NPS in 9 months.",
     category: "GROWTH DESIGN · SERVICE DESIGN",
     filterCategory: "Strategy" as ProjectCategory,
@@ -767,6 +788,7 @@ const allProjects = [
   {
     slug: "hp-scale-ui",
     title: "HP: Scale UI",
+    cardTitle: "Scaling One Control-Panel UI Across Every HP Printer",
     subtitle: "Designing & shipping printer control panel UX for all HP Printers across market segments & user archetypes.",
     category: "PRODUCT DESIGN · DESIGN SYSTEMS",
     filterCategory: "Product Design" as ProjectCategory,
@@ -941,6 +963,7 @@ const allProjects = [
   {
     slug: "hp-learning",
     title: "HP Learning",
+    cardTitle: "Connecting Classrooms to Living Rooms",
     subtitle: "B2C EdTech platform backed by strategic educational partnerships — connecting classrooms to living rooms through printable, hands-on learning.",
     category: "PRODUCT DESIGN · EDTECH",
     filterCategory: "Product Design" as ProjectCategory,
@@ -1083,6 +1106,7 @@ const allProjects = [
   {
     slug: "bridgit",
     title: "Bridgit",
+    cardTitle: "Reimagining AI for Specialized Educators",
     subtitle: "AI-powered assistant designed for specialized education teachers.",
     category: "INCLUSIVE DESIGN RESEARCH",
     filterCategory: "Research" as ProjectCategory,
@@ -1199,6 +1223,7 @@ const allProjects = [
   {
     slug: "flexible-insurance-gig-workers",
     title: "Flexible Insurance for Gig Workers",
+    cardTitle: "Rethinking Insurance for Gig Workers",
     subtitle: "1st Place — Rotman Design Challenge. Reimagining traditional insurance structures to enable security and trust for gig workers using AI-enabled CX experiences.",
     category: "STRATEGY · AI CUSTOMER EXPERIENCE",
     filterCategory: "Strategy" as ProjectCategory,
@@ -1422,6 +1447,232 @@ const allProjects = [
             "My specific contribution spanned the research synthesis, the Greg persona and journey mapping, the before/after service arc, and the Polaris concept framing. This was a pitch and concept project — validated through research and judges, not shipped to users. That distinction matters, and it's worth naming.",
             "What the work demonstrated: when you design for the person with the fewest options, you build something that works better for everyone.",
           ],
+        },
+      ],
+    },
+  },
+  {
+    slug: "greenbox-tempo",
+    title: "Tempo: An Intelligence Layer for Wealth Advisors",
+    subtitle:
+      "A semester-long AI strategy and product engagement with GreenBox, an early-stage wealth-management startup. We took the advisor's fragmented, eight-tool morning and rebuilt it around one system that works the whole day with them.",
+    category: "AI STRATEGY · PRODUCT DESIGN · CONSULTING",
+    filterCategory: "Strategy" as ProjectCategory,
+    year: "2026",
+    cardBg: "#0E3B2E",
+    cardTextColor: "light" as const,
+    coverImage: "/covers/greenbox-tempo.png",
+    imageConfig: { fit: "cover" as const, position: "center center", bg: "#0E3B2E" },
+    caseStudy: {
+      role: "Product Designer & Strategist",
+      timeline: "2026 · Graduate Strategic Design studio (consulting engagement with GreenBox)",
+      tools: ["Jobs-to-be-Done", "Service Blueprinting", "Scenario Planning", "Figma (prototype)", "Concept Design"],
+      team: "Yash Sonwaney with Anisha Rajan, Joannah Varghese & Jun Shin (MS Strategic Design & Management)",
+      sections: [
+        {
+          type: "text" as const,
+          label: "Context",
+          heading: "Overview",
+          body: [
+            "GreenBox is an early-stage fintech. It builds enterprise software for independent Registered Investment Advisors (RIAs), the people who manage portfolios for the $84 trillion in generational wealth now changing hands. Our studio worked as a strategic consultancy. The class split into four teams, and each team took one of GreenBox's challenge areas. Ours was portfolio management. The brief was open on purpose: find the adjacent possible, the point where AI removes the heaviest friction from an advisor's day without taking over their judgment. We called our answer Tempo, an intelligence layer that connects the advisor's whole day instead of adding one more screen to manage.",
+            "The four of us did the work together. The research, the sense-making, the feature decisions, all shared. My part came at the front of the room. I presented. I owned the workflow-and-solutions narrative, walked GreenBox through the Morning Brief, and wrote the how-might-we framing and the roadmap the pitch was built on. The hard part was turning a dense system into a story a client could follow and question in real time.",
+            "It landed well. The GreenBox team responded strongly to two things: seeing market movements in the context of specific clients, and the externality-injection idea in the sandbox. They left us with a validated 3.5-year, four-phase roadmap. Over the engagement we defined four AI features across the advisor's full workflow (Detect, Decide, Execute, Verify, Report), and we showed them as a working interactive prototype instead of slides.",
+          ],
+        },
+        {
+          type: "placeholder" as const,
+          media: "image" as const,
+          label: "Tempo — hero shot of the working prototype",
+          ratio: "21 / 9",
+          width: "wide" as const,
+        },
+        {
+          type: "metrics" as const,
+          items: [
+            { value: "8", label: "Software tools an advisor juggles daily" },
+            { value: "60%", label: "Of the day spent on reconciliation and data-hunting, not advising" },
+            { value: "2.5 days/wk", label: "Spent on rebalancing and context-switching" },
+            { value: "~140", label: "Client portfolios managed per advisor" },
+            { value: "~$500M", label: "Assets under management per advisor" },
+          ],
+        },
+        {
+          type: "callout" as const,
+          label: "The Strategic Reframe",
+          body: [
+            "The bottleneck was never the quality of advice. We started describing the RIA as an air traffic controller for money: tracking dozens of portfolios, watching the market, judging risk, all at once, across systems that don't talk to each other. The cost is the time spent keeping eight tools in sync. Every hour an advisor spends reconciling data is an hour they don't spend with clients. Tempo handles the watching and the checking so that time comes back.",
+          ],
+        },
+        {
+          type: "text" as const,
+          label: "Problem",
+          heading: "The Tool Pile",
+          body: [
+            "An advisor's stack is a pile of point solutions. CRM lives in Salesforce, HubSpot, Wealthbox, or Redtail. Portfolio reporting sits in Orion, Black Diamond, or Advyzon. Planning happens in eMoney or RightCapital. Risk runs through Nitrogen or AndesRisk. Each one does its slice well.",
+            "None of them owns the workflow. Context doesn't move between them, so what a client says on Tuesday never reaches the portfolio decision on Wednesday. Advisors also end up bending sales CRMs to a job that is really about client psychology and long-term goals. The advisor becomes the integration layer, carrying information by hand from one system to the next. That manual work is most of the 60%.",
+          ],
+        },
+        {
+          type: "text" as const,
+          label: "Framework",
+          heading: "The Job To Be Done",
+          body: [
+            "Underneath the tools, the advisor's real job is one loop, repeated for every client: Detect, Decide, Execute, Verify, Report. It runs messy and out of order, with a lot of back-and-forth. We mapped a working day against it and found the time piling up at three stages. That is where we put Tempo.",
+          ],
+        },
+        {
+          type: "loop" as const,
+          stages: [
+            { name: "Detect", targetId: "detect" },
+            { name: "Decide", targetId: "decide" },
+            { name: "Execute" },
+            { name: "Verify", targetId: "verify" },
+            { name: "Report" },
+          ],
+          caption: "The advisor's loop. We focused Tempo on the three stages where the time leaks.",
+        },
+        {
+          type: "problem-gap" as const,
+          label: "Detect",
+          heading: "Spotting the move before it's old news",
+          current:
+            "The advisor opens tab after tab to see how the market moved against each client. By the time a signal shows up, the move already happened.",
+          desired:
+            "Priority signals (drift, breaches, live events, overnight shifts) ranked and waiting before the first call.",
+        },
+        {
+          type: "problem-gap" as const,
+          label: "Decide",
+          heading: "Testing a move before money moves",
+          current:
+            "Trades happen across several platforms, with compliance checked after the fact. There is no safe place to try a move first.",
+          desired:
+            "Model and stress-test a rebalance against real holdings, with compliance built in, before any money moves.",
+        },
+        {
+          type: "problem-gap" as const,
+          label: "Verify",
+          heading: "Confirming the trade matched the plan",
+          current:
+            "Reconciliation sits apart from execution, so confirming that trades matched the plan is slow and manual.",
+          desired: "Execution and confirmation in one record. No surprises on Monday.",
+        },
+        {
+          type: "pull-quote" as const,
+          text: "How might we help an advisor spot market anomalies, understand each client's full financial picture, and check a rebalance, all without leaving the work of advising?",
+        },
+        {
+          type: "concepts-grid" as const,
+          heading: "Tempo: One Layer, Four Moves",
+          items: [
+            {
+              name: "Meeting Intelligence",
+              tag: "Detect",
+              description:
+                "Video transcription, relationship memory, and sentiment profiling. Client context captured once and available everywhere.",
+            },
+            {
+              name: "Morning Brief",
+              tag: "Detect",
+              description:
+                "Market Pulse, overnight updates, and today's priorities, ranked by urgency and business impact.",
+            },
+            {
+              name: "Rebalance Sandbox",
+              tag: "Decide",
+              description:
+                "Model, stress-test, and compare strategies against real holdings, then commit to execution.",
+            },
+            {
+              name: "AI Copilot",
+              tag: "Always-on",
+              description:
+                "Always-on monitoring and next-best-action suggestions. The advisor signs off on every move.",
+            },
+          ],
+        },
+        {
+          type: "divider" as const,
+        },
+        {
+          type: "features" as const,
+          label: "Solution",
+          heading: "How Tempo works, feature by feature",
+          items: [
+            { name: "Meeting Intelligence", tag: "Detect", body: "Every client meeting gets transcribed and remembered. What a client said about their kid's tuition in March surfaces when you open their portfolio in June. Mood and trust get read alongside the numbers, so context lives in one place instead of scattered across notes apps.", media: "gif" as const, mediaLabel: "Meeting Intelligence — transcription + relationship memory", ratio: "4 / 3" },
+            { name: "Morning Brief", tag: "Detect", body: "The advisor's first five minutes. Market Pulse ties overnight moves to named portfolios, so Sarah sees \"the Hayes family is down $28k\" instead of \"the S&P moved 0.4%.\" Today's Priorities ranks who needs attention by urgency and business impact. The first hour goes to advising, not aggregating.", media: "image" as const, mediaLabel: "Morning Brief — ranked client queue", ratio: "4 / 3" },
+            { name: "Rebalance Sandbox", tag: "Decide", body: "A place to test a move before money moves. Inject an externality like a recession or a tech selloff and watch return, volatility, and drawdown respond, then run it across the whole book to see who is exposed. The client called it a graphic equalizer for strategy.", media: "video" as const, mediaLabel: "Rebalance Sandbox — externality stress test", ratio: "4 / 3" },
+            { name: "AI Copilot", tag: "Always-on", body: "Always watching the book for drift and risk breaches, surfacing the next best action with reasoning the advisor can override. It proposes, the advisor decides. Judgment stays human, and every action is signed off and logged.", media: "image" as const, mediaLabel: "AI Copilot — next-best-action panel", ratio: "4 / 3" },
+          ],
+        },
+        {
+          type: "divider" as const,
+        },
+        {
+          type: "timeline" as const,
+          label: "Roadmap",
+          title: "A 3.5-year path to the operating system",
+          items: [
+            { num: "01", label: "Phase 1 · M1–6", body: "Morning Brief dashboard plus an AI Copilot alpha that handles chat and contextual questions. Proves out the data layer." },
+            { num: "02", label: "Phase 2 · M7–18", body: "Smart note-taking and relationship memory. Adds the client-intelligence layer." },
+            { num: "03", label: "Phase 3 · M19–30", body: "The full Rebalance Sandbox, with sentiment and world data feeding the stress tests." },
+            { num: "04", label: "Phase 4 · M31–42", body: "An AI Copilot beta that monitors portfolios on its own, keeps the advisor in the loop, and runs across the dashboard." },
+          ],
+        },
+        {
+          type: "callout" as const,
+          label: "The Adjacent Possible",
+          body: [
+            "Tempo's advantage builds over time. Every feature adds a little to the switching cost through stored memory: the longer an advisor uses it, the more it knows about their clients, and the harder it becomes to walk away. An open API lets it sit at the center of an advisor's stack instead of competing as one more app.",
+          ],
+        },
+        {
+          type: "concepts-grid" as const,
+          heading: "What If: Stress-Testing the Strategy",
+          items: [
+            {
+              name: "A competitor ships a better product",
+              tag: "Risk",
+              description:
+                "The moat is the depth of stored client memory and sentiment, and those switching costs grow every day. A rival feature doesn't reset them.",
+            },
+            {
+              name: "The great wealth transfer accelerates",
+              tag: "Risk",
+              description:
+                "Heirs stay with advisors they trust. Tempo holds the relationship history that carries an advisor through a death, a divorce, or a handoff to the next generation.",
+            },
+            {
+              name: "AI regulation tightens (SEC)",
+              tag: "Risk",
+              description:
+                "Human sign-off is already part of the advisor-in-the-loop design. The audit logs are timestamped, queryable, and exportable, so there is no retrofit when the rules change.",
+            },
+            {
+              name: "The RIA market consolidates",
+              tag: "Risk",
+              description:
+                "A single-advisor setup scales to a multi-advisory firm without a rebuild: roles, audit, compliance, and shared dashboards. The constraint turns into an advantage.",
+            },
+          ],
+        },
+        {
+          type: "text" as const,
+          label: "Outcome",
+          heading: "My Role & Reflection",
+          body: [
+            "This was a strategy and concept engagement. We validated it through a working prototype and a strong response from the client, not a live product. I want to be straight about that.",
+            "The thinking was shared. All four of us shaped the problem framing, the research, and the feature set. My own contribution was getting it across the line: presenting the workflow-and-solutions narrative and the Morning Brief to GreenBox, and writing the how-might-we framing and the roadmap that held the pitch together. The job I did was standing between a complicated system and the people who had to decide whether to back it.",
+          ],
+        },
+        {
+          type: "embed" as const,
+          label: "Live Prototype",
+          heading: "Try it yourself",
+          intro: "Tempo was a concept, but we shipped a working build. Open it and poke around the dashboard, the Morning Brief, and the Sandbox.",
+          url: "https://greenbox-app-rho.vercel.app/",
+          ratio: "16 / 10",
+          note: "Best viewed on desktop.",
         },
       ],
     },

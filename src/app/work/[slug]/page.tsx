@@ -13,6 +13,10 @@ import styles from "./casestudy.module.css";
 import { SubscriberGrowthChart, ConversionMilestonesChart, ChurnReasonsChart } from "@/components/casestudy/CaseStudyCharts";
 import CaseStudySidebar from "@/components/casestudy/CaseStudySidebar";
 import CaseStudyMobileNav from "@/components/casestudy/CaseStudyMobileNav";
+import LoopRail from "@/components/casestudy/tempo/LoopRail";
+import MorningTriage from "@/components/casestudy/tempo/MorningTriage";
+import RebalanceSandbox from "@/components/casestudy/tempo/RebalanceSandbox";
+import RoadmapTimeline from "@/components/casestudy/tempo/RoadmapTimeline";
 
 function headingToId(heading: string): string {
   return heading
@@ -239,10 +243,128 @@ function SectionRenderer({ section, onImageClick }: { section: CaseStudySection;
         </ScrollReveal>
       );
 
+    case "loop":
+      return (
+        <LoopRail
+          label={section.label}
+          heading={section.heading}
+          stages={section.stages}
+          caption={section.caption}
+        />
+      );
+
+    case "triage":
+      return (
+        <MorningTriage
+          label={section.label}
+          heading={section.heading}
+          intro={section.intro}
+          noise={section.noise}
+          cards={section.cards}
+          note={section.note}
+        />
+      );
+
+    case "sandbox":
+      return (
+        <RebalanceSandbox
+          label={section.label}
+          heading={section.heading}
+          intro={section.intro}
+          externalities={section.externalities}
+          outputs={section.outputs}
+          cohortSize={section.cohortSize}
+          note={section.note}
+        />
+      );
+
+    case "timeline":
+      return (
+        <RoadmapTimeline label={section.label} title={section.title} items={section.items} />
+      );
+
+    case "features":
+      return (
+        <ScrollReveal>
+          <div className={styles.features}>
+            {(section.label || section.heading) && (
+              <div className={styles.featuresHead}>
+                {section.label && <span className={styles.textHeadingLabel}>{section.label}</span>}
+                {section.heading && <h2 className={styles.textHeading}>{section.heading}</h2>}
+              </div>
+            )}
+            {section.items.map((item, i) => (
+              <div key={i} className={styles.featureRow}>
+                <div className={styles.featureText}>
+                  {item.tag && <span className={styles.featureTag}>{item.tag}</span>}
+                  <h3 className={styles.featureName}>{item.name}</h3>
+                  <p className={styles.featureBody}>{item.body}</p>
+                </div>
+                <div
+                  className={styles.featureMedia}
+                  style={{ aspectRatio: item.ratio || "4 / 3" }}
+                >
+                  <span className={styles.mediaPlaceholderTag}>{item.media || "image"}</span>
+                  {item.mediaLabel && (
+                    <span className={styles.mediaPlaceholderLabel}>{item.mediaLabel}</span>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </ScrollReveal>
+      );
+
+    case "embed":
+      return (
+        <ScrollReveal>
+          <div className={styles.embedSection}>
+            {(section.label || section.heading) && (
+              <div className={styles.embedHead}>
+                {section.label && <span className={styles.textHeadingLabel}>{section.label}</span>}
+                {section.heading && <h2 className={styles.textHeading}>{section.heading}</h2>}
+                {section.intro && <p className={styles.embedIntro}>{section.intro}</p>}
+              </div>
+            )}
+            <div className={styles.embedFrame} style={{ aspectRatio: section.ratio || "16 / 10" }}>
+              <iframe
+                src={section.url}
+                title={section.heading || "Live prototype"}
+                loading="lazy"
+                className={styles.embedIframe}
+                allow="fullscreen"
+              />
+            </div>
+            <p className={styles.embedNote}>
+              {section.note ? `${section.note} ` : ""}
+              <a href={section.url} target="_blank" rel="noopener noreferrer" className={styles.embedLink}>
+                Open in a new tab &rarr;
+              </a>
+            </p>
+          </div>
+        </ScrollReveal>
+      );
+
+    case "divider":
+      return <hr className={styles.sectionDivider} aria-hidden />;
+
+    case "placeholder":
+      return (
+        <ScrollReveal>
+          <div
+            className={`${styles.mediaPlaceholder} ${section.width === "wide" ? styles.mediaPlaceholderWide : ""}`}
+            style={{ aspectRatio: section.ratio || "16 / 9" }}
+          >
+            <span className={styles.mediaPlaceholderTag}>{section.media}</span>
+            <span className={styles.mediaPlaceholderLabel}>{section.label}</span>
+          </div>
+        </ScrollReveal>
+      );
+
     case "problem-gap":
       return (
         <ScrollReveal>
-          <div className={styles.problemGap}>
+          <div id={headingToId(section.label)} className={styles.problemGap}>
             <div className={styles.problemGapHeader}>
               <span className={styles.problemGapLabel}>{section.label}</span>
               <span className={styles.problemGapHeading}>{section.heading}</span>

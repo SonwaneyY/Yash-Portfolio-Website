@@ -37,7 +37,7 @@
   flex-shrink: 0;
   width: 36px;
   height: 36px;
-  border-radius: 6px;
+  border-radius: var(--radius);
   border: 1px solid var(--rule);
   background-color: var(--bg-tertiary);
   display: flex;

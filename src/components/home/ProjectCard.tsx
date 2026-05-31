@@ -1,12 +1,15 @@
 "use client";
 
+import { useRef, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { gsap, ScrollTrigger } from "@/lib/gsap";
 import styles from "./ProjectCard.module.css";
 
 interface ProjectCardProps {
   slug: string;
   title: string;
+  cardTitle?: string;
   subtitle: string;
   category: string;
   year?: string;
@@ -24,6 +27,7 @@ interface ProjectCardProps {
 export default function ProjectCard({
   slug,
   title,
+  cardTitle,
   category,
   year,
   cardBg,
@@ -33,13 +37,44 @@ export default function ProjectCard({
 }: ProjectCardProps) {
   const thumbBg = imageConfig.bg || cardBg || "var(--bg-secondary)";
   const num = String(index).padStart(2, "0");
+  const displayTitle = cardTitle || title;
+  const cardRef = useRef<HTMLAnchorElement>(null);
+
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (!cardRef.current) return;
+
+    const ctx = gsap.context(() => {
+      // Clip-path wipe from left + fade
+      gsap.fromTo(
+        cardRef.current!,
+        {
+          clipPath: "inset(0 100% 0 0)",
+          opacity: 0,
+        },
+        {
+          clipPath: "inset(0 0% 0 0)",
+          opacity: 1,
+          duration: 0.8,
+          ease: "power4.inOut",
+          scrollTrigger: {
+            trigger: cardRef.current,
+            start: "top 90%",
+            toggleActions: "play none none none",
+          },
+        }
+      );
+    });
+
+    return () => ctx.revert();
+  }, []);
 
   return (
-    <Link href={`/work/${slug}`} className={styles.entry}>
+    <Link href={`/work/${slug}`} className={styles.entry} ref={cardRef} data-project-card>
       <span className={styles.index}>{num} /</span>
 
       <div className={styles.body}>
-        <h3 className={styles.title}>{title}</h3>
+        <h3 className={styles.title}>{displayTitle}</h3>
         <span className={styles.meta}>
           {category}{year ? ` · ${year}` : ""}
         </span>
@@ -47,11 +82,10 @@ export default function ProjectCard({
 
       <span className={styles.arrow}>→</span>
 
-      {/* Thumbnail — fades in on hover */}
       <div className={styles.thumbnail} style={{ background: thumbBg }}>
         <Image
           src={coverImage}
-          alt={title}
+          alt={displayTitle}
           fill
           sizes="240px"
           style={{

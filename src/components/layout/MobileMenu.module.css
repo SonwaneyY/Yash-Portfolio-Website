@@ -36,7 +36,7 @@
 
 .navLink {
   font-family: var(--font-serif);
-  font-size: clamp(32px, 8vw, 56px);
+  font-size: var(--text-h2);
   font-weight: 400;
   color: #fff;
   transition: opacity 400ms ease;
@@ -56,7 +56,7 @@
 
 .emailButton {
   font-family: var(--font-serif);
-  font-size: clamp(32px, 8vw, 56px);
+  font-size: var(--text-h2);
   font-weight: 400;
   color: #fff;
   transition: opacity 400ms ease;
