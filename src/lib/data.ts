@@ -60,19 +60,6 @@ export interface CaseStudy {
 }
 
 
-const draftSlugs = new Set([
-  "goretex-accesswear",
-  "hp-scale-ui",
-  "hp-learning",
-  "bridgit",
-  "greenbox-tempo",
-  "project-sense",
-]);
-
-const isPreview =
-  process.env.NEXT_PUBLIC_VERCEL_ENV === "preview" ||
-  process.env.NODE_ENV === "development";
-
 const allProjects = [
   {
     slug: "beyond-efficiency",
@@ -1945,11 +1932,7 @@ const categoryOrder: Record<ProjectCategory, number> = {
   All: 3,
 };
 
-const visibleProjects = isPreview
-  ? allProjects
-  : allProjects.filter((p) => !draftSlugs.has(p.slug));
-
-export const projects = [...visibleProjects].sort(
+export const projects = [...allProjects].sort(
   (a, b) =>
     (categoryOrder[a.filterCategory] ?? 99) - (categoryOrder[b.filterCategory] ?? 99)
 );

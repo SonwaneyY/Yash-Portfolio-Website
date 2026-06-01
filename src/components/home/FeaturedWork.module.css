@@ -35,7 +35,7 @@
   z-index: 10;
   background: var(--bg-primary);
   width: 100%;
-  padding: 16px var(--container-pad);
+  padding: 16px 0;
   border-bottom: 1px solid var(--rule);
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
@@ -53,6 +53,8 @@
   max-width: var(--max-width);
   margin-left: auto;
   margin-right: auto;
+  padding-left: var(--container-pad);
+  padding-right: var(--container-pad);
 }
 
 .filterBtn {
