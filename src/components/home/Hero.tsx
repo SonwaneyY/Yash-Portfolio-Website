@@ -12,17 +12,14 @@ const GREETING = "Hi, I'm Yash Sonwaney.";
 const GREETING_BODY = GREETING.slice(0, -1);
 const CHAR_DELAY = 70; // ms per character
 
-const PHRASE_DURATION = 0.55;
-const PHRASE_STAGGER = 0.3; // gap between each phrase entrance
-const PHRASE_COUNT = 3;
-const HOLD_AFTER_WORDS_MS = 600; // hold after last phrase lands before sentence resolves
-const REVEAL_DELAY_MS =
-  (PHRASE_STAGGER * (PHRASE_COUNT - 1) + PHRASE_DURATION) * 1000 + HOLD_AFTER_WORDS_MS;
+const STATEMENT =
+  "Strategic Product Designer turning ambiguous problems into purposeful, scalable experiences.";
+const REVEAL_DELAY_MS = 500; // sentence sits in grey, then the rest loads in
 
 export default function Hero() {
   const reduceMotion = useReducedMotion();
-  const [phase, setPhase] = useState<"words" | "reveal">(
-    reduceMotion ? "reveal" : "words"
+  const [phase, setPhase] = useState<"load" | "reveal">(
+    reduceMotion ? "reveal" : "load"
   );
   const [typedCount, setTypedCount] = useState(reduceMotion ? GREETING.length : 0);
   const [cursorOn, setCursorOn] = useState(true);
@@ -30,13 +27,14 @@ export default function Hero() {
   const isReveal = phase === "reveal";
   const typingDone = typedCount >= GREETING.length;
 
+  // After a brief hold, resolve the sentence and load the rest of the page in
   useEffect(() => {
     if (reduceMotion) return;
     const timer = setTimeout(() => setPhase("reveal"), REVEAL_DELAY_MS);
     return () => clearTimeout(timer);
   }, [reduceMotion]);
 
-  // Type one char at a time once reveal phase fires (slight delay for greeting fade-in)
+  // Type the greeting one char at a time once the reveal fires
   useEffect(() => {
     if (reduceMotion || !isReveal || typingDone) return;
     const t = setTimeout(() => setTypedCount((c) => c + 1), CHAR_DELAY);
@@ -49,23 +47,11 @@ export default function Hero() {
     return () => clearInterval(t);
   }, []);
 
-  const phraseInitial = reduceMotion ? false : { opacity: 0, y: 12, scale: 0.98 };
-  const phraseAnimate = { opacity: 1, y: 0, scale: 1 };
-  const phraseTransition = (delay: number) => ({
-    duration: PHRASE_DURATION,
-    ease: easeOut,
-    delay,
-  });
-
-  const connectorInitial = reduceMotion ? false : { opacity: 0 };
-  const connectorAnimate = isReveal ? { opacity: 1 } : {};
-  const connectorTransition = { duration: 0.5, ease: easeOut };
-
   return (
     <section className={styles.hero}>
       <div className={styles.heroContent}>
         <Container>
-          {/* Greeting — hidden during phase 1, fades in with sentence resolve */}
+          {/* Greeting — hidden on load, fades in with the reveal */}
           <motion.div
             className={styles.greeting}
             aria-label={GREETING}
@@ -88,62 +74,14 @@ export default function Hero() {
             </span>
           </motion.div>
 
-          {/* Display statement — phrases enter one by one, then sentence resolves */}
+          {/* Display statement — visible immediately in grey, resolves to primary on reveal */}
           <h1 className={styles.statement}>
-            <motion.span
-              className={styles.statementPhrase}
-              data-revealed={isReveal}
-              initial={phraseInitial}
-              animate={phraseAnimate}
-              transition={phraseTransition(0)}
-            >
-              Strategic Product Designer
-            </motion.span>
-            <motion.span
-              className={styles.statementConnector}
-              initial={connectorInitial}
-              animate={connectorAnimate}
-              transition={connectorTransition}
-            >
-              {" "}turning{" "}
-            </motion.span>
-            <motion.span
-              className={styles.statementPhrase}
-              data-revealed={isReveal}
-              initial={phraseInitial}
-              animate={phraseAnimate}
-              transition={phraseTransition(PHRASE_STAGGER)}
-            >
-              ambiguous problems
-            </motion.span>
-            <motion.span
-              className={styles.statementConnector}
-              initial={connectorInitial}
-              animate={connectorAnimate}
-              transition={connectorTransition}
-            >
-              {" "}into{" "}
-            </motion.span>
-            <motion.span
-              className={styles.statementPhrase}
-              data-revealed={isReveal}
-              initial={phraseInitial}
-              animate={phraseAnimate}
-              transition={phraseTransition(PHRASE_STAGGER * 2)}
-            >
-              purposeful, scalable experiences
-            </motion.span>
-            <motion.span
-              className={styles.statementConnector}
-              initial={connectorInitial}
-              animate={connectorAnimate}
-              transition={connectorTransition}
-            >
-              .
-            </motion.span>
+            <span className={styles.statementPhrase} data-revealed={isReveal}>
+              {STATEMENT}
+            </span>
           </h1>
 
-          {/* Subline — scope: full-stack, generalist, global shipping */}
+          {/* Subline */}
           <motion.p
             className={styles.subline}
             initial={reduceMotion ? false : { opacity: 0, y: 16 }}

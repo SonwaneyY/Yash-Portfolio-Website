@@ -37,6 +37,11 @@ yarn-error.log*
 # vercel
 .vercel
 
+# local source material (notes, decks, transcripts)
+*.pdf
+sense.txt
+\#*.txt
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

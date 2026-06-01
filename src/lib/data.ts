@@ -22,6 +22,7 @@ export type CaseStudySection =
   | { type: "text"; heading: string; label?: string; body: string[] }
   | { type: "image"; src: string; alt: string; caption?: string; layout?: "default" | "mobile" }
   | { type: "two-images"; images: { src: string; alt: string; caption?: string }[]; layout?: "default" | "mobile" }
+  | { type: "gallery"; images: { src: string; alt: string; caption?: string }[]; caption?: string }
   | { type: "quote"; text: string; attribution?: string }
   | { type: "pull-quote"; text: string; attribution?: string }
   | { type: "callout"; label: string; body: string[] }
@@ -1120,38 +1121,29 @@ const allProjects = [
       sections: [
         {
           type: "text" as const,
-          label: "Context",
-          heading: "No One Was Building for the Specialists",
+          label: "Problem",
+          heading: "The Teacher Workload Problem",
           body: [
-            "Specialized education teachers — ESL instructors, speech pathologists, reading intervention specialists — manage their own schedules across multiple classrooms, write individualized plans for every student, and coordinate through hallway conversations and after-hours texts. No AI tool on the market was built for how they actually work. Bridgit changed that.",
-            "Over 16 weeks with Microsoft's External Engagement Studio at Parsons, I worked with a team of four to go from a deliberately open brief — 'How might we empower under-represented communities through AI?' — to a validated product direction grounded in seven interviews, seven literature reviews, and six participatory design sessions across three co-design rounds.",
+            "Elementary teachers spend 15 hours a week outside class on planning — 12 of them unpaid. Turnover sits above 20%, and 40% of new teachers leave within five years. AI was arriving with no clear answer for how it should help.",
+            "Our question: how might AI support elementary teachers? Over 16 weeks at Microsoft's External Engagement Studio at Parsons, a team of four — Azealia, Lana, Arpit, and me — answered it through research, co-design, and a prototype.",
           ],
         },
         {
           type: "metrics" as const,
           items: [
-            { value: "7", label: "Semi-structured interviews across 5 stakeholder groups" },
-            { value: "7", label: "Literature papers reviewed" },
-            { value: "6", label: "Co-design sessions across 3 rounds" },
-            { value: "3", label: "Major research pivots" },
-          ],
-        },
-        {
-          type: "text" as const,
-          label: "Brief",
-          heading: "Open Brief, Documented Assumptions",
-          body: [
-            "Microsoft gave us no target user, no domain, no constraints. Our team gravitated toward education — specifically, AI's role in elementary learning. Before any fieldwork, we logged six assumptions: 'AI will replace teachers,' 'Parents are nervous about AI,' 'Learning with AI is better than without.' Most turned out to be incomplete.",
-            "We scoped a mixed-methods study: literature review across seven papers, semi-structured interviews with seven participants spanning teachers, specialists, administrators, and parents, and three rounds of co-design workshops. The semi-structured format was deliberate — we didn't yet know which threads would matter most.",
+            { value: "15 hrs", label: "Avg. weekly time spent outside class on planning and prep" },
+            { value: "12 hrs", label: "Of those 15 hours that go unpaid" },
+            { value: "20%+", label: "Annual teacher turnover rate" },
+            { value: "40%+", label: "New teachers who leave within 5 years" },
           ],
         },
         {
           type: "text" as const,
           label: "Research",
-          heading: "The Same Bottleneck, Every Interview",
+          heading: "Research and Opportunity Areas",
           body: [
-            "Seven interviews. Four recurring patterns. Administrative overload: Meher, a speech pathologist, spends more time making her schedule than working with students. Broken parent communication: Olivia described texting, emailing, calling, and sending backpack notes to a parent and still getting no response. Technology adopted without support: Stephanie, 42 years in the classroom, recounted getting Apple computers with no training — 'nobody knew how to turn them on.' And foundational skills being sacrificed to screen time.",
-            "Three of seven literature papers had already flagged the same signal: implementation challenges in AI education sit overwhelmingly with teachers — not students, not parents. The interviews confirmed it from every direction.",
+            "Seven interviews with parents, teachers, administrators, and specialists — plus a literature review — built a systems-level picture of the problem.",
+            "They pointed to four areas teachers consistently lacked support: Productivity, Communication, Personalization, and Student Achievement.",
           ],
         },
         {
@@ -1161,57 +1153,102 @@ const allProjects = [
         },
         {
           type: "text" as const,
-          label: "Pivots",
-          heading: "Three Pivots",
+          label: "Research cont.",
+          heading: "The Recurring Bottleneck",
           body: [
-            "The research took three significant turns. The first came after interviews: we'd started centered on children. Every participant — regardless of role — pointed to teacher burden as the systemic bottleneck. We reframed the entire project around educators. The second pivot happened in co-design Round 2, when Meher and Stephanie revealed that specialist teachers experience every pain point at higher intensity than general classroom teachers — fragmented schedules across multiple classrooms, per-student documentation, and the lowest priority in school-wide scheduling. Competitive analysis confirmed no product addressed their workflow: Magic School, Brisk, and ClassDojo all target general classrooms.",
-            "The third pivot shaped the interaction model. Concept validation showed that specialists don't work in isolated tasks — they move through continuous rhythms of sessions, transitions, disruptions, and documentation. A tool offering discrete features would add fragmentation. Bridgit's AI became proactive rather than reactive: surfacing schedule disruptions, drafting session summaries, proposing make-up slots, and generating parent communications without being prompted.",
+            "Three patterns repeated across every stakeholder. Administrative overload: Meher, a speech pathologist, spends more time building her schedule than working with students. Broken communication: Olivia's multi-channel outreach getting no reply. Technology adopted without support: Stephaney, teaching since the 1980s, got classroom computers with no training — 'nobody knew how to turn them on.'",
+            "Literature confirmed it: AI's implementation burden lands on teachers, not students or parents.",
+          ],
+        },
+        {
+          type: "text" as const,
+          label: "Design Principles",
+          heading: "Three Co-Design Principles",
+          body: [
+            "Three principles guided prototyping. Safety First: student data privacy is non-negotiable. Adaptable: help specialists customize materials fast, not start from scratch. Assistive: AI augments teacher expertise, never replaces judgment.",
+            "These became explicit checks during co-design — and shaped the privacy model directly.",
+          ],
+        },
+        {
+          type: "text" as const,
+          label: "Competitive Scan",
+          heading: "Where Existing Tools Fall Short",
+          body: [
+            "Three products already serve general classrooms well: Microsoft Copilot for Education (lesson planning, assessment), Magic School (80+ content tools), and Brisk (a secure Chrome AI extension).",
+            "None were built for specialized educators — ESL instructors, speech pathologists, behavioral therapists — who work across classrooms, write individualized plans, and juggle disruption-prone schedules. That gap was the opportunity.",
           ],
         },
         {
           type: "two-images" as const,
           images: [
-            { src: "/casestudy/bridgit/dashboard.png", alt: "Bridgit dashboard with proactive AI assistant and daily overview", caption: "The dashboard surfaces the day's schedule, student alerts, and AI-generated tasks at a glance." },
-            { src: "/casestudy/bridgit/dashboard-absence.png", alt: "Bridgit handling an absent student with AI-suggested rescheduling", caption: "When a student is absent, Bridgit proactively suggests make-up slots — no manual scheduling required." },
-          ],
-        },
-        {
-          type: "two-images" as const,
-          images: [
-            { src: "/casestudy/bridgit/schedule.png", alt: "Bridgit weekly calendar view with color-coded sessions", caption: "Color-coded by student and session type — designed for specialists who need to scan their day in seconds." },
-            { src: "/casestudy/bridgit/schedule-ai.png", alt: "AI-suggested session slots for rescheduling", caption: "AI-generated make-up slot recommendations, validated in concept testing as a top-priority feature." },
+            { src: "/casestudy/bridgit/dashboard.png", alt: "Bridgit dashboard with personalized schedule, urgency-sorted tasks, and proactive AI assistant", caption: "The dashboard: personalized schedule, urgency-sorted tasks on the right, and the AI assistant ready to draft communications or pre-session summaries." },
+            { src: "/casestudy/bridgit/session-page.png", alt: "Session detail view showing objectives, lesson plans, teacher notes, and AI personalization suggestions", caption: "Drilling into a session surfaces objectives, lesson plans, exercises, and primary teacher notes — then the AI reads anonymized student data to suggest personalization tactics." },
           ],
         },
         {
           type: "text" as const,
           label: "Product",
-          heading: "From Research to Product",
+          heading: "Introducing Bridgit",
           body: [
-            "The traceability between research and product was explicit. Color-coded scheduling came from concept validation: 'simple UI, color-coding needed — I'm moving between classrooms all day.' Proactive absence handling came from workshop data showing specialist schedules are highly prone to disruption. Structured note import came from Meher's finding that documentation consumes more time than instruction. Specialist-to-teacher messaging was validated as the single highest-value feature across all three co-design rounds.",
-            "Nothing in Bridgit exists because it seemed like a good idea. It exists because someone told us they needed it.",
+            "Bridgit is named for its purpose: a bridge between primary teachers, specialists, parents, and students — the four groups whose coordination currently runs on text messages and hope.",
+            "The dashboard shows the specialist's day — sessions plus admin and parent meetings, tasks sorted by urgency. The AI assistant drafts emails, summarizes student profiles, and generates post-session reports.",
+          ],
+        },
+        {
+          type: "text" as const,
+          label: "Feature: Personalization",
+          heading: "Session Personalization",
+          body: [
+            "Open any session to see its objectives, lesson plans, exercises, and the primary teacher's notes. Pick a task, and the AI reads the student's anonymized profile and returns specific tactics.",
+            "For a visual learner engaged only by her own interests, it suggested using her drawings as conversation starters and a visual agenda for structure — then synced the changes back to the task page automatically.",
           ],
         },
         {
           type: "two-images" as const,
           images: [
-            { src: "/casestudy/bridgit/import-notes.png", alt: "Structured note import interface for session documentation", caption: "Structured note import — Meher's documentation burden translated directly into a core feature." },
-            { src: "/casestudy/bridgit/personalize.png", alt: "AI-generated personalization strategies per student", caption: "One-click personalization: AI surfaces activity guides and strategies tailored to each student's profile." },
+            { src: "/casestudy/bridgit/personalize.png", alt: "AI personalization suggestions based on anonymized student learning profile", caption: "The AI reads the student's anonymized profile and returns specific tactics — not generic advice." },
+            { src: "/casestudy/bridgit/import-notes.png", alt: "Note import interface accepting photo, audio, or document uploads", caption: "Notes arrive as a photo, audio recording, or document. Bridgit anonymizes and formats them for sharing automatically." },
+          ],
+        },
+        {
+          type: "text" as const,
+          label: "Feature: Communication",
+          heading: "Sharing Student Progress",
+          body: [
+            "Sharing progress between teachers and specialists is ad hoc today. Bridgit routes formatted session notes through the AI into a dedicated Messages view — one place for everything.",
+            "Privacy is explicit: data stays within the school community, never shared with third parties, never used to train models. A direct response to teachers' top concern.",
           ],
         },
         {
           type: "two-images" as const,
           images: [
-            { src: "/casestudy/bridgit/session-page.png", alt: "Session page with AI-drafted session summary", caption: "AI drafts the session summary — the specialist reviews and approves, rather than writing from scratch." },
-            { src: "/casestudy/bridgit/bulk-sending.png", alt: "AI-drafted parent communication templates for bulk sending", caption: "Parent communication templates drafted by AI — addressing Olivia's multi-channel outreach problem directly." },
+            { src: "/casestudy/bridgit/bulk-sending.png", alt: "AI-drafted communication shared into the Messages view between specialist and primary teacher", caption: "The AI drafts the note and routes it to Messages — Olivia's multi-channel problem addressed in one action." },
+            { src: "/casestudy/bridgit/schedule.png", alt: "Calendar view showing the specialist's schedule alongside other teachers and the school calendar", caption: "Calendar view shows the specialist's own day plus other teachers' schedules and the school calendar — meetings can be set without any back-and-forth." },
+          ],
+        },
+        {
+          type: "text" as const,
+          label: "Feature: Adaptability",
+          heading: "Adapting to Disruptions",
+          body: [
+            "When a student is absent, Bridgit flags the schedule impact and the missed progress, then auto-generates a makeup slot the specialist can adjust. The AI can fill the freed time with tasks, professional development, or a rest period.",
+            "A responsive mobile version keeps the same assistant on hand between classrooms.",
+          ],
+        },
+        {
+          type: "two-images" as const,
+          images: [
+            { src: "/casestudy/bridgit/dashboard-absence.png", alt: "Absence notification with schedule impact, affected student progress, and AI-generated makeup schedule", caption: "An absent student triggers a notification, a schedule impact view, and an auto-generated makeup — the specialist adjusts or accepts." },
+            { src: "/casestudy/bridgit/schedule-ai.png", alt: "AI optimizing the day's schedule by slotting tasks by urgency and available time", caption: "Ask Bridgit to optimize the day and it slots tasks by urgency and time required — no manual juggling." },
           ],
         },
         {
           type: "text" as const,
           label: "Reflection",
-          heading: "Reflection",
+          heading: "Reflection and Next Steps",
           body: [
-            "Documenting assumptions before fieldwork created accountability — we couldn't rationalize around findings that contradicted our starting point. Shifting from generative to participatory methods at the right moment maintained momentum and gave participants ownership of the solution direction.",
-            "What I'd strengthen: observational shadowing to watch specialists through their actual day, longer usability testing cycles in-context, and time-motion baselines to quantify administrative burden in hours rather than themes. The qualitative evidence was strong. The quantitative case had room to grow.",
+            "Documenting assumptions before fieldwork kept us honest — we couldn't rationalize around findings that contradicted our starting point. Shifting to participatory methods at the right moment gave specialists ownership of the direction.",
+            "Next: test personalization with different specialist types, keep co-designing with classroom teachers and administrators, and present Bridgit to school leaders to gauge interest.",
           ],
         },
       ],
@@ -1849,16 +1886,20 @@ const allProjects = [
           ],
         },
         {
-          type: "image" as const,
-          src: "/casestudy/project-sense/bridge-room.png",
-          alt: "An analyst standing in front of the six-screen SENSE Bridge control center, with study overview, world map, and process timelines spanning the wall",
-          caption: "Bridge: SENSE deployed across a six-screen control center at the client's headquarters.",
-        },
-        {
-          type: "image" as const,
-          src: "/casestudy/project-sense/bridge-presenting.png",
-          alt: "A portfolio director briefing colleagues in front of the SENSE Bridge wall of screens",
-          caption: "Built for the briefing room — orienting teams and aligning on risk in front of live data.",
+          type: "gallery" as const,
+          images: [
+            {
+              src: "/casestudy/project-sense/bridge-room.png",
+              alt: "An analyst standing in front of the six-screen SENSE Bridge control center, with study overview, world map, and process timelines spanning the wall",
+              caption: "Bridge: SENSE deployed across a six-screen control center at the client's headquarters.",
+            },
+            {
+              src: "/casestudy/project-sense/bridge-presenting.png",
+              alt: "A portfolio director briefing colleagues in front of the SENSE Bridge wall of screens",
+              caption: "Built for the briefing room — orienting teams and aligning on risk in front of live data.",
+            },
+          ],
+          caption: "The SENSE Bridge in deployment — scroll →",
         },
         {
           type: "divider" as const,

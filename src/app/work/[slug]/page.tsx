@@ -77,11 +77,11 @@ function SectionRenderer({ section, onImageClick }: { section: CaseStudySection;
     case "two-images":
       return (
         <ScrollReveal>
-          <div className={styles.twoImages}>
+          <div className={styles.imageStack}>
             {section.images.map((img, i) => (
-              <div key={i} className={styles.twoImageItem}>
+              <div key={i} className={styles.imageStackItem}>
                 <div
-                  className={styles.twoImageWrapper}
+                  className={styles.imageStackFrame}
                   onClick={() => onImageClick(img.src)}
                   style={{ cursor: "zoom-in" }}
                 >
@@ -94,6 +94,33 @@ function SectionRenderer({ section, onImageClick }: { section: CaseStudySection;
                 )}
               </div>
             ))}
+          </div>
+        </ScrollReveal>
+      );
+
+    case "gallery":
+      return (
+        <ScrollReveal>
+          <div className={styles.gallery}>
+            <div className={styles.galleryTrack}>
+              {section.images.map((img, i) => (
+                <figure key={i} className={styles.galleryItem}>
+                  <div
+                    className={styles.galleryFrame}
+                    onClick={() => onImageClick(img.src)}
+                    style={{ cursor: "zoom-in" }}
+                  >
+                    <div className={styles.imageInner}>
+                      <Image src={img.src} alt={img.alt} fill />
+                    </div>
+                  </div>
+                  {img.caption && (
+                    <figcaption className={styles.imageCaption}>{img.caption}</figcaption>
+                  )}
+                </figure>
+              ))}
+            </div>
+            {section.caption && <p className={styles.galleryNote}>{section.caption}</p>}
           </div>
         </ScrollReveal>
       );

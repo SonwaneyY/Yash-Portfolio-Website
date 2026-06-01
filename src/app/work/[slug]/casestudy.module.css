@@ -323,37 +323,95 @@
   max-width: 680px;
 }
 
-/* Two-image grid */
-.twoImages {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-3);
+/* Stacked images — full width, one per row (never two columns) */
+.imageStack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
 }
 
-@media (min-width: 768px) {
-  .twoImages { grid-template-columns: 1fr 1fr; }
+/* On desktop, let image blocks reclaim the sidebar gutter so visuals run wider than the text column */
+@media (min-width: 1024px) {
+  .imageStack,
+  .gallery,
+  .imageSection {
+    margin-left: calc(-1 * max(0px, 192px - var(--container-pad)));
+  }
 }
 
-.twoImageItem {
+.imageStackItem {
   display: flex;
   flex-direction: column;
   gap: var(--space-1);
 }
 
-.twoImageWrapper {
+.imageStackFrame {
   position: relative;
   width: 100%;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 1548 / 1000;
   overflow: hidden;
   border: 1px solid var(--rule);
   background: var(--bg-secondary);
   border-radius: var(--radius);
-  padding: 8px 0;
 }
 
-.twoImageWrapper img {
-  object-fit: contain;
+.imageStackFrame img {
+  object-fit: cover;
   object-position: center center;
+}
+
+/* Gallery — horizontal scroll-snap strip, used sparingly for dense sets */
+.gallery {
+  width: 100%;
+}
+
+.galleryTrack {
+  display: flex;
+  gap: var(--space-3);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: var(--space-2);
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+
+.galleryItem {
+  flex: 0 0 80%;
+  scroll-snap-align: start;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+/* Basis stays >50% on every breakpoint so the track always overflows and the
+   next image peeks — a gallery should read as a scroller, never as two columns. */
+@media (min-width: 768px) {
+  .galleryItem { flex-basis: 58%; }
+}
+
+.galleryFrame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1548 / 1000;
+  overflow: hidden;
+  border: 1px solid var(--rule);
+  background: var(--bg-secondary);
+  border-radius: var(--radius);
+}
+
+.galleryFrame img {
+  object-fit: cover;
+  object-position: center center;
+}
+
+.galleryNote {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--text-tertiary);
+  margin-top: var(--space-3);
+  line-height: 1.5;
 }
 
 /* Quote — field note style */
