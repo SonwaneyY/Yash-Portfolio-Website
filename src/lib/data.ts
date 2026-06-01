@@ -65,6 +65,7 @@ const draftSlugs = new Set([
   "hp-learning",
   "bridgit",
   "greenbox-tempo",
+  "project-sense",
 ]);
 
 const isPreview =
@@ -798,18 +799,18 @@ const allProjects = [
     coverImage: "/covers/hp-scale-ui.png",
     imageConfig: { fit: "contain" as const, position: "center center", bg: "#e8e8e8" },
     caseStudy: {
-      role: "Interaction Designer",
+      role: "Interaction Designer → Design Lead",
       timeline: "2020 — 2024",
       tools: ["Figma", "Axure", "FigJam", "Scale UI Toolkit", "Jira"],
-      team: "Visual Design, Product CX Architects, UX Writing, Cross-segment design teams",
+      team: "Distributed design teams — Singapore, US (Boise / Portland / San Diego), Barcelona, Bangalore",
       sections: [
         {
           type: "text" as const,
           label: "Context",
-          heading: "Shipped to 56 Million Customers. On a 2.7″ Screen.",
+          heading: "Four Years. Four Sizes. Four Continents.",
           body: [
-            "Scale UI is HP’s proprietary design system and shared codebase for printer control panels — ensuring design consistency and reducing time to market by reusing code across platforms. The first product built on Scale UI shipped globally as the HP Color LaserJet Pro 4310dw. I shipped multiple printer programs for HP’s 56 million customers worldwide.",
-            "As Interaction Designer, I owned design delivery for three key use cases: Print from Source (USB, Network), Contacts Management app, and Active Jobs app (Print/Copy/Scan/Fax). My collaborators spanned Visual Design, Product CX Architects, UX Writing teams, and cross-segment design teams. Partners included Firmware Developers, Platform Product Leadership, Program Product Managers, and Design Leadership.",
+            "Scale UI is HP’s proprietary design system and shared firmware codebase for printer control panels — a single foundation that keeps the experience consistent while letting the code ship across every market segment. I joined the team as an interaction designer in 2020, owning Print from Source (USB and Network), the Contacts app, and Active Jobs (Print, Copy, Scan, Fax). I left in 2024 as design lead, managing a team of four.",
+            "The four years in between shifted the job entirely. Early on, it was about drawing the right screen. By the end, it was about running a process across Singapore, Boise, Portland, San Diego, Barcelona, and Bangalore — keeping eight time zones pointed at the same product decisions.",
           ],
         },
         {
@@ -829,11 +830,11 @@ const allProjects = [
         },
         {
           type: "text" as const,
-          label: "Constraints",
-          heading: "The Constraints Were the Design",
+          label: "The Challenge",
+          heading: "One File. Every Printer. No Color.",
           body: [
-            "Scale UI presented four compounding challenges that don’t exist in typical software design. First, a myriad of archetypes: printers are used by multiple personas in many contexts — from a home user with 1–5 people sharing a printer, to an SMB office with 10–125 users, to enterprise environments with 125–250 users, to large-format operators managing 5–25 jobs at once. My design files had to deliver a smooth experience for all of them.",
-            "Second, wide range responsive: printer program teams can use any display size, so every design had to work responsively across XL–L (21″ to 8″), S (4.3″), and XS (2.7″) displays. Third, a unified design system: all design output had to fit existing patterns, managing one-off changes and code customization within product timelines. Fourth, segment adherence: a single design file had to incorporate requirements from Home, SoHo, SMB, and Large Format Printing — simultaneously.",
+            "A single design file had to serve every printer HP made: a home device shared by 1–5 people, an SMB office of 10–125, an enterprise floor of 125–250, a large-format print shop with 5–25 operators. Each segment had its own team — Singapore owned home and SMB, Boise and Portland owned enterprise and mid-market, Barcelona owned large-format — and my team in Bangalore coordinated across all of them. The file had to hold every segment’s requirements simultaneously while fitting a unified system, and it had to be responsive across a 21″ enterprise touchscreen down to a 2.7″ panel the size of a credit card.",
+            "The constraint that made it genuinely hard was color. Designers were not allowed to add it. Visual design — type scale, REM values, palette — lived in the codebase and belonged to the visual design team. We shipped bare-bones wireframes: literally the outline of a button, a skeleton of a screen. Developers preferred it that way, and the system required it. Which meant the structure, hierarchy, and information density had to be exactly right before anything was ever filled in. There was no color to guide the eye, no style to carry weight that the layout hadn’t already earned.",
           ],
         },
         {
@@ -854,10 +855,10 @@ const allProjects = [
         {
           type: "text" as const,
           label: "Information Architecture",
-          heading: "Mapping Every Path and Edge Case",
+          heading: "Mapping Every Path Before Writing a Line of Firmware",
           body: [
-            "For each use case, I created task flows and Data Flow Diagrams (DFDs) mapping the happy path and every edge case scenario. I documented all error cases and error handling scenarios, then validated each workflow with Subject Matter Experts from both design and development. This wasn’t documentation for documentation’s sake — it was how firmware teams actually built the product.",
-            "The Print from USB flow alone had multiple decision branches: USB detection, format support checks, folder navigation, multi-file selection, and error states for unsupported formats. Every branch had to be accounted for before a single line of firmware was written.",
+            "Every use case started with task analysis. Task flows and Data Flow Diagrams mapped the happy path first, then every branch: error states, edge cases, unsupported inputs, detection failures. I validated each with Subject Matter Experts from design and firmware before any wireframe was drawn. This wasn’t process for its own sake — it was how firmware teams built. If a branch wasn’t documented, it didn’t get built.",
+            "Print from USB alone splits constantly: USB detection, format-support checks, folder navigation, multi-file selection, unsupported-format errors, interrupted connections. Every one of those branches was resolved at the task-flow stage, so developers never had to make a design decision mid-sprint.",
           ],
         },
         {
@@ -868,11 +869,11 @@ const allProjects = [
         },
         {
           type: "text" as const,
-          label: "Delivery",
-          heading: "Design Delivery Principles",
+          label: "Responsive Design",
+          heading: "One Screen, Designed Four Times Over",
           body: [
-            "Design delivery followed five clear principles: Wide Range Responsive, Detailed, Modular, Cohesive, and Predecessor Product Compatibility. Each atomic-level element of the design system responsively trickled down from a 21″ display to a 2.7″ display — not by scaling down, but by rethinking layout, information density, and interaction patterns at each breakpoint.",
-            "On the XL–M displays (21″ to 8″), users got full grid layouts with thumbnail previews and inline actions. On S size (4.3″), the same flow compressed into a list-based interface with a persistent action bar. On XS (2.7″), every interaction had to survive a resistive touchscreen with limited real estate — no gestures, no hover states, no room for ambiguity.",
+            "Each screen was designed in four sizes: XL (21″), M (8″), S (4.3″), and XS (2.7″). Not scaled — rethought. Layout, density, and navigation were re-evaluated at every breakpoint because a grid that works on a 21″ enterprise panel is useless on something the size of a credit card. Delivery followed five principles: wide-range responsive, detailed, modular, cohesive, and compatible with predecessor products.",
+            "The XS breakpoint forced the sharpest decisions. Printers at that price point often had no budget for a touchscreen, so the smallest panels shipped with a physical hard button instead. The home screen and navigation patterns had to be redrawn entirely — there was no pinch-to-zoom, no swipe, no tap target to design around. And through all four sizes, the wireframes stayed exactly that: skeletons. Outlines of buttons. Structure without style. The visual layer would come from the firmware; my job was to make the bones load-bearing.",
           ],
         },
         {
@@ -883,11 +884,11 @@ const allProjects = [
         },
         {
           type: "text" as const,
-          label: "Collaboration",
-          heading: "Pattern Tables and Behavior Tables",
+          label: "Design-Dev Handoff",
+          heading: "Killing Ambiguity Before It Reached Firmware",
           body: [
-            "I defined Pattern Buildup Tables — documenting every interactive element used in every screen across Scale UI. Each element was mapped with its layout description, availability flags, and properties. I adapted the verbiage to match internal code repositories, so developers could trace any UI element directly to its codebase equivalent. This reduced development effort and made change management between design and engineering seamless.",
-            "Behavior Tables went a level deeper: specifying the interactive behavior of every component and list used in the UI. Constraint states, filter behaviors, sort persistence rules, modal triggers — any information that would otherwise require a meeting between a designer and a developer was captured in the table. The goal was to eliminate ambiguity before it reached the firmware build.",
+            "Pattern Tables documented every interactive element on every screen — each mapped to its layout description, availability state, and properties, with terminology matched to internal code repositories. A developer could read the table and trace any element directly to its codebase equivalent, no designer in the room required.",
+            "Behavior Tables went further: constraint states, filter logic, sort persistence, modal triggers, scroll behavior. Any interaction detail that would otherwise surface as a developer question at 2 a.m. across a time-zone gap got written down in the table before the build started. That was the point — not to produce documentation, but to stop a category of meeting from ever happening.",
           ],
         },
         {
@@ -906,16 +907,12 @@ const allProjects = [
           ],
         },
         {
-          type: "quote" as const,
-          text: "Designing for hardware means your mistakes ship in plastic. There’s no hotfix for a bad touchscreen interaction.",
-        },
-        {
           type: "text" as const,
           label: "Validation",
-          heading: "Design Validation in the Lab",
+          heading: "Load the Build. Walk the Flow. Log the Tickets.",
           body: [
-            "Once development milestones were achieved, I conducted implementation reviews on physical devices and documented issues in Jira to ensure the build matched design to pixel perfection. The Print from USB user journey: Plug in USB → Menu > Print > Print from USB → Browse and choose file → Select copies and print options → Print successful. Every step validated on the actual hardware.",
-            "The Contacts app followed a parallel validation cycle: Menu > Contacts → View list of contacts → Search/Sort/Filter → Add new contact or group → Edit contact or group. Both flows were tested on resistive touchscreens in a physical office environment — not emulators, not Figma prototypes, but the actual printer sitting on a desk.",
+            "When development hit milestones, I loaded the build onto a physical printer and ran implementation reviews on the actual device — not an emulator, not a Figma prototype. Each flow got walked end to end: Print from USB meant plug in, navigate Menu › Print › Print from USB, browse and select, set copies and options, print. Contacts ran a parallel cycle: Menu › Contacts, view and search the list, add or edit a contact or group. Issues went straight into Jira.",
+            "Hardware makes everything permanent. Once a printer is manufactured, the design is in the plastic — there’s no shipping a hotfix to a control panel. That reality shaped the whole process: get the decisions right upstream, because there’s no patching them downstream.",
           ],
         },
         {
@@ -936,10 +933,10 @@ const allProjects = [
         {
           type: "text" as const,
           label: "Impact",
-          heading: "Impact & Reception",
+          heading: "Shipped. Reviewed. Adopted.",
           body: [
-            "The HP Color LaserJet Pro MFP 4301fdw — the first product launched on Scale UI — received 4-star reviews from PC Mag, strong ratings on Amazon, and was named one of the best laser multifunction printers by Digital Trends. The design system proved that a unified codebase could serve Home, SMB, and Enterprise segments without compromising the experience for any of them.",
-            "Scale UI continues to ship across HP’s global printer portfolio. The Pattern Tables and Behavior Tables I created became the standard documentation format for cross-functional handoff between design and firmware teams — reducing back-and-forth and accelerating development cycles across subsequent printer programs.",
+            "The HP Color LaserJet Pro MFP 4301fdw — the first product to ship on Scale UI — earned a 4-star review from PC Mag, strong Amazon ratings, and a best laser multifunction printer call from Digital Trends. For a system built to serve four different market segments off one codebase, that reception was the proof point.",
+            "Pattern and Behavior Tables became the standard handoff format across every HP printer program that followed. They didn’t replace designer-developer communication — they changed what that communication was about, moving it from what does this do to how do we make this better.",
           ],
         },
         {
@@ -951,10 +948,10 @@ const allProjects = [
         {
           type: "text" as const,
           label: "Reflection",
-          heading: "Reflection",
+          heading: "The Documentation Was the Design",
           body: [
-            "The hardest lesson from Scale UI was that a design system for hardware isn’t a component library — it’s a contract. Every dropdown, every list behavior, every error state I documented became firmware that shipped in millions of physical units. There was no iterating in production. The documentation had to be the product, because by the time the printer was manufactured, the design was permanent.",
-            "If I could revisit this work, I’d invest earlier in automated design-to-firmware validation. The manual review cycles on physical devices were thorough but slow. I’d also push for a shared design token layer between the Figma toolkit and the firmware codebase — we got close with the Pattern Tables, but a true token-based bridge would have cut handoff friction further.",
+            "Hardware teaches you something software doesn’t: the spec is the product. Every state I documented became firmware in physical units that couldn’t be updated after they left the factory. That pressure made documentation feel less like a task at the end of the process and more like the process itself.",
+            "Over four years, the work shifted from pixel craft to cross-team orchestration, and I think that shift is underrated as a design skill. Getting eight time zones to agree on one interaction pattern before any firmware is written is a different problem than drawing the interaction — and in some ways harder. If I were starting again, I’d push earlier for a shared token layer between the Figma toolkit and the firmware codebase. The tables got us close; a proper token bridge would have cut the remaining friction.",
           ],
         },
       ],
@@ -1673,6 +1670,203 @@ const allProjects = [
           url: "https://greenbox-app-rho.vercel.app/",
           ratio: "16 / 10",
           note: "Best viewed on desktop.",
+        },
+      ],
+    },
+  },
+  {
+    slug: "project-sense",
+    title: "SENSE: Clinical Trial Intelligence Platform",
+    cardTitle: "Turning Trial Data Into Decisions",
+    subtitle: "A data visualization and analytics platform that predicts delays and risks across pharmaceutical clinical trials — so leaders can act before the damage is done.",
+    category: "PRODUCT DESIGN · DATA VISUALIZATION",
+    filterCategory: "Product Design" as ProjectCategory,
+    year: "2019",
+    cardBg: "#EDECE8",
+    cardTextColor: "dark" as const,
+    coverImage: "/casestudy/project-sense/card-cover.png",
+    imageConfig: { fit: "contain" as const, position: "center center", bg: "#EDECE8" },
+    caseStudy: {
+      role: "End-to-end UX Designer — Interaction Design & Visual Design",
+      timeline: "2018–2019 · 1.5 years",
+      tools: ["Figma", "FigJam", "Miro", "Principle", "Adobe Illustrator"],
+      team: "Product Owner, Development Lead & Design Manager (client team)",
+      sections: [
+        {
+          type: "text" as const,
+          label: "Overview",
+          heading: "What SENSE Is",
+          body: [
+            "SENSE is a data visualization and analytics platform built for pharmaceutical clinical trial operations. It surfaces risk predictions, process interdependencies, and delay signals across active studies — giving trial directors, portfolio leaders, and forecasting managers the visibility they need to make proactive decisions instead of reactive ones.",
+            "Clinical trials run between 5 and 8 years on average. They are highly sensitive to external disruption: regulatory delays in one country, site recruitment gaps, supply chain bottlenecks, or a single missed checkpoint can cascade into months of trial extension. Every study contains multiple interdependent processes, and when one slips, the ripple effect across related studies is rarely visible until it is already too late.",
+            "I worked as a solo designer from my studio, owning both Interaction Design and Visual Design end-to-end. Our team was a Product Owner, a Development Lead, and a Design Manager from the client side at Accenture.",
+          ],
+        },
+        {
+          type: "metrics" as const,
+          items: [
+            { value: "5–8 yrs", label: "Average clinical trial lifecycle" },
+            { value: "200+", label: "Studies in a single disease-area portfolio" },
+            { value: "1.5 yrs", label: "End-to-end design engagement" },
+            { value: "2×", label: "Engagement extended on performance" },
+          ],
+        },
+        {
+          type: "image" as const,
+          src: "/casestudy/project-sense/dashboard.png",
+          alt: "SENSE platform dashboard showing portfolio-level widgets for clinical trial monitoring",
+          caption: "The SENSE home screen: macro-level widgets across an active portfolio, each surfacing a different dimension of trial risk and progress.",
+        },
+        {
+          type: "text" as const,
+          label: "Kickoff",
+          heading: "A Participatory Design Workshop",
+          body: [
+            "The project opened with a participatory design-thinking workshop I helped facilitate at the client's headquarters. We invited stakeholder groups spanning operators, management, and leadership — three groups that rarely sat together — and spent two days mapping the problem space from each vantage point.",
+            "After synthesizing the output, four latent needs cut across every role. Users needed to predict risk and delays from data before they materialized. They needed to trace individual threads and analyze how processes depended on each other. They needed notifications across levels of operations so the right person was always in the loop. And they needed to communicate proactively with cross-functional partners to actually pivot — not just know something was wrong.",
+          ],
+        },
+        {
+          type: "callout" as const,
+          label: "Synthesized User Needs",
+          body: [
+            "Predict risk and delay from data. Analyze process interdependencies. Be notified across operational levels. Communicate and collaborate to make proactive pivoting happen.",
+          ],
+        },
+        {
+          type: "text" as const,
+          label: "Personas",
+          heading: "Three Types of Users",
+          body: [
+            "SENSE serves three distinct user groups, each with a different scope of responsibility and a different relationship to the data.",
+            "Global Trial Directors own a single clinical trial end-to-end. They track one study across its entire lifecycle — often five or more years — and are accountable for on-time execution at every stage. They need depth: process detail, checkpoint status, site-level visibility.",
+            "Global Portfolio Directors are senior leaders who own a portfolio of 10 to 50 trials. They need a reliable birds-eye view first, with the ability to zoom into individual studies or processes when they spot a signal worth investigating. Breadth and selectivity are the design centers for this group.",
+            "Trial Forecasting Managers work horizontally across trials and portfolios. They oversee resource allocation, expenditure, and financial planning — and need to understand trial progress not as operational detail, but as input to strategic decisions about where to deploy resources next.",
+          ],
+        },
+        {
+          type: "concepts-grid" as const,
+          heading: "The Archetypes",
+          items: [
+            {
+              name: "Global Trial Director",
+              tag: "Single Trial",
+              description: "Owns one clinical trial end-to-end across a 5+ year lifecycle. Needs depth — process detail, checkpoint timelines, site-level visibility — to keep a single complex study on track.",
+              selected: true,
+            },
+            {
+              name: "Global Portfolio Director",
+              tag: "Portfolio of 10–50 Trials",
+              description: "Senior leader accountable for a portfolio of active trials. Needs a reliable birds-eye view and the ability to zoom into blockers and dependencies without losing the broader picture.",
+              selected: false,
+            },
+            {
+              name: "Trial Forecasting Manager",
+              tag: "Cross-Portfolio",
+              description: "Works horizontally across trials and portfolios overseeing resource allocation, expenditure, and financial operations. Trial progress is an input to strategic decisions about where to deploy resources.",
+              selected: false,
+            },
+          ],
+        },
+        {
+          type: "text" as const,
+          label: "Information Architecture",
+          heading: "Two Hierarchies of Data",
+          body: [
+            "SENSE organizes data across two independent hierarchies. The content hierarchy runs from a single clinical study, to a project (a collection of 8–10 studies), to a portfolio (200+ studies in the same disease area). The geographical hierarchy runs from global, to regional, to country, to individual site — the hospital or location conducting the study.",
+            "At any point in the platform, the user chooses their position in both hierarchies simultaneously. The primary workflow flows from the widest view inward: start at portfolio level to get a macro read on risk across studies, deep-dive into a specific process that shows strain, then zoom geographically from global down to a single site. The entire platform was designed to make that traversal feel continuous rather than fragmented.",
+          ],
+        },
+        {
+          type: "divider" as const,
+        },
+        {
+          type: "features" as const,
+          label: "Features",
+          heading: "A Walkthrough of SENSE",
+          items: [
+            {
+              name: "Home: Portfolio Macro View",
+              tag: "Home Screen",
+              body: "The home screen gives any user a portfolio-level read on the most important data points across all active studies. Multiple widgets display distinct data dimensions simultaneously, letting Global Portfolio Directors spot signals quickly without drilling into individual studies first.",
+            },
+            {
+              name: "Study Overview Widget",
+              tag: "Primary Widget",
+              body: "The primary home widget uses concentric circles to represent clinical trial milestones. Each circle is a major milestone in the trial process. Within each circle, groups of five blocks represent individual trials. Users hover over a group to preview and select a study — which then filters the entire home dashboard to show data for that study only.",
+            },
+            {
+              name: "Study Summary View",
+              tag: "Study Level",
+              body: "After selecting a study, the user lands on the Study Summary View: the same widget layout as home, scoped to one trial. It surfaces the study's indication, the next upcoming milestone, and a risk summary pulled from internal tools. At the top, the Clinical Study Process widget shows a compact read on current processes and their risk status at a glance.",
+            },
+            {
+              name: "Process Activity Page",
+              tag: "Process Level",
+              body: "Going deeper opens the expanded Process Activity page. This shows the full study timeline from kickoff to trial end, all active processes, and every checkpoint mapped against the timeline. Checkpoints determine the status of the process. Throughout SENSE, a consistent visual language separates actuals from predictions: solid fills are based on real data; dashed patterns are predicted. A drug supply setup running dashed red tells a user the process is predicted to miss its date — before it does.",
+            },
+            {
+              name: "Process Details: Country Startup",
+              tag: "Country Level",
+              body: "Selecting a process opens the Process Details page. A table on the left shows overall process completion and a list of every country where the study is active, with their respective statuses. The timeline on the right maps each checkpoint with planned and actual dates side by side. Users can filter the view to a single country from the list, or switch to a full interactive map and zoom to select a country directly.",
+            },
+            {
+              name: "Country and Site Drill-Down",
+              tag: "Site Level",
+              body: "The country page lists all hospitals and sites conducting the study in that country, with a map alongside. Selecting a site opens a page with personal contact cards for site staff, the scheduled dates for five major milestones, a quick overview of patients recruited, and any issues recorded in other internal tools. This is the floor of the geographical hierarchy — full transparency on one location.",
+            },
+            {
+              name: "Trace, Notify, Share",
+              tag: "Collaboration",
+              body: "From the Process Activity page, users can click any checkpoint to see the logic behind its prediction and view upstream and downstream interdependencies. Understanding what a predicted delay implies for adjacent processes turns a warning into an actionable signal. A commenting feature on the Study Summary lets users annotate risks and delays and notify collaborators — closing the loop between insight and action.",
+            },
+          ],
+        },
+        {
+          type: "video" as const,
+          src: "/casestudy/project-sense/walkthrough.mp4",
+          caption: "SENSE platform walkthrough: portfolio view → study summary → process activity → country startup → site detail. The full primary flow, end to end.",
+        },
+        {
+          type: "video" as const,
+          src: "/casestudy/project-sense/motion.mp4",
+          caption: "Interaction detail: the concentric-circle Study Overview widget — hover, select, and filter in action.",
+        },
+        {
+          type: "text" as const,
+          label: "Bridge",
+          heading: "Bridge: SENSE on a Big Screen",
+          body: [
+            "As the engagement matured, SENSE was deployed as a six-screen control center at the client's headquarters. The deployment is called Bridge.",
+            "Bridge places each major data point on its own screen. Users can pin widgets from any screen and compare data points across portfolios, studies, or any level of the geographical hierarchy simultaneously. Where the web platform was built for individual analyst work, Bridge was designed for the briefing room — a shared workspace where portfolio directors could orient teams, align on risk, and make decisions in front of live data.",
+            "The same design system, visual language, and interaction patterns carry over from the individual platform to the six-screen layout without adaptation friction. Bridge is SENSE at a different scale, not a different product.",
+          ],
+        },
+        {
+          type: "divider" as const,
+        },
+        {
+          type: "metrics" as const,
+          items: [
+            { value: "2×", label: "Engagement extended on platform performance" },
+            { value: "Bloomberg", label: "Media coverage on launch" },
+            { value: "Accenture.com", label: "Featured as client-delivery success story" },
+            { value: "1 email", label: "A user wrote to the client CEO to thank them for building SENSE" },
+          ],
+        },
+        {
+          type: "pull-quote" as const,
+          text: "A user emailed the CEO of the client company to thank them personally for pushing the organization to build something like this. That is the kind of feedback that doesn't fit on a slide.",
+          attribution: "Yash Sonwaney, reflecting on the engagement",
+        },
+        {
+          type: "text" as const,
+          label: "Impact",
+          heading: "Impact",
+          body: [
+            "SENSE launched to strong reception. The engagement was extended twice based on platform performance — an outcome that reflected the depth of adoption, not just delivery. Upon launch, the platform received media coverage from Bloomberg and was featured on Accenture's website as an example of excellence in client delivery.",
+            "The feedback that landed hardest as a designer: a user emailed the CEO of the pharmaceutical client, unprompted, to thank them for pushing the organization to build an app like SENSE. That kind of signal — a user taking time to write to leadership — does not come from a tool that merely works. It comes from something that changed how people work.",
+          ],
         },
       ],
     },

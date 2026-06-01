@@ -105,7 +105,7 @@ export default function Hero() {
               animate={connectorAnimate}
               transition={connectorTransition}
             >
-              {" "}helping organizations turn{" "}
+              {" "}turning{" "}
             </motion.span>
             <motion.span
               className={styles.statementPhrase}
@@ -150,7 +150,7 @@ export default function Hero() {
             animate={isReveal ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, ease: easeOut, delay: 0.35 }}
           >
-            As a full-stack designer, I combine 7+ years of UX design experience, a strategic design practice, and an AI-native toolkit to operate end to end, from problem framing to shipped product, with a strong product sense.
+            I&apos;m a full-stack designer with 7+ years of UX experience, a strategic practice, and an AI-native toolkit. I work end to end, from framing the problem to shipping the product.
           </motion.p>
         </Container>
       </div>
