@@ -38,11 +38,11 @@
 }
 
 .quote {
-  font-family: var(--font-sans);
+  font-family: var(--font-serif);
   font-size: var(--text-lead);
   font-weight: 400;
   font-style: normal;
-  color: var(--text-secondary);
+  color: var(--text-primary);
   line-height: 1.6;
 }
 

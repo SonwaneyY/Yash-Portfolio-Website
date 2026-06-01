@@ -13,19 +13,19 @@
 
 .markerNum {
   font-family: var(--font-mono);
-  font-size: var(--text-eyebrow);
+  font-size: var(--text-body);
   font-weight: 400;
   letter-spacing: 0.16em;
-  color: var(--text-tertiary);
+  color: var(--accent);
 }
 
 .markerLabel {
   font-family: var(--font-mono);
-  font-size: var(--text-eyebrow);
+  font-size: var(--text-body);
   font-weight: 400;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--text-tertiary);
+  color: var(--accent);
 }
 
 /* ---- Filter bar ---- */
