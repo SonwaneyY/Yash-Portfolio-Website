@@ -10,11 +10,11 @@ const easeOut = [0.22, 1, 0.36, 1] as const;
 
 const GREETING = "Hi, I'm Yash Sonwaney.";
 const GREETING_BODY = GREETING.slice(0, -1);
-const CHAR_DELAY = 70; // ms per character
+const CHAR_DELAY = 45; // ms per character
 
 const STATEMENT =
   "Strategic Product Designer turning ambiguous problems into purposeful, scalable experiences.";
-const REVEAL_DELAY_MS = 500; // sentence sits in grey, then the rest loads in
+const REVEAL_DELAY_MS = 250; // sentence sits in grey, then the rest loads in
 
 export default function Hero() {
   const reduceMotion = useReducedMotion();
@@ -41,11 +41,15 @@ export default function Hero() {
     return () => clearTimeout(t);
   }, [reduceMotion, isReveal, typedCount, typingDone]);
 
-  // Cursor / period blink
+  // Cursor blink — only while typing; period sits solid once done
   useEffect(() => {
+    if (typingDone) {
+      setCursorOn(true);
+      return;
+    }
     const t = setInterval(() => setCursorOn((v) => !v), 530);
     return () => clearInterval(t);
-  }, []);
+  }, [typingDone]);
 
   return (
     <section className={styles.hero}>
@@ -86,7 +90,7 @@ export default function Hero() {
             className={styles.subline}
             initial={reduceMotion ? false : { opacity: 0, y: 16 }}
             animate={isReveal ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, ease: easeOut }}
+            transition={{ duration: 0.5, ease: easeOut }}
           >
             I&apos;m a full-stack designer with 7+ years of UX experience, a strategic practice, and an AI-native toolkit. I work end to end, from framing the problem to shipping the product.
           </motion.p>
@@ -98,7 +102,7 @@ export default function Hero() {
         className={styles.tickerContainer}
         initial={reduceMotion ? false : { opacity: 0, y: 24 }}
         animate={isReveal ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.6, ease: easeOut }}
+        transition={{ duration: 0.5, ease: easeOut }}
       >
         <Ticker />
       </motion.div>

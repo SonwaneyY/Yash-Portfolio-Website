@@ -50,8 +50,8 @@ export default function Header() {
   }
 
   const isHome = pathname === "/";
-  // Sync with Hero phase 2 cascade: reveal fires at ~1.75s on home, header joins at +0.25s
-  const headerDelay = isHome ? 2.0 : 0;
+  // Sync with Hero reveal: REVEAL_DELAY_MS (250ms) — header joins the same frame as greeting/subline/ticker
+  const headerDelay = isHome ? 0.25 : 0;
   const headerInitialY = isHome ? -24 : 0;
 
   return (
