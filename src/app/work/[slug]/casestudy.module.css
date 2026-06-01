@@ -72,6 +72,14 @@
   object-fit: cover;
 }
 
+.coverVideo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
 /* ---- Meta Strip ---- */
 .meta {
   display: grid;
@@ -846,8 +854,14 @@
 
 .conceptsGrid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: var(--space-3);
+}
+
+@media (min-width: 768px) {
+  .conceptsGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 .conceptCard {
@@ -965,11 +979,15 @@
 
 .featureRow {
   display: grid;
-  grid-template-columns: 1fr 1.1fr;
-  gap: var(--space-5);
+  grid-template-columns: 0.75fr 1.7fr;
+  gap: var(--space-6);
   align-items: center;
   padding: var(--space-6) 0;
   border-top: 1px solid var(--rule);
+}
+
+.featureRow:nth-child(even) {
+  grid-template-columns: 1.7fr 0.75fr;
 }
 
 .featureRow:nth-child(even) .featureText {
@@ -1017,6 +1035,24 @@
   );
   border: 1px dashed var(--border);
   text-align: center;
+}
+
+.featureMediaFilled {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  background: var(--bg-secondary);
+}
+
+.featureVideo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 /* Live embed — Try It Yourself */

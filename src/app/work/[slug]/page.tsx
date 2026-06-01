@@ -300,15 +300,32 @@ function SectionRenderer({ section, onImageClick }: { section: CaseStudySection;
                   <h3 className={styles.featureName}>{item.name}</h3>
                   <p className={styles.featureBody}>{item.body}</p>
                 </div>
-                <div
-                  className={styles.featureMedia}
-                  style={{ aspectRatio: item.ratio || "4 / 3" }}
-                >
-                  <span className={styles.mediaPlaceholderTag}>{item.media || "image"}</span>
-                  {item.mediaLabel && (
-                    <span className={styles.mediaPlaceholderLabel}>{item.mediaLabel}</span>
-                  )}
-                </div>
+                {item.src ? (
+                  <div
+                    className={styles.featureMediaFilled}
+                    style={{ aspectRatio: item.ratio || "4 / 3" }}
+                  >
+                    <video
+                      className={styles.featureVideo}
+                      src={item.src}
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      aria-label={item.mediaLabel || item.name}
+                    />
+                  </div>
+                ) : (
+                  <div
+                    className={styles.featureMedia}
+                    style={{ aspectRatio: item.ratio || "4 / 3" }}
+                  >
+                    <span className={styles.mediaPlaceholderTag}>{item.media || "image"}</span>
+                    {item.mediaLabel && (
+                      <span className={styles.mediaPlaceholderLabel}>{item.mediaLabel}</span>
+                    )}
+                  </div>
+                )}
               </div>
             ))}
           </div>
@@ -448,6 +465,7 @@ export default function CaseStudyPage() {
   }
 
   const cs = project.caseStudy;
+  const heroVideo = (project as { heroVideo?: { mp4: string; webm?: string; poster?: string; bg?: string } }).heroVideo;
 
   // Build sidebar nav from text sections only
   const navItems = cs.sections
@@ -478,27 +496,44 @@ export default function CaseStudyPage() {
         </Container>
       </section>
 
-      {/* Cover Image */}
+      {/* Cover Image / Reel */}
       <Container>
         <ScrollReveal delay={0.3}>
           <div
             className={styles.coverImageWrapper}
-            style={{
-              backgroundColor: project.imageConfig?.bg || "var(--bg-secondary)",
-            }}
+            style={
+              heroVideo?.bg
+                ? { background: heroVideo.bg }
+                : { backgroundColor: project.imageConfig?.bg || "var(--bg-secondary)" }
+            }
           >
             <div className={styles.imageInner}>
-              <Image
-                src={project.coverImage}
-                alt={project.title}
-                fill
-                className={styles.coverImage}
-                style={{
-                  objectFit: (project.imageConfig?.fit as "cover" | "contain") || "cover",
-                  objectPosition: project.imageConfig?.position || "center center",
-                }}
-                priority
-              />
+              {heroVideo ? (
+                <video
+                  className={styles.coverVideo}
+                  poster={heroVideo.poster}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  aria-label={`${project.title} prototype reel`}
+                >
+                  {heroVideo.webm && <source src={heroVideo.webm} type="video/webm" />}
+                  <source src={heroVideo.mp4} type="video/mp4" />
+                </video>
+              ) : (
+                <Image
+                  src={project.coverImage}
+                  alt={project.title}
+                  fill
+                  className={styles.coverImage}
+                  style={{
+                    objectFit: (project.imageConfig?.fit as "cover" | "contain") || "cover",
+                    objectPosition: project.imageConfig?.position || "center center",
+                  }}
+                  priority
+                />
+              )}
             </div>
           </div>
         </ScrollReveal>

@@ -47,7 +47,7 @@ export type CaseStudySection =
   | { type: "timeline"; label?: string; title?: string; items: { num: string; label: string; body?: string }[] }
   | { type: "divider" }
   | { type: "placeholder"; media: "image" | "video" | "gif"; label: string; ratio?: string; width?: "content" | "wide" }
-  | { type: "features"; label?: string; heading?: string; items: { name: string; tag?: string; body: string; media?: "image" | "video" | "gif"; mediaLabel?: string; ratio?: string }[] }
+  | { type: "features"; label?: string; heading?: string; items: { name: string; tag?: string; body: string; media?: "image" | "video" | "gif"; mediaLabel?: string; ratio?: string; src?: string }[] }
   | { type: "embed"; label?: string; heading?: string; intro?: string; url: string; ratio?: string; note?: string };
 
 export interface CaseStudy {
@@ -1106,6 +1106,12 @@ const allProjects = [
     cardBg: "#1E2E40",
     cardTextColor: "light" as const,
     coverImage: "/covers/bridgit.png",    imageConfig: { fit: "cover" as const, position: "center center" },
+    heroVideo: {
+      mp4: "/casestudy/bridgit/prototype-reel.mp4",
+      webm: "/casestudy/bridgit/prototype-reel.webm",
+      poster: "/casestudy/bridgit/prototype-reel-poster.jpg",
+      bg: "linear-gradient(135deg, #efe9f7 0%, #e8ecf8 45%, #f4f1fa 100%)",
+    },
     caseStudy: {
       role: "UX Researcher & Interaction Designer",
       timeline: "16 weeks — Microsoft EES × Parsons",
@@ -1676,7 +1682,7 @@ const allProjects = [
     year: "2019",
     cardBg: "#EDECE8",
     cardTextColor: "dark" as const,
-    coverImage: "/casestudy/project-sense/card-cover.png",    imageConfig: { fit: "contain" as const, position: "center center", bg: "#EDECE8" },
+    coverImage: "/casestudy/project-sense/card-cover.png",    imageConfig: { fit: "cover" as const, position: "center center" },
     caseStudy: {
       role: "End-to-end UX Designer — Interaction Design & Visual Design",
       timeline: "2018–2019 · 1.5 years",
@@ -1694,15 +1700,6 @@ const allProjects = [
           ],
         },
         {
-          type: "metrics" as const,
-          items: [
-            { value: "5–8 yrs", label: "Average clinical trial lifecycle" },
-            { value: "200+", label: "Studies in a single disease-area portfolio" },
-            { value: "1.5 yrs", label: "End-to-end design engagement" },
-            { value: "2×", label: "Engagement extended on performance" },
-          ],
-        },
-        {
           type: "image" as const,
           src: "/casestudy/project-sense/dashboard.png",
           alt: "SENSE platform dashboard showing portfolio-level widgets for clinical trial monitoring",
@@ -1715,6 +1712,21 @@ const allProjects = [
           body: [
             "The project opened with a participatory design-thinking workshop I helped facilitate at the client's headquarters. We invited stakeholder groups spanning operators, management, and leadership — three groups that rarely sat together — and spent two days mapping the problem space from each vantage point.",
             "After synthesizing the output, four latent needs cut across every role. Users needed to predict risk and delays from data before they materialized. They needed to trace individual threads and analyze how processes depended on each other. They needed notifications across levels of operations so the right person was always in the loop. And they needed to communicate proactively with cross-functional partners to actually pivot — not just know something was wrong.",
+          ],
+        },
+        {
+          type: "two-images" as const,
+          images: [
+            {
+              src: "/casestudy/project-sense/workshop-room.png",
+              alt: "Stakeholders from operations, management, and leadership collaborating during the two-day design-thinking workshop at client HQ",
+              caption: "Operators, management, and leadership in the same room — two days of mapping the problem space together.",
+            },
+            {
+              src: "/casestudy/project-sense/workshop-needs.png",
+              alt: "Workshop wall of synthesized user needs captured on sticky notes with dot-voting",
+              caption: "Synthesizing latent needs: predict, analyze, notify, and collaborate emerged across every role.",
+            },
           ],
         },
         {
@@ -1743,7 +1755,6 @@ const allProjects = [
               name: "Global Trial Director",
               tag: "Single Trial",
               description: "Owns one clinical trial end-to-end across a 5+ year lifecycle. Needs depth — process detail, checkpoint timelines, site-level visibility — to keep a single complex study on track.",
-              selected: true,
             },
             {
               name: "Global Portfolio Director",
@@ -1780,6 +1791,8 @@ const allProjects = [
               name: "Home: Portfolio Macro View",
               tag: "Home Screen",
               body: "The home screen gives any user a portfolio-level read on the most important data points across all active studies. Multiple widgets display distinct data dimensions simultaneously, letting Global Portfolio Directors spot signals quickly without drilling into individual studies first.",
+              src: "/casestudy/project-sense/home-portfolio.mp4",
+              ratio: "2004 / 1440",
             },
             {
               name: "Study Overview Widget",
@@ -1790,6 +1803,8 @@ const allProjects = [
               name: "Study Summary View",
               tag: "Study Level",
               body: "After selecting a study, the user lands on the Study Summary View: the same widget layout as home, scoped to one trial. It surfaces the study's indication, the next upcoming milestone, and a risk summary pulled from internal tools. At the top, the Clinical Study Process widget shows a compact read on current processes and their risk status at a glance.",
+              src: "/casestudy/project-sense/study-summary.mp4",
+              ratio: "2004 / 1440",
             },
             {
               name: "Process Activity Page",
@@ -1834,6 +1849,18 @@ const allProjects = [
           ],
         },
         {
+          type: "image" as const,
+          src: "/casestudy/project-sense/bridge-room.png",
+          alt: "An analyst standing in front of the six-screen SENSE Bridge control center, with study overview, world map, and process timelines spanning the wall",
+          caption: "Bridge: SENSE deployed across a six-screen control center at the client's headquarters.",
+        },
+        {
+          type: "image" as const,
+          src: "/casestudy/project-sense/bridge-presenting.png",
+          alt: "A portfolio director briefing colleagues in front of the SENSE Bridge wall of screens",
+          caption: "Built for the briefing room — orienting teams and aligning on risk in front of live data.",
+        },
+        {
           type: "divider" as const,
         },
         {
@@ -1859,14 +1886,32 @@ const allProjects = [
             "The feedback that landed hardest as a designer: a user emailed the CEO of the pharmaceutical client, unprompted, to thank them for pushing the organization to build an app like SENSE. That kind of signal — a user taking time to write to leadership — does not come from a tool that merely works. It comes from something that changed how people work.",
           ],
         },
+        {
+          type: "image" as const,
+          src: "/casestudy/project-sense/bridge-news.png",
+          alt: "SENSE Bridge control center featured in a broadcast news segment, with the SRF 10vor10 logo visible on screen",
+          caption: "SENSE in the press — the Bridge control center featured in broadcast news coverage on launch.",
+        },
       ],
     },
   },
 ];
 
-export const projects = isPreview
+const categoryOrder: Record<ProjectCategory, number> = {
+  "Product Design": 0,
+  Strategy: 1,
+  Research: 2,
+  All: 3,
+};
+
+const visibleProjects = isPreview
   ? allProjects
   : allProjects.filter((p) => !draftSlugs.has(p.slug));
+
+export const projects = [...visibleProjects].sort(
+  (a, b) =>
+    (categoryOrder[a.filterCategory] ?? 99) - (categoryOrder[b.filterCategory] ?? 99)
+);
 
 export const testimonials = [
   {
