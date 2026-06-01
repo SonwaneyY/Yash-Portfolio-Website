@@ -57,7 +57,7 @@ export default function Hero() {
             aria-label={GREETING}
             initial={reduceMotion ? false : { opacity: 0, y: 8 }}
             animate={isReveal ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5, ease: easeOut, delay: 0.05 }}
+            transition={{ duration: 0.5, ease: easeOut }}
           >
             <span aria-hidden="true">
               {typingDone ? (
@@ -86,7 +86,7 @@ export default function Hero() {
             className={styles.subline}
             initial={reduceMotion ? false : { opacity: 0, y: 16 }}
             animate={isReveal ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, ease: easeOut, delay: 0.35 }}
+            transition={{ duration: 0.6, ease: easeOut }}
           >
             I&apos;m a full-stack designer with 7+ years of UX experience, a strategic practice, and an AI-native toolkit. I work end to end, from framing the problem to shipping the product.
           </motion.p>
@@ -98,7 +98,7 @@ export default function Hero() {
         className={styles.tickerContainer}
         initial={reduceMotion ? false : { opacity: 0, y: 24 }}
         animate={isReveal ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.6, ease: easeOut, delay: 0.2 }}
+        transition={{ duration: 0.6, ease: easeOut }}
       >
         <Ticker />
       </motion.div>
