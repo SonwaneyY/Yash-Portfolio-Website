@@ -50,8 +50,6 @@ export default function Header() {
   }
 
   const isHome = pathname === "/";
-  // Sync with Hero reveal: REVEAL_DELAY_MS (250ms) — header joins the same frame as greeting/subline/ticker
-  const headerDelay = isHome ? 0.25 : 0;
   const headerInitialY = isHome ? -24 : 0;
 
   return (
@@ -60,7 +58,7 @@ export default function Header() {
         className={styles.header}
         initial={{ opacity: 0, y: headerInitialY }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: headerDelay }}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
       >
         <Container>
           <div className={styles.inner}>

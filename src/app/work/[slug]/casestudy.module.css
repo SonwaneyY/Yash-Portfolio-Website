@@ -1161,6 +1161,31 @@
   text-decoration: underline;
 }
 
+.buttonSection {
+  display: flex;
+  justify-content: center;
+  padding: var(--space-4) 0;
+}
+
+.caseButton {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 0.9rem 2rem;
+  background: var(--accent);
+  color: #fff;
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  font-weight: 500;
+  border-radius: 999px;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.caseButton:hover {
+  transform: translateY(-2px);
+  opacity: 0.92;
+}
+
 @media (max-width: 767px) {
   .featureRow {
     grid-template-columns: 1fr;

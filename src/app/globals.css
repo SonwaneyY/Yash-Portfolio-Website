@@ -20,6 +20,9 @@
   --border: oklch(27.75% 0.0078 84.59);
   --rule:   oklch(27.75% 0.0078 84.59);
 
+  /* Project card backdrop — neutral grey behind thumbnails */
+  --card-grey: oklch(45% 0.003 84.59);
+
   /* Typography */
   --font-serif: var(--font-scotch-display), Georgia, 'Times New Roman', serif;
   --font-sans:  var(--font-general-sans), -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;

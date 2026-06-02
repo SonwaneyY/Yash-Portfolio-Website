@@ -208,7 +208,10 @@ function SectionRenderer({ section, onImageClick }: { section: CaseStudySection;
     case "metrics":
       return (
         <ScrollReveal>
-          <div className={styles.metricsGrid}>
+          <div
+            className={styles.metricsGrid}
+            style={section.columns ? { gridTemplateColumns: `repeat(${section.columns}, 1fr)` } : undefined}
+          >
             {section.items.map((item, i) => (
               <div key={i} className={styles.metricCard}>
                 <span className={styles.metricValue}>{item.value}</span>
@@ -332,15 +335,26 @@ function SectionRenderer({ section, onImageClick }: { section: CaseStudySection;
                     className={styles.featureMediaFilled}
                     style={{ aspectRatio: item.ratio || "4 / 3" }}
                   >
-                    <video
-                      className={styles.featureVideo}
-                      src={item.src}
-                      autoPlay
-                      muted
-                      loop
-                      playsInline
-                      aria-label={item.mediaLabel || item.name}
-                    />
+                    {/\.(png|jpe?g|webp|gif|avif)$/i.test(item.src) ? (
+                      <Image
+                        className={styles.featureVideo}
+                        src={item.src}
+                        alt={item.mediaLabel || item.name}
+                        fill
+                        sizes="(max-width: 1023px) 100vw, 60vw"
+                        style={{ objectFit: "cover" }}
+                      />
+                    ) : (
+                      <video
+                        className={styles.featureVideo}
+                        src={item.src}
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        aria-label={item.mediaLabel || item.name}
+                      />
+                    )}
                   </div>
                 ) : (
                   <div
@@ -385,6 +399,22 @@ function SectionRenderer({ section, onImageClick }: { section: CaseStudySection;
                 Open in a new tab &rarr;
               </a>
             </p>
+          </div>
+        </ScrollReveal>
+      );
+
+    case "button":
+      return (
+        <ScrollReveal>
+          <div className={styles.buttonSection}>
+            <a
+              href={section.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.caseButton}
+            >
+              {section.label} &rarr;
+            </a>
           </div>
         </ScrollReveal>
       );

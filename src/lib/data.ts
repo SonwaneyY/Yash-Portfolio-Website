@@ -27,7 +27,7 @@ export type CaseStudySection =
   | { type: "pull-quote"; text: string; attribution?: string }
   | { type: "callout"; label: string; body: string[] }
   | { type: "steps"; title?: string; items: { num: string; label: string; body?: string; image?: string; imageAlt?: string; imageCaption?: string; video?: string; videoPoster?: string; videoCaption?: string }[] }
-  | { type: "metrics"; items: { value: string; label: string }[] }
+  | { type: "metrics"; items: { value: string; label: string }[]; columns?: number }
   | { type: "chart"; chartId: "subscriber-growth" | "conversion-milestones" | "churn-reasons"; caption?: string }
   | { type: "insight-card"; theme: string; insight: string; verbatim: string; attribution: string }
   | { type: "problem-gap"; label: string; heading: string; current: string; desired: string }
@@ -49,7 +49,8 @@ export type CaseStudySection =
   | { type: "divider" }
   | { type: "placeholder"; media: "image" | "video" | "gif"; label: string; ratio?: string; width?: "content" | "wide" }
   | { type: "features"; label?: string; heading?: string; items: { name: string; tag?: string; body: string; media?: "image" | "video" | "gif"; mediaLabel?: string; ratio?: string; src?: string }[] }
-  | { type: "embed"; label?: string; heading?: string; intro?: string; url: string; ratio?: string; note?: string };
+  | { type: "embed"; label?: string; heading?: string; intro?: string; url: string; ratio?: string; note?: string }
+  | { type: "button"; label: string; url: string };
 
 export interface CaseStudy {
   role: string;
@@ -781,7 +782,7 @@ const allProjects = [
     year: "2024",
     cardBg: "#EDECE8",
     cardTextColor: "dark" as const,
-    coverImage: "/covers/hp-scale-ui.png",    imageConfig: { fit: "contain" as const, position: "center center", bg: "#e8e8e8" },
+    coverImage: "/covers/hp-scale-ui.png",    imageConfig: { fit: "cover" as const, position: "center center", bg: "#e8e8e8" },
     caseStudy: {
       role: "Interaction Designer → Design Lead",
       timeline: "2020 — 2024",
@@ -951,7 +952,7 @@ const allProjects = [
     year: "2022",
     cardBg: "#C25B3A",
     cardTextColor: "light" as const,
-    coverImage: "/covers/hp-learning.png",    imageConfig: { fit: "contain" as const, position: "center center", bg: "#f0ede8" },
+    coverImage: "/covers/hp-learning.png",    imageConfig: { fit: "cover" as const, position: "center center", bg: "#f0ede8" },
     caseStudy: {
       role: "Interaction Designer",
       timeline: "2021 — 2022 (1 year)",
@@ -1085,8 +1086,9 @@ const allProjects = [
   },
   {
     slug: "bridgit",
-    title: "Bridgit",
+    title: "Microsoft Bridgit",
     cardTitle: "Reimagining AI for Specialized Educators",
+    cardVideo: "/casestudy/bridgit/card-reel.mp4",
     subtitle: "An AI-powered assistant built for special-education teachers.",
     category: "INCLUSIVE DESIGN RESEARCH",
     filterCategory: "Research" as ProjectCategory,
@@ -1263,22 +1265,7 @@ const allProjects = [
           label: "Context",
           heading: "Overview",
           body: [
-            "1.57 million Canadians earn their primary income through gig work and can't get insurance that fits how they actually work. That gap — between the flexibility gig work demands and the rigidity insurance requires — was the brief Intact Financial handed to the Rotman Design Challenge in March 2025.",
-            "As service designer and strategist on Team Northstar, I worked across research synthesis, persona development, and solution framing on a five-person cross-disciplinary team. We won first place. This is the work behind that outcome.",
-          ],
-        },
-        {
-          type: "image" as const,
-          src: "/casestudy/flexible-insurance-gig-workers/gig-workers-photo.png",
-          alt: "A delivery rider on a bicycle and a handyman with tools — two faces of the gig economy",
-        },
-        {
-          type: "metrics" as const,
-          items: [
-            { value: "$37Bn CAD", label: "Canadian gig insurance market, 2024" },
-            { value: "7.3M", label: "Canadians in the gig economy" },
-            { value: "1 in 2", label: "Full-time gig workers without coverage" },
-            { value: "10", label: "User interviews conducted" },
+            "7.3 million Canadians work in the gig economy, and 1.57 million earn their primary income there — yet auto insurance still bends to none of them. Intact Financial handed this gap to the Rotman Design Challenge in 2025. As service designer and strategist on the five-person Team Northstar, I led research synthesis, persona work, and solution framing.",
           ],
         },
         {
@@ -1286,187 +1273,29 @@ const allProjects = [
           label: "Problem",
           heading: "The Coverage Gap",
           body: [
-            "Canadian auto insurance operates on a binary: personal or commercial. Personal policies void the moment you accept a fare or delivery. Commercial policies start at six-month minimums and are priced for fleet operators, not individuals driving two nights a week.",
-            "Gig workers fall into the gap between these two worlds — often working without valid coverage, frequently without knowing it. Our netnography surfaced Reddit threads full of drivers asking 'am I actually covered right now?' and getting no clear answer. The system wasn't designed for them. It shows.",
+            "Canadian auto insurance is binary: personal or commercial. Personal policies void the moment you accept a fare; commercial policies start at six-month minimums priced for fleet operators, not someone driving two nights a week. Gig workers fall into the gap — often uninsured, frequently without knowing it. Our research found one in two full-time gig workers carry no valid coverage.",
           ],
-        },
-        {
-          type: "image" as const,
-          src: "/casestudy/flexible-insurance-gig-workers/insurance-binary.png",
-          alt: "Auto insurance sits between personal and commercial — gig workers fall into the gap between both",
-          caption: "The binary that breaks down for gig workers — personal voids during commercial use, commercial starts at 6-month minimums.",
-        },
-        {
-          type: "callout" as const,
-          label: "The structural mismatch",
-          body: [
-            "Traditional auto insurance was built for predictable, full-time use. Gig work is neither. Workers rotate on and off platforms daily, log variable hours, and take unplanned breaks when life demands it. The system has no model for any of this — so workers either over-pay for coverage they don't use, or go uninsured and hope for the best.",
-          ],
-        },
-        {
-          type: "text" as const,
-          label: "Research",
-          heading: "Research Approach",
-          body: [
-            "We ran 10 interviews across three profiles: North American auto insurance holders, a Canadian personal policyholder, and a Canadian who held both personal and commercial coverage simultaneously. That last profile was the most revealing — she'd spent months navigating the gap herself.",
-            "We supplemented with a literature review across Visa, Deloitte, the Geneva Association, Statistics Canada, and the ILO, plus netnography mapping online community conversations about gig coverage confusion across Reddit and Canadian finance forums.",
-            "Key findings from personal insurance holders: price drives selection, experience drives retention. Terminology causes confusion at signup. Bundling is preferred for simplicity. Accident reporting creates premium anxiety — a fear that pushes some drivers to stay silent after incidents.",
-            "Key findings from gig workers specifically: traditional insurance doesn't bend to flexible schedules. Language barriers contribute significantly to underinsurance in immigrant-heavy gig worker populations. Metric-based performance pressure — optimizing for ratings and delivery times — correlates with higher accident risk.",
-          ],
-        },
-        {
-          type: "two-images" as const,
-          images: [
-            {
-              src: "/casestudy/flexible-insurance-gig-workers/personal-findings.png",
-              alt: "Key findings from personal auto insurance holders — price drives selection, terminology confuses, bundling preferred",
-            },
-            {
-              src: "/casestudy/flexible-insurance-gig-workers/gig-findings.png",
-              alt: "Key findings from gig workers — traditional insurance too rigid, language barriers, metric pressure increases accident risk",
-            },
-          ],
-        },
-        {
-          type: "text" as const,
-          label: "Persona",
-          heading: "Meet Greg",
-          body: [
-            "Greg is an urban planner. He has a steady government job and a family to support, and he decides to supplement his income by taking on handyman gigs on evenings and weekends. He has the skills. He has the vehicle. What he doesn't have is a clear path to coverage.",
-            "When he searches for commercial insurance, the terminology walls him off immediately — 'third-party liability,' 'endorsement,' 'commercial use classification.' He makes his best guess and signs up for the shortest available plan: six months, whether he needs it or not.",
-            "A few months in, his daughter gets sick. He takes a break from gig work. Now he faces an impossible choice: cancel the policy and lose access, or keep paying for coverage on a vehicle he's not using commercially. He keeps paying. When he starts driving again — stressed, financially stretched — he gets into an accident. The money he earned goes toward repairs.",
-            "This wasn't a personal failing. The system gave Greg no good options.",
-          ],
-        },
-        {
-          type: "two-images" as const,
-          images: [
-            {
-              src: "/casestudy/flexible-insurance-gig-workers/greg-step-06.png",
-              alt: "Greg storyboard — worried about whether to cancel or keep insurance while daughter is sick",
-              caption: "The impossible choice: cancel and lose access, or keep paying for unused coverage.",
-            },
-            {
-              src: "/casestudy/flexible-insurance-gig-workers/greg-step-07.png",
-              alt: "Greg storyboard — overwhelmed while driving, gets into an accident",
-              caption: "Driving stressed and financially stretched — the system's failure becomes Greg's accident.",
-            },
-          ],
-        },
-        {
-          type: "pull-quote" as const,
-          text: "How might we reimagine the auto insurance experience for gig workers, tailored to their flexible work conditions?",
         },
         {
           type: "text" as const,
           label: "Solution",
-          heading: "The Solution: Flexible Commercial Insurance",
+          heading: "Flexible Commercial Insurance",
           body: [
-            "We designed a two-phase model with flexibility as the structural core — not a feature, but the organizing principle.",
-            "Phase 1 targets the access and cost problem: rigid minimums and no ability to pause. Phase 2 targets the comprehension and language problem: policy terminology that locks people out before they've even started. Together, they address the three research findings that kept surfacing — rigidity, language barriers, and accident risk driven by financial stress.",
+            "We designed a two-phase model with flexibility as the structural core. Phase 1 solves access and cost — buy coverage by the week, pause with no penalty when you stop working, resume in one tap. Phase 2 solves comprehension — Polaris, an AI agent trained on Intact Customer Care calls, turns any policy into a plain-language summary, translates on request, and guides claims filing. Together they target the three findings that kept surfacing: rigidity, language barriers, and accident risk driven by financial stress.",
           ],
-        },
-        {
-          type: "image" as const,
-          src: "/casestudy/flexible-insurance-gig-workers/solution-overview.png",
-          alt: "Flexible Commercial Insurance — onboarding screen showing customizable duration, pause feature, and AI capabilities",
-          caption: "The Flexible Commercial Insurance onboarding — three core value props for gig workers.",
-        },
-        {
-          type: "steps" as const,
-          title: "Phase 1 — Getting covered on your terms",
-          items: [
-            {
-              num: "01",
-              label: "Customizable coverage duration",
-              body: "Choose insurance for one week, one month, or longer — not the industry-standard six-month minimum. Coverage starts when you need it and ends when you don't.",
-              image: "/casestudy/flexible-insurance-gig-workers/app-buy.png",
-              imageAlt: "Flexible Commercial Insurance — buy flow showing customizable coverage duration with 1-week option",
-              imageCaption: "Coverage duration selector — buy for a week, not six months.",
-            },
-            {
-              num: "02",
-              label: "Pause anytime, no penalty",
-              body: "Pause commercial coverage when you're not working. No premiums charged while paused. The policy stays active so you can restart without reapplying.",
-              image: "/casestudy/flexible-insurance-gig-workers/app-pause.png",
-              imageAlt: "Flexible Commercial Insurance — pause insurance modal with duration selector",
-              imageCaption: "Pause flow — no premiums while paused, coverage resumes instantly.",
-            },
-            {
-              num: "03",
-              label: "Resume with one tap",
-              body: "When life stabilizes and you're ready to work again, there's no waiting period, no re-underwriting, no gap in your record. The system holds your place.",
-            },
-          ],
-        },
-        {
-          type: "steps" as const,
-          title: "Phase 2 — Understanding your policy, in any language",
-          items: [
-            {
-              num: "01",
-              label: "Polaris — the policy explainer",
-              body: "An AI agent trained on hours of recorded Intact Customer Care conversations. Upload any policy document; Polaris returns a plain-language summary of what's covered, what isn't, and what to watch for at renewal.",
-              video: "/casestudy/flexible-insurance-gig-workers/polaris-demo.mp4",
-              videoCaption: "Polaris in action — plain-language policy summary with real-time multilingual translation.",
-            },
-            {
-              num: "02",
-              label: "Multilingual by design",
-              body: "Language barriers were a documented driver of underinsurance in our research. Polaris translates summaries on request — same conversation, any language, no quality drop.",
-              image: "/casestudy/flexible-insurance-gig-workers/app-polaris.png",
-              imageAlt: "Polaris AI agent — plain-language policy summary with multilingual translation",
-              imageCaption: "Polaris summarizes any policy in plain language, translates on request.",
-            },
-            {
-              num: "03",
-              label: "AI-assisted claims filing",
-              body: "A guided claims flow that reduces documentation burden after an incident — especially important for workers managing stress and financial pressure while still needing to earn.",
-              image: "/casestudy/flexible-insurance-gig-workers/app-claims.png",
-              imageAlt: "Phase 2 claims — AI-assisted claims filing",
-              imageCaption: "AI-assisted claims filing reduces documentation burden after an incident.",
-            },
-          ],
-        },
-        {
-          type: "text" as const,
-          label: "Journey",
-          heading: "Greg's Journey, After",
-          body: [
-            "Greg signs up for Intact's Flexible Commercial Insurance. He uploads his policy to Polaris, gets a plain-language summary in minutes, and picks the right coverage tier without confusion. He earns for two months.",
-            "His daughter gets sick. He opens the app and pauses his coverage. No cancellation, no penalty, no financial spiral. When she recovers, he resumes. He drives with a clear head. No accident. The system bent to fit his life instead of the other way around.",
-          ],
-        },
-        {
-          type: "two-images" as const,
-          images: [
-            {
-              src: "/casestudy/flexible-insurance-gig-workers/greg-after-06.png",
-              alt: "Greg storyboard after — pausing insurance with peace of mind while daughter recovers",
-              caption: "Pause. No penalty. Resume when ready.",
-            },
-            {
-              src: "/casestudy/flexible-insurance-gig-workers/greg-happy.png",
-              alt: "Greg and his daughter happy — the system bent to fit his life",
-              caption: "The system bent to fit his life instead of the other way around.",
-            },
-          ],
-        },
-        {
-          type: "image" as const,
-          src: "/casestudy/flexible-insurance-gig-workers/1743129747494.jpeg",
-          alt: "Team Northstar receiving first place cheque at the Rotman Design Challenge x Intact 2025",
-          caption: "Team Northstar — First Place, Rotman Design Challenge x Intact 2025. $5,000 prize.",
         },
         {
           type: "text" as const,
           label: "Impact",
-          heading: "Outcome & Reflection",
+          heading: "Outcome",
           body: [
-            "Team Northstar placed first at the Rotman Design Challenge. Judges highlighted the before/after service narrative and the two-phase solution structure as strong differentiators — particularly the way Phase 2 addressed language barriers as a systemic design problem rather than an edge case.",
-            "My specific contribution spanned the research synthesis, the Greg persona and journey mapping, the before/after service arc, and the Polaris concept framing. This was a pitch and concept project — validated through research and judges, not shipped to users. That distinction matters, and it's worth naming.",
-            "What the work demonstrated: when you design for the person with the fewest options, you build something that works better for everyone.",
+            "Team Northstar placed first and won the $5,000 prize. Judges singled out the before/after service narrative and the way Phase 2 treated language barriers as a systemic design problem rather than an edge case. This was a pitch and concept project — validated through research and judges, not shipped to users. The takeaway held regardless: design for the person with the fewest options, and you build something that works better for everyone.",
           ],
+        },
+        {
+          type: "button" as const,
+          label: "View Case Study",
+          url: "https://pitch.com/v/yash_rotman-design-challenge-2025-pf5ibv",
         },
       ],
     },
@@ -1482,6 +1311,7 @@ const allProjects = [
     cardBg: "#0E3B2E",
     cardTextColor: "light" as const,
     coverImage: "/covers/greenbox-tempo.png",    imageConfig: { fit: "cover" as const, position: "center center", bg: "#0E3B2E" },
+    cardVideo: "/casestudy/greenbox-tempo/card-reel.mp4",
     caseStudy: {
       role: "Product Designer & Strategist",
       timeline: "2026 · Graduate Strategic Design studio (consulting engagement with GreenBox)",
@@ -1766,32 +1596,6 @@ const allProjects = [
           heading: "Three Types of Users",
           body: [
             "SENSE serves three distinct user groups, each with a different scope of responsibility and a different relationship to the data.",
-            "Global Trial Directors own a single clinical trial end-to-end. They track one study across its entire lifecycle — often five or more years — and are accountable for on-time execution at every stage. They need depth: process detail, checkpoint status, site-level visibility.",
-            "Global Portfolio Directors are senior leaders who own a portfolio of 10 to 50 trials. They need a reliable birds-eye view first, with the ability to zoom into individual studies or processes when they spot a signal worth investigating. Breadth and selectivity are the design centers for this group.",
-            "Trial Forecasting Managers work horizontally across trials and portfolios. They oversee resource allocation, expenditure, and financial planning — and need to understand trial progress not as operational detail, but as input to strategic decisions about where to deploy resources next.",
-          ],
-        },
-        {
-          type: "concepts-grid" as const,
-          heading: "The Archetypes",
-          items: [
-            {
-              name: "Global Trial Director",
-              tag: "Single Trial",
-              description: "Owns one clinical trial end-to-end across a 5+ year lifecycle. Needs depth — process detail, checkpoint timelines, site-level visibility — to keep a single complex study on track.",
-            },
-            {
-              name: "Global Portfolio Director",
-              tag: "Portfolio of 10–50 Trials",
-              description: "Senior leader accountable for a portfolio of active trials. Needs a reliable birds-eye view and the ability to zoom into blockers and dependencies without losing the broader picture.",
-              selected: false,
-            },
-            {
-              name: "Trial Forecasting Manager",
-              tag: "Cross-Portfolio",
-              description: "Works horizontally across trials and portfolios overseeing resource allocation, expenditure, and financial operations. Trial progress is an input to strategic decisions about where to deploy resources.",
-              selected: false,
-            },
           ],
         },
         {
@@ -1822,6 +1626,8 @@ const allProjects = [
               name: "Study Overview Widget",
               tag: "Primary Widget",
               body: "The primary home widget uses concentric circles to represent clinical trial milestones. Each circle is a major milestone in the trial process. Within each circle, groups of five blocks represent individual trials. Users hover over a group to preview and select a study — which then filters the entire home dashboard to show data for that study only.",
+              src: "/casestudy/project-sense/study-overview.png",
+              ratio: "2004 / 1440",
             },
             {
               name: "Study Summary View",
@@ -1834,21 +1640,29 @@ const allProjects = [
               name: "Process Activity Page",
               tag: "Process Level",
               body: "Going deeper opens the expanded Process Activity page. This shows the full study timeline from kickoff to trial end, all active processes, and every checkpoint mapped against the timeline. Checkpoints determine the status of the process. Throughout SENSE, a consistent visual language separates actuals from predictions: solid fills are based on real data; dashed patterns are predicted. A drug supply setup running dashed red tells a user the process is predicted to miss its date — before it does.",
+              src: "/casestudy/project-sense/process-activity.mp4",
+              ratio: "2004 / 1440",
             },
             {
               name: "Process Details: Country Startup",
               tag: "Country Level",
               body: "Selecting a process opens the Process Details page. A table on the left shows overall process completion and a list of every country where the study is active, with their respective statuses. The timeline on the right maps each checkpoint with planned and actual dates side by side. Users can filter the view to a single country from the list, or switch to a full interactive map and zoom to select a country directly.",
+              src: "/casestudy/project-sense/country-startup.mp4",
+              ratio: "2004 / 1440",
             },
             {
               name: "Country and Site Drill-Down",
               tag: "Site Level",
               body: "The country page lists all hospitals and sites conducting the study in that country, with a map alongside. Selecting a site opens a page with personal contact cards for site staff, the scheduled dates for five major milestones, a quick overview of patients recruited, and any issues recorded in other internal tools. This is the floor of the geographical hierarchy — full transparency on one location.",
+              src: "/casestudy/project-sense/country-drilldown.mp4",
+              ratio: "2004 / 1440",
             },
             {
               name: "Trace, Notify, Share",
               tag: "Collaboration",
               body: "From the Process Activity page, users can click any checkpoint to see the logic behind its prediction and view upstream and downstream interdependencies. Understanding what a predicted delay implies for adjacent processes turns a warning into an actionable signal. A commenting feature on the Study Summary lets users annotate risks and delays and notify collaborators — closing the loop between insight and action.",
+              src: "/casestudy/project-sense/dependencies.mp4",
+              ratio: "2004 / 1440",
             },
           ],
         },
@@ -1858,14 +1672,9 @@ const allProjects = [
           caption: "SENSE platform walkthrough: portfolio view → study summary → process activity → country startup → site detail. The full primary flow, end to end.",
         },
         {
-          type: "video" as const,
-          src: "/casestudy/project-sense/motion.mp4",
-          caption: "Interaction detail: the concentric-circle Study Overview widget — hover, select, and filter in action.",
-        },
-        {
           type: "text" as const,
-          label: "Bridge",
-          heading: "Bridge: SENSE on a Big Screen",
+          label: "Multi-widget comparison",
+          heading: "Bridge, SENSE Control Centre",
           body: [
             "As the engagement matured, SENSE was deployed as a six-screen control center at the client's headquarters. The deployment is called Bridge.",
             "Bridge places each major data point on its own screen. Users can pin widgets from any screen and compare data points across portfolios, studies, or any level of the geographical hierarchy simultaneously. Where the web platform was built for individual analyst work, Bridge was designed for the briefing room — a shared workspace where portfolio directors could orient teams, align on risk, and make decisions in front of live data.",
@@ -1873,7 +1682,7 @@ const allProjects = [
           ],
         },
         {
-          type: "gallery" as const,
+          type: "two-images" as const,
           images: [
             {
               src: "/casestudy/project-sense/bridge-room.png",
@@ -1886,13 +1695,19 @@ const allProjects = [
               caption: "Built for the briefing room — orienting teams and aligning on risk in front of live data.",
             },
           ],
-          caption: "The SENSE Bridge in deployment — scroll →",
+        },
+        {
+          type: "image" as const,
+          src: "/casestudy/project-sense/bridge-news.png",
+          alt: "SENSE Bridge control center featured in a broadcast news segment, with the SRF 10vor10 logo visible on screen",
+          caption: "SENSE in the press — the Bridge control center featured in broadcast news coverage on launch.",
         },
         {
           type: "divider" as const,
         },
         {
           type: "metrics" as const,
+          columns: 2,
           items: [
             { value: "2×", label: "Engagement extended on platform performance" },
             { value: "Bloomberg", label: "Media coverage on launch" },
@@ -1902,8 +1717,8 @@ const allProjects = [
         },
         {
           type: "pull-quote" as const,
-          text: "A user emailed the CEO of the client company to thank them personally for pushing the organization to build something like this. That is the kind of feedback that doesn't fit on a slide.",
-          attribution: "Yash Sonwaney, reflecting on the engagement",
+          text: "Thank you for pushing the organization to create an app like SENSE. The first time for me - in over 13 years at [Client Name] - that an app created digital happiness.",
+          attribution: "Senior Medical Advisor, Oncology. Feedback to the CEO",
         },
         {
           type: "text" as const,
@@ -1914,28 +1729,25 @@ const allProjects = [
             "The feedback that landed hardest as a designer: a user emailed the CEO of the pharmaceutical client, unprompted, to thank them for pushing the organization to build an app like SENSE. That kind of signal — a user taking time to write to leadership — does not come from a tool that merely works. It comes from something that changed how people work.",
           ],
         },
-        {
-          type: "image" as const,
-          src: "/casestudy/project-sense/bridge-news.png",
-          alt: "SENSE Bridge control center featured in a broadcast news segment, with the SRF 10vor10 logo visible on screen",
-          caption: "SENSE in the press — the Bridge control center featured in broadcast news coverage on launch.",
-        },
       ],
     },
   },
 ];
 
-const categoryOrder: Record<ProjectCategory, number> = {
-  "Product Design": 0,
-  Strategy: 1,
-  Research: 2,
-  All: 3,
-};
+// Explicit display order; slugs not listed keep their original array order after these.
+const featuredOrder = [
+  "greenbox-tempo",
+  "project-sense",
+  "bridgit",
+  "hp-scale-ui",
+  "hp-learning",
+];
 
-export const projects = [...allProjects].sort(
-  (a, b) =>
-    (categoryOrder[a.filterCategory] ?? 99) - (categoryOrder[b.filterCategory] ?? 99)
-);
+export const projects = [...allProjects].sort((a, b) => {
+  const ia = featuredOrder.indexOf(a.slug);
+  const ib = featuredOrder.indexOf(b.slug);
+  return (ia === -1 ? Infinity : ia) - (ib === -1 ? Infinity : ib);
+});
 
 export const testimonials = [
   {
