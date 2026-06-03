@@ -132,7 +132,7 @@ function SectionRenderer({ section, onImageClick }: { section: CaseStudySection;
             <p className={styles.quoteText}>{section.text}</p>
             {section.attribution && (
               <cite className={styles.quoteAttribution}>
-                &mdash; {section.attribution}
+                {section.attribution}
               </cite>
             )}
           </blockquote>
@@ -142,11 +142,15 @@ function SectionRenderer({ section, onImageClick }: { section: CaseStudySection;
     case "pull-quote":
       return (
         <ScrollReveal>
-          <blockquote className={styles.pullQuote}>
+          <blockquote id={section.navLabel ? headingToId(section.navLabel) : undefined} className={styles.pullQuote}>
+            {section.label && <span className={styles.textHeadingLabel}>{section.label}</span>}
             <p className={styles.pullQuoteText}>{section.text}</p>
+            {section.subtitle && (
+              <p className={styles.pullQuoteSubtitle}>{section.subtitle}</p>
+            )}
             {section.attribution && (
               <cite className={styles.pullQuoteAttribution}>
-                &mdash; {section.attribution}
+                {section.attribution}
               </cite>
             )}
           </blockquote>
@@ -268,7 +272,7 @@ function SectionRenderer({ section, onImageClick }: { section: CaseStudySection;
             <p className={styles.insightCardTheme}>{section.theme}</p>
             <p className={styles.insightCardInsight}>{section.insight}</p>
             <p className={styles.insightCardVerbatim}>&ldquo;{section.verbatim}&rdquo;</p>
-            <p className={styles.insightCardAttribution}>&mdash; {section.attribution}</p>
+            <p className={styles.insightCardAttribution}>{section.attribution}</p>
           </div>
         </ScrollReveal>
       );
@@ -310,13 +314,15 @@ function SectionRenderer({ section, onImageClick }: { section: CaseStudySection;
 
     case "timeline":
       return (
-        <RoadmapTimeline label={section.label} title={section.title} items={section.items} />
+        <div id={section.navLabel ? headingToId(section.navLabel) : undefined}>
+          <RoadmapTimeline label={section.label} title={section.title} items={section.items} />
+        </div>
       );
 
     case "features":
       return (
         <ScrollReveal>
-          <div className={styles.features}>
+          <div id={section.navLabel ? headingToId(section.navLabel) : undefined} className={styles.features}>
             {(section.label || section.heading) && (
               <div className={styles.featuresHead}>
                 {section.label && <span className={styles.textHeadingLabel}>{section.label}</span>}
@@ -342,7 +348,7 @@ function SectionRenderer({ section, onImageClick }: { section: CaseStudySection;
                         alt={item.mediaLabel || item.name}
                         fill
                         sizes="(max-width: 1023px) 100vw, 60vw"
-                        style={{ objectFit: "cover" }}
+                        style={{ objectFit: "contain" }}
                       />
                     ) : (
                       <video
@@ -376,7 +382,7 @@ function SectionRenderer({ section, onImageClick }: { section: CaseStudySection;
     case "embed":
       return (
         <ScrollReveal>
-          <div className={styles.embedSection}>
+          <div id={section.navLabel ? headingToId(section.navLabel) : undefined} className={styles.embedSection}>
             {(section.label || section.heading) && (
               <div className={styles.embedHead}>
                 {section.label && <span className={styles.textHeadingLabel}>{section.label}</span>}
@@ -394,7 +400,7 @@ function SectionRenderer({ section, onImageClick }: { section: CaseStudySection;
               />
             </div>
             <p className={styles.embedNote}>
-              {section.note ? `${section.note} ` : ""}
+              {section.note ? <span className={styles.embedNoteWarning}>{section.note} </span> : ""}
               <a href={section.url} target="_blank" rel="noopener noreferrer" className={styles.embedLink}>
                 Open in a new tab &rarr;
               </a>
@@ -460,7 +466,8 @@ function SectionRenderer({ section, onImageClick }: { section: CaseStudySection;
     case "concepts-grid":
       return (
         <ScrollReveal>
-          <div className={styles.conceptsSection}>
+          <div id={section.navLabel ? headingToId(section.navLabel) : undefined} className={styles.conceptsSection}>
+            {section.label && <span className={styles.textHeadingLabel}>{section.label}</span>}
             <p className={styles.conceptsSectionHeading}>{section.heading}</p>
             <div className={styles.conceptsGrid}>
               {section.items.map((item, i) => (
@@ -524,10 +531,15 @@ export default function CaseStudyPage() {
   const cs = project.caseStudy;
   const heroVideo = (project as { heroVideo?: { mp4: string; webm?: string; poster?: string; bg?: string } }).heroVideo;
 
-  // Build sidebar nav from text sections only
+  // Build sidebar nav: text sections + any section that opts in via navLabel
   const navItems = cs.sections
-    .filter((s): s is Extract<typeof s, { type: "text" }> => s.type === "text")
-    .map((s) => ({ label: s.label || s.heading, id: headingToId(s.heading) }));
+    .map((s) => {
+      if (s.type === "text") return { label: s.label || s.heading, id: headingToId(s.heading) };
+      const navLabel = (s as { navLabel?: string }).navLabel;
+      if (navLabel) return { label: navLabel, id: headingToId(navLabel) };
+      return null;
+    })
+    .filter((x): x is { label: string; id: string } => x !== null);
 
   // Prev / Next
   const prevProject = projectIndex > 0 ? projects[projectIndex - 1] : null;

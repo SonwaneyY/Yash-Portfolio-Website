@@ -37,7 +37,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Yash Sonwaney — Product Designer",
+  title: "Yash Sonwaney: Product Designer",
   description:
     "Senior product designer shaping enterprise tools, service ecosystems, and AI-native workflows.",
 };

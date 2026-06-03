@@ -24,14 +24,14 @@ export type CaseStudySection =
   | { type: "two-images"; images: { src: string; alt: string; caption?: string }[]; layout?: "default" | "mobile" }
   | { type: "gallery"; images: { src: string; alt: string; caption?: string }[]; caption?: string }
   | { type: "quote"; text: string; attribution?: string }
-  | { type: "pull-quote"; text: string; attribution?: string }
+  | { type: "pull-quote"; text: string; attribution?: string; label?: string; subtitle?: string; navLabel?: string }
   | { type: "callout"; label: string; body: string[] }
   | { type: "steps"; title?: string; items: { num: string; label: string; body?: string; image?: string; imageAlt?: string; imageCaption?: string; video?: string; videoPoster?: string; videoCaption?: string }[] }
   | { type: "metrics"; items: { value: string; label: string }[]; columns?: number }
   | { type: "chart"; chartId: "subscriber-growth" | "conversion-milestones" | "churn-reasons"; caption?: string }
   | { type: "insight-card"; theme: string; insight: string; verbatim: string; attribution: string }
-  | { type: "problem-gap"; label: string; heading: string; current: string; desired: string }
-  | { type: "concepts-grid"; heading: string; items: { name: string; tag: string; description: string; selected?: boolean }[] }
+  | { type: "problem-gap"; label: string; heading: string; current: string; desired: string; navLabel?: string }
+  | { type: "concepts-grid"; label?: string; heading: string; items: { name: string; tag: string; description: string; selected?: boolean }[]; navLabel?: string }
   | { type: "video"; src: string; caption?: string; poster?: string }
   | { type: "loop"; label?: string; heading?: string; stages: { name: string; targetId?: string; active?: boolean }[]; caption?: string }
   | { type: "triage"; label?: string; heading: string; intro?: string; noise: string[]; cards: { client: string; signal: string; delta?: string; urgency?: "high" | "med" | "low" }[]; note?: string }
@@ -45,11 +45,11 @@ export type CaseStudySection =
       cohortSize?: number;
       note?: string;
     }
-  | { type: "timeline"; label?: string; title?: string; items: { num: string; label: string; body?: string }[] }
+  | { type: "timeline"; label?: string; title?: string; items: { num: string; label: string; body?: string }[]; navLabel?: string }
   | { type: "divider" }
   | { type: "placeholder"; media: "image" | "video" | "gif"; label: string; ratio?: string; width?: "content" | "wide" }
-  | { type: "features"; label?: string; heading?: string; items: { name: string; tag?: string; body: string; media?: "image" | "video" | "gif"; mediaLabel?: string; ratio?: string; src?: string }[] }
-  | { type: "embed"; label?: string; heading?: string; intro?: string; url: string; ratio?: string; note?: string }
+  | { type: "features"; label?: string; heading?: string; items: { name: string; tag?: string; body: string; media?: "image" | "video" | "gif"; mediaLabel?: string; ratio?: string; src?: string }[]; navLabel?: string }
+  | { type: "embed"; label?: string; heading?: string; intro?: string; url: string; ratio?: string; note?: string; navLabel?: string }
   | { type: "button"; label: string; url: string };
 
 export interface CaseStudy {
@@ -84,15 +84,15 @@ const allProjects = [
           label: "Context",
           heading: "Overview",
           body: [
-            "Between 2022 and 2025, more than 600,000 workers were laid off across major technology companies. At the same time, over 95–98% of Fortune 500 companies adopted applicant tracking systems that automatically filter out 70–75% of applications before any human reviews them. The result: a hiring ecosystem that moves faster than ever — and works worse than ever.",
-            "Employers face floods of hundreds or thousands of applications per role, most low-signal or AI-generated. Qualified candidates submit into black boxes, wait in silence, and get ghosted at rates that would have been unacceptable a decade ago. Both sides are more frustrated than the tools promised. This research set out to understand why — and where design can intervene.",
+            "Between 2022 and 2025, more than 600,000 workers were laid off across major technology companies. At the same time, over 95–98% of Fortune 500 companies adopted applicant tracking systems that automatically filter out 70–75% of applications before any human reviews them. The result: a hiring ecosystem that moves faster than ever, and works worse than ever.",
+            "Employers face floods of hundreds or thousands of applications per role, most low-signal or AI-generated. Qualified candidates submit into black boxes, wait in silence, and get ghosted at rates that would have been unacceptable a decade ago. Both sides are more frustrated than the tools promised. This research set out to understand why, and where design can intervene.",
           ],
         },
         {
           type: "image" as const,
           src: "/case-studies/beyond-efficiency/hypothesis.png",
           alt: "Research hypothesis: the paradox of efficiency in AI-driven hiring",
-          caption: "The central contradiction — automation creates volume without relevance for employers, while qualified candidates are filtered out before a human sees them.",
+          caption: "The central contradiction: automation creates volume without relevance for employers, while qualified candidates are filtered out before a human sees them.",
         },
         {
           type: "metrics" as const,
@@ -117,7 +117,7 @@ const allProjects = [
           heading: "Research Questions",
           body: [
             "Six questions shaped the inquiry: How has the hiring ecosystem in US tech evolved since commercial AI tools emerged alongside mass layoffs and policy changes? How do AI-driven hiring technologies shape recruiter workflows and perceived efficiency? What coping strategies do candidates adopt in response to opacity, ghosting, and inequities? How has technology integration impacted hiring manager and recruiter workflows day-to-day? Where do breakdowns and inequities occur most across the hiring funnel? And how can design interventions improve the process for both sides?",
-            "These questions were held together deliberately. The hiring ecosystem is relational — what breaks down for candidates is inseparable from what breaks down for recruiters. You can't understand one without the other.",
+            "These questions were held together deliberately. The hiring ecosystem is relational: what breaks down for candidates is inseparable from what breaks down for recruiters. You can't understand one without the other.",
           ],
         },
         {
@@ -131,9 +131,9 @@ const allProjects = [
           label: "Methodology",
           heading: "Mixed-Methods Approach",
           body: [
-            "Primary research: 10 employer-side interviews across three tiers — 4 recruiters and HR specialists, 1 hiring manager, and 5 leadership participants including Chief People Officers and Directors of Talent Acquisition. A 52-response candidate survey targeting early-to-mid career designers and software engineers actively job seeking within 12 months. A 40-minute focus group discussion with 11 design and strategy professionals.",
+            "Primary research: 10 employer-side interviews across three tiers: 4 recruiters and HR specialists, 1 hiring manager, and 5 leadership participants including Chief People Officers and Directors of Talent Acquisition. A 52-response candidate survey targeting early-to-mid career designers and software engineers actively job seeking within 12 months. A 40-minute focus group discussion with 11 design and strategy professionals.",
             "Secondary research: a literature review drawing on Harvard Business Review, SHRM, Goldman Sachs, and the St. Louis Federal Reserve; a social media scan across LinkedIn, Reddit (r/UXDesign), and Blind; and a detailed ATS market analysis spanning Greenhouse, Workday, Lever, SAP SuccessFactors, Ashby, and eight other platforms.",
-            "To map the system as a whole, we applied the D-A-R-N framework — Devices, Actors, Representations, Networks — a sociotechnical method that reveals how ATS platforms, AI scoring algorithms, LinkedIn Recruiter, resumes, job descriptions, and referral networks interact as infrastructure. This surfaced where power actually concentrates: not at the employer or candidate layer, but in the Representatives and Network layers controlled by ATS vendors and platforms.",
+            "To map the system as a whole, we applied the D-A-R-N framework (Devices, Actors, Representations, Networks), a sociotechnical method that reveals how ATS platforms, AI scoring algorithms, LinkedIn Recruiter, resumes, job descriptions, and referral networks interact as infrastructure. This surfaced where power actually concentrates: not at the employer or candidate layer, but in the Representatives and Network layers controlled by ATS vendors and platforms.",
           ],
         },
         {
@@ -147,56 +147,56 @@ const allProjects = [
           label: "System Mapping",
           heading: "Applicant Tracking System Pipeline",
           body: [
-            "Most candidates move through a 7-stage pipeline: job posting, resume submission, AI-powered skill extraction, ML ranking by fit score, recruiter review and shortlisting, interview coordination, and final decision. Stages 3 and 4 — skill extraction and ranking — have the densest AI involvement and the least human oversight.",
-            "What looks like a clean automated funnel conceals a different reality. Recruiters consistently described their work as still largely manual, concentrated precisely at the stages AI is supposed to streamline. One recruiter spent an entire week on a single role that received over a thousand applications. The AI filtered — but the shortlist still required substantial human judgment, and the 800 candidates never reviewed were simply abandoned.",
+            "Most candidates move through a 7-stage pipeline: job posting, resume submission, AI-powered skill extraction, ML ranking by fit score, recruiter review and shortlisting, interview coordination, and final decision. Stages 3 and 4 (skill extraction and ranking) have the densest AI involvement and the least human oversight.",
+            "What looks like a clean automated funnel conceals a different reality. Recruiters consistently described their work as still largely manual, concentrated precisely at the stages AI is supposed to streamline. One recruiter spent an entire week on a single role that received over a thousand applications. The AI filtered, but the shortlist still required substantial human judgment, and the 800 candidates never reviewed were simply abandoned.",
           ],
         },
         {
           type: "image" as const,
           src: "/case-studies/beyond-efficiency/ats-workflow.png",
           alt: "7-stage ATS workflow showing where AI is densely integrated vs. only assisting",
-          caption: "The 7-stage ATS pipeline — stages 3 and 4 have the densest AI involvement, yet recruiters report those stages still require the heaviest manual effort.",
+          caption: "The 7-stage ATS pipeline: stages 3 and 4 have the densest AI involvement, yet recruiters report those stages still require the heaviest manual effort.",
         },
         {
           type: "image" as const,
           src: "/case-studies/beyond-efficiency/darn-map.png",
           alt: "D-A-R-N system map of the hiring ecosystem",
-          caption: "The D-A-R-N map — where power concentrates in the Representatives and Network layers while both sides experience the system as opaque.",
+          caption: "The D-A-R-N map: where power concentrates in the Representatives and Network layers while both sides experience the system as opaque.",
         },
         {
           type: "text" as const,
           label: "Findings",
           heading: "What the Research Revealed",
           body: [
-            "Across interviews, surveys, and focus groups, four dominant themes emerged — each revealing a different dimension of how AI-driven hiring is reshaping the relationship between employers and candidates.",
+            "Across interviews, surveys, and focus groups, four dominant themes emerged, each revealing a different dimension of how AI-driven hiring is reshaping the relationship between employers and candidates.",
           ],
         },
         {
           type: "insight-card" as const,
-          theme: "Theme 1 — Ethics, Bias & Tolerance for Error",
-          insight: "When hiring at scale, exclusion caused by automated screening is frequently framed as an unavoidable operational trade-off — not a problem that can be designed around.",
-          verbatim: "If the problem is large, some amount of error is allowed — it's part of the process. If I'm hiring a Chief AI Officer, I hardly use any tool. But for bulk hiring, I have to. Organizations must figure out what they're trying to do and how much tolerance to mistakes they can afford.",
+          theme: "Theme 1: Ethics, Bias & Tolerance for Error",
+          insight: "When hiring at scale, exclusion caused by automated screening is frequently framed as an unavoidable operational trade-off, not a problem that can be designed around.",
+          verbatim: "If the problem is large, some amount of error is allowed, it's part of the process. If I'm hiring a Chief AI Officer, I hardly use any tool. But for bulk hiring, I have to. Organizations must figure out what they're trying to do and how much tolerance to mistakes they can afford.",
           attribution: "Chief Talent Officer (P006), Global Tech Company",
         },
         {
           type: "insight-card" as const,
-          theme: "Theme 2 — De-sensitization & De-humanization of Candidates",
-          insight: "Metric pressures — time-to-hire, pipeline throughput — reduce each application to seconds of attention, making meaningful evaluation of portfolios and nuanced work nearly impossible.",
+          theme: "Theme 2: De-sensitization & De-humanization of Candidates",
+          insight: "Metric pressures (time-to-hire, pipeline throughput) reduce each application to seconds of attention, making meaningful evaluation of portfolios and nuanced work nearly impossible.",
           verbatim: "If you get into that space, it's actually a very negative experience because you're not allowing that person a fair chance to be seen. If you're in Greenhouse all day trying to keep up with how many people are applying, you're basically only giving them eight seconds each. How much are you truly going to see?",
           attribution: "Head of Talent, Design Agency (P001)",
         },
         {
           type: "insight-card" as const,
-          theme: "Theme 3 — Knowing When & How to Automate",
-          insight: "Experienced practitioners don't reject automation — they apply it selectively. The real skill is distinguishing tasks suitable for automation from decisions requiring contextual human judgment.",
-          verbatim: "With us hinting AI into our work, I think it's very normal — how do we use our judgment onto what work is operational versus something that needs human intervention? Using that judgment to see: this should be automated versus this needs us to step in.",
+          theme: "Theme 3: Knowing When & How to Automate",
+          insight: "Experienced practitioners don't reject automation, they apply it selectively. The real skill is distinguishing tasks suitable for automation from decisions requiring contextual human judgment.",
+          verbatim: "With us hinting AI into our work, I think it's very normal, how do we use our judgment onto what work is operational versus something that needs human intervention? Using that judgment to see: this should be automated versus this needs us to step in.",
           attribution: "HR Professional (P004), Manufacturing Company",
         },
         {
           type: "insight-card" as const,
-          theme: "Theme 4 — From Relationship-Based to System-Driven Recruitment",
-          insight: "Technology has expanded recruiting reach while replacing relationship-building with filters and dashboards. The highest-quality hires still come from networks and direct outreach — a reality that structurally advantages insiders.",
-          verbatim: "Earlier this week a client reached out. I texted somebody that I knew. They said yes. I sent them over and they interviewed right then. I didn't open a job, I didn't post anything. I've technically spent 20 years to be able to do that — but I might have spent all of 15 minutes, and I'll send an invoice for $40,000.",
+          theme: "Theme 4: From Relationship-Based to System-Driven Recruitment",
+          insight: "Technology has expanded recruiting reach while replacing relationship-building with filters and dashboards. The highest-quality hires still come from networks and direct outreach, a reality that structurally advantages insiders.",
+          verbatim: "Earlier this week a client reached out. I texted somebody that I knew. They said yes. I sent them over and they interviewed right then. I didn't open a job, I didn't post anything. I've technically spent 20 years to be able to do that, but I might have spent all of 15 minutes, and I'll send an invoice for $40,000.",
           attribution: "Recruiting Leader (P007), Design Agency",
         },
         {
@@ -204,8 +204,8 @@ const allProjects = [
           label: "Candidate Side",
           heading: "What Candidates Are Experiencing",
           body: [
-            "Survey data and focus group discussions paint a consistent picture: the hiring process has become psychologically punishing in ways that have nothing to do with merit. 60% of respondents reported severe mental health impacts — stress, burnout, discouragement. The dominant driver isn't rejection; it's opacity. Candidates describe applying to dozens of roles with no indication that a human ever reviewed their work.",
-            "In response, gaming the system has become normalized. Candidates openly mirror job description keywords, reformat resumes per ATS, and use generative AI to optimize phrasing — not to misrepresent experience, but to survive automated filters that would otherwise screen them out. The system rewards pattern-matching over capability. Candidates know it.",
+            "Survey data and focus group discussions paint a consistent picture: the hiring process has become psychologically punishing in ways that have nothing to do with merit. 60% of respondents reported severe mental health impacts: stress, burnout, discouragement. The dominant driver isn't rejection; it's opacity. Candidates describe applying to dozens of roles with no indication that a human ever reviewed their work.",
+            "In response, gaming the system has become normalized. Candidates openly mirror job description keywords, reformat resumes per ATS, and use generative AI to optimize phrasing, not to misrepresent experience, but to survive automated filters that would otherwise screen them out. The system rewards pattern-matching over capability. Candidates know it.",
             "61% of respondents who reached the interview stage were ghosted there — after already investing significant time and emotional energy. Post-interview silence is the highest-trust-cost moment in the entire funnel.",
           ],
         },
@@ -213,7 +213,7 @@ const allProjects = [
           type: "image" as const,
           src: "/case-studies/beyond-efficiency/candidate-journey.png",
           alt: "Candidate journey map showing emotional states from awareness through offer",
-          caption: "The candidate journey — overwhelmed at awareness, strained during preparation, guarded hope through screening. Ghosting post-interview is the highest emotional cost.",
+          caption: "The candidate journey: overwhelmed at awareness, strained during preparation, guarded hope through screening. Ghosting post-interview is the highest emotional cost.",
         },
         {
           type: "pull-quote" as const,
@@ -225,9 +225,9 @@ const allProjects = [
           label: "Employer Side",
           heading: "What Employers Are Experiencing",
           body: [
-            "Recruiters described being overwhelmed, not empowered. One agency lead received 1,000 applicants within days of posting a role, manually reviewed 160, surfaced 20 strong candidates, shared 10 with the client — and left 800 people who were never seen at all. Another recruiter estimated that 70% of inbound applications were fake.",
-            "A new category of problem has emerged: fraud. Multiple participants reported interviewing deepfake candidates — AI-generated identities, not just keyword-stuffed resumes. The most valued AI use case among recruiters wasn't ranking or scoring. It was fraud detection — the only top-of-funnel AI capability they consistently trusted.",
-            "Hiring managers named a subtler failure: a false sense of effectiveness. Just because you can process candidates quickly doesn't mean it's being done the right way. The system is built around speed, not human-centeredness. And the best candidates still come from direct LinkedIn outreach or existing relationships — a fully manual process no AI tool has replaced.",
+            "Recruiters described being overwhelmed, not empowered. One agency lead received 1,000 applicants within days of posting a role, manually reviewed 160, surfaced 20 strong candidates, shared 10 with the client, and left 800 people who were never seen at all. Another recruiter estimated that 70% of inbound applications were fake.",
+            "A new category of problem has emerged: fraud. Multiple participants reported interviewing deepfake candidates (AI-generated identities, not just keyword-stuffed resumes). The most valued AI use case among recruiters wasn't ranking or scoring. It was fraud detection, the only top-of-funnel AI capability they consistently trusted.",
+            "Hiring managers named a subtler failure: a false sense of effectiveness. Just because you can process candidates quickly doesn't mean it's being done the right way. The system is built around speed, not human-centeredness. And the best candidates still come from direct LinkedIn outreach or existing relationships, a fully manual process no AI tool has replaced.",
           ],
         },
         {
@@ -246,28 +246,28 @@ const allProjects = [
           label: "Synthesis",
           heading: "Synthesis: Three Problem Areas",
           body: [
-            "Following data collection, we used the Theme–Insight–Verbatim framework to cluster findings across all methods into three problem gap areas. Each gap is defined by a current state — what is actually happening — and a desired state — what should be happening instead. Together they form the design surface.",
+            "Following data collection, we used the Theme–Insight–Verbatim framework to cluster findings across all methods into three problem gap areas. Each gap is defined by a current state (what is actually happening) and a desired state (what should be happening instead). Together they form the design surface.",
           ],
         },
         {
           type: "problem-gap" as const,
           label: "Problem 01",
           heading: "Ghosting",
-          current: "Candidates are removed from consideration at multiple stages — including post-interview — without notice, feedback, or closure. This erodes trust in the company brand and produces measurable psychological harm at every stage.",
-          desired: "Every candidate receives stage-by-stage updates regardless of outcome. Rejection includes constructive feedback. Closure is standard, not exceptional — maintaining psychological safety and separating outcome from self-worth.",
+          current: "Candidates are removed from consideration at multiple stages (including post-interview) without notice, feedback, or closure. This erodes trust in the company brand and produces measurable psychological harm at every stage.",
+          desired: "Every candidate receives stage-by-stage updates regardless of outcome. Rejection includes constructive feedback. Closure is standard, not exceptional, maintaining psychological safety and separating outcome from self-worth.",
         },
         {
           type: "problem-gap" as const,
           label: "Problem 02",
           heading: "Spray & Pray",
-          current: "As a rational response to opacity, candidates apply to any available posting regardless of fit — prioritizing volume over quality. This floods recruiters with low-signal applications and reduces callback rates for everyone, including genuinely qualified candidates.",
-          desired: "Candidates apply mindfully and with intent — to roles that align with their trajectory, with tailored materials highlighting transferable skills and fit. Fewer applications; higher signal. Both sides benefit.",
+          current: "As a rational response to opacity, candidates apply to any available posting regardless of fit, prioritizing volume over quality. This floods recruiters with low-signal applications and reduces callback rates for everyone, including genuinely qualified candidates.",
+          desired: "Candidates apply mindfully and with intent, to roles that align with their trajectory, with tailored materials highlighting transferable skills and fit. Fewer applications; higher signal. Both sides benefit.",
         },
         {
           type: "problem-gap" as const,
           label: "Problem 03",
           heading: "Outbound Sourcing at Scale",
-          current: "Outbound platforms like LinkedIn Recruiter and Indeed increase talent pool access but deliver high volume at low signal quality — often with clear mismatch or fraudulent profiles. This lengthens time-to-hire and creates dehumanizing conditions on both sides.",
+          current: "Outbound platforms like LinkedIn Recruiter and Indeed increase talent pool access but deliver high volume at low signal quality, often with clear mismatch or fraudulent profiles. This lengthens time-to-hire and creates dehumanizing conditions on both sides.",
           desired: "Recruiters prioritize relationship-based and network-first sourcing before mass outbound channels. Internal employee networks and warm introductions are the first filter. Outbound is a fallback, not the default.",
         },
         {
@@ -275,7 +275,7 @@ const allProjects = [
           label: "Needs",
           heading: "Synthesized Needs: Both Sides",
           body: [
-            "From surveys and focus groups, four core candidate needs: trust through fair and consistent evaluation criteria; closure — rejection is acceptable, disappearing is not; protection from process burnout; and restored agency in a system that currently feels rigged.",
+            "From surveys and focus groups, four core candidate needs: trust through fair and consistent evaluation criteria; closure (rejection is acceptable, disappearing is not); protection from process burnout; and restored agency in a system that currently feels rigged.",
             "From recruiter and hiring manager interviews, four parallel employer needs: identifying authentic candidates among AI-generated applications; managing volume without sacrificing evaluation quality; closing communication gaps that ghost candidates unintentionally; and using AI as a cognitive offloader for mechanical tasks so humans can focus judgment on evaluation and relationships.",
           ],
         },
@@ -285,12 +285,12 @@ const allProjects = [
             {
               src: "/case-studies/beyond-efficiency/candidate-needs.png",
               alt: "Four synthesized candidate needs: Trust, Closure, Protection from Burnout, Restored Agency",
-              caption: "Four candidate needs — trust, closure, burnout protection, and restored agency.",
+              caption: "Four candidate needs: trust, closure, burnout protection, and restored agency.",
             },
             {
               src: "/case-studies/beyond-efficiency/employer-needs.png",
               alt: "Four synthesized employer needs: Authentic Candidates, Volume Management, Communication, Cognitive Offloading",
-              caption: "Four employer needs — authenticity, volume management, communication, and cognitive offloading.",
+              caption: "Four employer needs: authenticity, volume management, communication, and cognitive offloading.",
             },
           ],
         },
@@ -299,7 +299,7 @@ const allProjects = [
           label: "Ideation",
           heading: "From Insights to Ideation",
           body: [
-            "Synthesis crystallized two design principles: automate the administrative, not the evaluative — let technology handle mechanical tasks so humans can bring judgment to decisions that matter; and close the feedback loop — every interaction in the hiring funnel should produce a legible signal for the person on the receiving end.",
+            "Synthesis crystallized two design principles: automate the administrative, not the evaluative (let technology handle mechanical tasks so humans can bring judgment to decisions that matter); and close the feedback loop (every interaction in the hiring funnel should produce a legible signal for the person on the receiving end).",
             "These principles informed four concept directions, each targeting a distinct breakdown identified in the research.",
           ],
         },
@@ -318,15 +318,15 @@ const allProjects = [
           label: "Theory of Change",
           heading: "Theory of Change",
           body: [
-            "The theory of change maps how a single design intervention — cognitive offloading of recruiter communication — cascades into systemic improvement. When AI handles status updates, rejections, and follow-ups, recruiters reclaim time for deeper candidate evaluation. Candidates receive consistent, timely signals instead of silence. Trust rebuilds on both sides.",
-            "Less unintentional silence leads to more trust, which attracts more engaged and higher-quality candidates, which produces better hiring outcomes at lower cost. AI as a cognitive offloader for communication — not a gatekeeper for exclusion.",
+            "The theory of change maps how a single design intervention (cognitive offloading of recruiter communication) cascades into systemic improvement. When AI handles status updates, rejections, and follow-ups, recruiters reclaim time for deeper candidate evaluation. Candidates receive consistent, timely signals instead of silence. Trust rebuilds on both sides.",
+            "Less unintentional silence leads to more trust, which attracts more engaged and higher-quality candidates, which produces better hiring outcomes at lower cost. AI as a cognitive offloader for communication, not a gatekeeper for exclusion.",
           ],
         },
         {
           type: "image" as const,
           src: "/case-studies/beyond-efficiency/theory-of-change.png",
           alt: "Theory of change: cognitive offloading cascades into better hiring outcomes",
-          caption: "Theory of change — cognitive offloading enables deeper evaluation, consistent communication, and higher-quality candidates.",
+          caption: "Theory of change: cognitive offloading enables deeper evaluation, consistent communication, and higher-quality candidates.",
         },
         {
           type: "concepts-grid" as const,
@@ -341,19 +341,19 @@ const allProjects = [
             {
               name: "Signal",
               tag: "Intent",
-              description: "An AI job application strategy tool that helps candidates apply with higher intent — fewer, better-targeted applications with tailored materials that address actual fit.",
+              description: "An AI job application strategy tool that helps candidates apply with higher intent: fewer, better-targeted applications with tailored materials that address actual fit.",
               selected: false,
             },
             {
               name: "Vouch",
               tag: "Sourcing",
-              description: "A network-based candidate sourcing platform that activates employee referral networks before mass outbound channels — putting relationship-based hiring within reach of companies without established pipelines.",
+              description: "A network-based candidate sourcing platform that activates employee referral networks before mass outbound channels, putting relationship-based hiring within reach of companies without established pipelines.",
               selected: false,
             },
             {
               name: "Prove",
               tag: "Assessment",
-              description: "A task-based application system that replaces resume screening with short, role-specific assessments — surfacing actual capability over keyword-optimized representations of it.",
+              description: "A task-based application system that replaces resume screening with short, role-specific assessments, surfacing actual capability over keyword-optimized representations of it.",
               selected: false,
             },
           ],
@@ -363,15 +363,15 @@ const allProjects = [
           label: "Solution",
           heading: "Final Proposition: Loop",
           body: [
-            "After the final review, Loop was selected as the primary proposition for deeper development. The selection was driven by research signal strength: ghosting appeared as a breakdown across every data collection method — recruiter interviews, the candidate survey, the focus group, and the social media scan. It was the most consistent and emotionally costly failure in the funnel, and critically, both sides agreed it was structural rather than intentional.",
-            "Recruiters described ghosting as an inevitable outcome of volume, manual process, and tool constraints — not indifference. Candidates described it as the primary driver of distrust in companies and the hiring process itself. Loop addresses this shared pain point by intervening precisely where transparency has eroded, without adding manual burden to already-overwhelmed recruiters.",
+            "After the final review, Loop was selected as the primary proposition for deeper development. The selection was driven by research signal strength: ghosting appeared as a breakdown across every data collection method: recruiter interviews, the candidate survey, the focus group, and the social media scan. It was the most consistent and emotionally costly failure in the funnel, and critically, both sides agreed it was structural rather than intentional.",
+            "Recruiters described ghosting as an inevitable outcome of volume, manual process, and tool constraints, not indifference. Candidates described it as the primary driver of distrust in companies and the hiring process itself. Loop addresses this shared pain point by intervening precisely where transparency has eroded, without adding manual burden to already-overwhelmed recruiters.",
           ],
         },
         {
           type: "image" as const,
           src: "/case-studies/beyond-efficiency/loop-concept.png",
-          alt: "Loop: Candidate Communication Agent — keeping every candidate informed automatically",
-          caption: "Loop — an AI communication agent that eliminates ghosting by keeping every candidate informed automatically, freeing recruiters to focus on evaluation.",
+          alt: "Loop: Candidate Communication Agent, keeping every candidate informed automatically",
+          caption: "Loop, an AI communication agent that eliminates ghosting by keeping every candidate informed automatically, freeing recruiters to focus on evaluation.",
         },
       ],
     },
@@ -389,7 +389,7 @@ const allProjects = [
     coverImage: "/covers/loop-strategy.png",    imageConfig: { fit: "contain" as const, position: "center center", bg: "#faf9f7" },
     caseStudy: {
       role: "Product Designer & Strategist",
-      timeline: "Oct 2025 — Apr 2026",
+      timeline: "Oct 2025 to Apr 2026",
       tools: ["Figma", "Claude API", "Business Model Canvas", "Vignette Study", "Concept Testing", "LinkedIn Ads", "Vercel", "Dovetail"],
       team: "Yash Sonwaney & Ananya Harshini",
       sections: [
@@ -398,7 +398,7 @@ const allProjects = [
           label: "Context",
           heading: "Overview",
           body: [
-            "Every open role receives an average of 400 applications. One person gets hired. The other 399 hear nothing — or receive a generic template that tells them less than silence would. Ghosting is not a recruiter character flaw; it is a structural failure. Recruiters are buried under volume and manual process, and existing tools simply stop at the hiring decision. The rejection moment — the single highest-volume brand interaction most companies have — goes entirely undesigned.",
+            "Every open role receives an average of 400 applications. One person gets hired. The other 399 hear nothing, or receive a generic template that tells them less than silence would. Ghosting is not a recruiter character flaw; it is a structural failure. Recruiters are buried under volume and manual process, and existing tools simply stop at the hiring decision. The rejection moment (the single highest-volume brand interaction most companies have) goes entirely undesigned.",
             "Loop is an AI intelligence layer that autonomously manages rejection conversations on behalf of recruiters. I led product strategy and validation, building on six months of mixed-methods research into AI-driven hiring breakdowns. The core strategic reframe: rejection is not an HR operations problem. It is a brand equity problem.",
           ],
         },
@@ -415,28 +415,28 @@ const allProjects = [
           type: "callout" as const,
           label: "The Strategic Reframe",
           body: [
-            "Virgin Media discovered this the hard way: 18% of their 123,000 rejected applicants were existing customers, and 6% cancelled their subscriptions after a poor rejection experience. Published behavioral research confirmed the pattern — positive rejection experiences fully mitigate negative effects, while silence or generic templates actively erode employer brand perception. The rejection moment is a measurable business liability, not an HR inconvenience.",
+            "Virgin Media discovered this the hard way: 18% of their 123,000 rejected applicants were existing customers, and 6% cancelled their subscriptions after a poor rejection experience. Published behavioral research confirmed the pattern: positive rejection experiences fully mitigate negative effects, while silence or generic templates actively erode employer brand perception. The rejection moment is a measurable business liability, not an HR inconvenience.",
           ],
         },
         {
           type: "problem-gap" as const,
           label: "Market Gap",
           heading: "No One Owns the Rejection Journey",
-          current: "ATS platforms manage candidate pipelines up to the hiring decision. After rejection, candidates enter a communication void — receiving either a generic template email or total silence. No market player handles what happens after 'no.' Recruiters lack the bandwidth, and existing tools lack the capability.",
-          desired: "An intelligent layer that activates after the hiring decision, autonomously managing personalized rejection conversations — closing the loop with constructive feedback, handling follow-up questions, and converting a negative moment into brand equity.",
+          current: "ATS platforms manage candidate pipelines up to the hiring decision. After rejection, candidates enter a communication void, receiving either a generic template email or total silence. No market player handles what happens after 'no.' Recruiters lack the bandwidth, and existing tools lack the capability.",
+          desired: "An intelligent layer that activates after the hiring decision, autonomously managing personalized rejection conversations, closing the loop with constructive feedback, handling follow-up questions, and converting a negative moment into brand equity.",
         },
         {
           type: "image" as const,
           src: "/case-studies/loop-strategy/market-gap.png",
           alt: "Market landscape showing no existing solution for the post-rejection candidate journey",
-          caption: "ATS market analysis — every major platform drops the candidate at the rejection decision. The post-rejection journey is undesigned territory.",
+          caption: "ATS market analysis: every major platform drops the candidate at the rejection decision. The post-rejection journey is undesigned territory.",
         },
         {
           type: "text" as const,
           label: "Product",
           heading: "How Loop Works",
           body: [
-            "Loop is not a chatbot bolted onto an ATS. It is an AI intelligence layer trained on organizational context — company structure, team skill graphs, hiring trends, and culture-versus-talent profiles. It activates at a specific moment: after the first human interview round, when the recruiter has decided to reject a candidate but lacks the bandwidth to communicate that decision meaningfully.",
+            "Loop is not a chatbot bolted onto an ATS. It is an AI intelligence layer trained on organizational context: company structure, team skill graphs, hiring trends, and culture-versus-talent profiles. It activates at a specific moment: after the first human interview round, when the recruiter has decided to reject a candidate but lacks the bandwidth to communicate that decision meaningfully.",
           ],
         },
         {
@@ -446,35 +446,35 @@ const allProjects = [
             {
               num: "01",
               label: "Setup",
-              body: "Loop ingests organizational context — structure, policies, team skill graphs, hiring trends, and culture-versus-talent profiles. We designed this as a prerequisite because generic rejection is what candidates already get. Without company-specific context, Loop would just be a faster template.",
+              body: "Loop ingests organizational context: structure, policies, team skill graphs, hiring trends, and culture-versus-talent profiles. We designed this as a prerequisite because generic rejection is what candidates already get. Without company-specific context, Loop would just be a faster template.",
               image: "/case-studies/loop-strategy/step-setup.png",
               imageAlt: "Loop setup: organizational context ingestion",
             },
             {
               num: "02",
               label: "Activation",
-              body: "Loop activates after the first human interview round. We chose this trigger point deliberately — earlier and there's no meaningful feedback to give; later and the candidate has already been ghosted. The recruiter makes the rejection decision; Loop handles the communication.",
+              body: "Loop activates after the first human interview round. We chose this trigger point deliberately: earlier and there's no meaningful feedback to give; later and the candidate has already been ghosted. The recruiter makes the rejection decision; Loop handles the communication.",
               image: "/case-studies/loop-strategy/step-activation.png",
               imageAlt: "Loop activation trigger after interview round",
             },
             {
               num: "03",
               label: "AI Outreach",
-              body: "Loop transforms raw interview notes into a personalized rejection email with constructive, role-specific feedback. The tone was designed to be direct but warm — no corporate hedging, no false encouragement. Specific enough to be useful, honest enough to be respected.",
+              body: "Loop transforms raw interview notes into a personalized rejection email with constructive, role-specific feedback. The tone was designed to be direct but warm: no corporate hedging, no false encouragement. Specific enough to be useful, honest enough to be respected.",
               image: "/case-studies/loop-strategy/step-outreach.png",
               imageAlt: "Personalized rejection email with constructive feedback",
             },
             {
               num: "04",
               label: "Conversation",
-              body: "If the candidate replies, Loop manages follow-up questions. A key design constraint: responses are growth-focused and never numerical. When candidates asked 'rate me 1-10,' Loop redirects to actionable self-improvement without feeling evasive — because ranking candidates against each other undermines the dignity the rejection was designed to preserve.",
+              body: "If the candidate replies, Loop manages follow-up questions. A key design constraint: responses are growth-focused and never numerical. When candidates asked 'rate me 1-10,' Loop redirects to actionable self-improvement without feeling evasive, because ranking candidates against each other undermines the dignity the rejection was designed to preserve.",
               image: "/case-studies/loop-strategy/step-conversation.png",
               imageAlt: "Loop managing a follow-up conversation with a candidate",
             },
             {
               num: "05",
               label: "Closure",
-              body: "Loop closes conversations gracefully — ensuring every candidate reaches a dignified endpoint rather than fading into silence. The closing pattern was iterated through applicant workshops until participants consistently described it as complete rather than abrupt.",
+              body: "Loop closes conversations gracefully, ensuring every candidate reaches a dignified endpoint rather than fading into silence. The closing pattern was iterated through applicant workshops until participants consistently described it as complete rather than abrupt.",
               image: "/case-studies/loop-strategy/step-closure.png",
               imageAlt: "Loop closing a conversation with a candidate",
             },
@@ -484,14 +484,14 @@ const allProjects = [
           type: "image" as const,
           src: "/case-studies/loop-strategy/product-demo.png",
           alt: "Loop product interface showing rejection email generation from raw interview notes",
-          caption: "From raw interview notes to personalized rejection with constructive feedback — the core transformation Loop performs.",
+          caption: "From raw interview notes to personalized rejection with constructive feedback: the core transformation Loop performs.",
         },
         {
           type: "text" as const,
           label: "Design",
           heading: "Designing the Conversation",
           body: [
-            "The hardest design challenge was tone. Automated rejection easily reads as cold or performative. We iterated through three tonal registers — clinical, empathetic-corporate, and direct-warm — and tested each with applicants. Direct-warm won consistently: specific about what happened, honest about the decision, and focused on what the candidate could do next. No softening language, no hollow encouragement.",
+            "The hardest design challenge was tone. Automated rejection easily reads as cold or performative. We iterated through three tonal registers: clinical, empathetic-corporate, and direct-warm. We tested each with applicants. Direct-warm won consistently: specific about what happened, honest about the decision, and focused on what the candidate could do next. No softening language, no hollow encouragement.",
             "The conversation design followed a principle we called 'structured honesty.' Loop discloses what it can (process-specific feedback, skill gaps observed, team composition context) and draws clear boundaries around what it cannot (comparative rankings, internal deliberation, numerical scores). Candidates respected the boundaries more when they were explicitly stated than when information was deflected.",
           ],
         },
@@ -501,13 +501,13 @@ const allProjects = [
           heading: "Concept Testing with Stakeholders",
           body: [
             "We tested the Loop concept with recruiting professionals across organizations, with particular focus on high-volume hiring contexts where rejection communication breaks down most severely. The concept resonated strongest in environments with 12-month hiring cycles, where the scale of unmanaged rejections compounds into measurable reputation risk.",
-            "Stakeholders immediately grasped the strategic value: this was not about making recruiters' lives easier — it was about protecting the organization from a brand liability that scales linearly with hiring volume.",
+            "Stakeholders immediately grasped the strategic value: this was not about making recruiters' lives easier, it was about protecting the organization from a brand liability that scales linearly with hiring volume.",
           ],
         },
         {
           type: "insight-card" as const,
           theme: "Stakeholder Validation",
-          insight: "Recruiters validated both the problem severity and Loop's positioning — framing reputation risk as the primary concern, not workflow efficiency.",
+          insight: "Recruiters validated both the problem severity and Loop's positioning, framing reputation risk as the primary concern, not workflow efficiency.",
           verbatim: "Especially for really high-volume roles, or recruiting departments that routinely have both high-volume roles and many recs at the same time. I think this concept could be a real gamechanger.",
           attribution: "Recruiting Professional, Concept Testing Session",
         },
@@ -516,7 +516,7 @@ const allProjects = [
           label: "Applicant Testing",
           heading: "Vignette Study with Applicants",
           body: [
-            "To validate the candidate-facing experience, we conducted a vignette study using a functional prototype built on the Claude API. Participants received a Loop-generated rejection email based on realistic interview scenarios, then interacted with the conversational agent in real time — asking follow-up questions, probing for detail, and testing boundaries.",
+            "To validate the candidate-facing experience, we conducted a vignette study using a functional prototype built on the Claude API. Participants received a Loop-generated rejection email based on realistic interview scenarios, then interacted with the conversational agent in real time, asking follow-up questions, probing for detail, and testing boundaries.",
             "The most revealing moments came when candidates pushed back. One asked Loop to rate their application on a scale of 1 to 10. Another asked what the hired candidate had that they lacked. These were the interactions we designed for — and the ones that proved the conversation architecture worked. Loop redirected without deflecting, and candidates described the experience as respectful rather than evasive.",
           ],
         },
@@ -526,12 +526,12 @@ const allProjects = [
             {
               src: "/case-studies/loop-strategy/vignette-email.png",
               alt: "Loop-generated rejection email with personalized constructive feedback",
-              caption: "The rejection email — specific, constructive, and grounded in the candidate's actual interview performance.",
+              caption: "The rejection email: specific, constructive, and grounded in the candidate's actual interview performance.",
             },
             {
               src: "/case-studies/loop-strategy/vignette-conversation.png",
               alt: "Candidate follow-up conversation with Loop agent",
-              caption: "Follow-up conversation — growth-focused responses that answer hard questions without ranking or comparing candidates.",
+              caption: "Follow-up conversation: growth-focused responses that answer hard questions without ranking or comparing candidates.",
             },
           ],
         },
@@ -587,22 +587,22 @@ const allProjects = [
           heading: "Market Validation",
           body: [
             "To validate real-world demand beyond research participants, we launched a go-to-market experiment: a waitlist website, a LinkedIn company page running three posts per week with boosted ads targeting founders and talent acquisition specialists, and a pricing model stress-tested against competitor pricing in the ATS ecosystem. The goal was not to build a business — it was to generate a demand signal strong enough to validate that the problem we identified in research was felt acutely enough for people to raise their hand.",
-            "Early results confirmed the signal: 12 waitlist signups from targeted outreach, over 3,000 impressions across LinkedIn campaigns, and 2,100 community members reached. Small numbers for a launch — meaningful numbers for a concept validation from a two-person team with no marketing budget beyond a boosted post.",
+            "Early results confirmed the signal: 12 waitlist signups from targeted outreach, over 3,000 impressions across LinkedIn campaigns, and 2,100 community members reached. Small numbers for a launch, meaningful numbers for a concept validation from a two-person team with no marketing budget beyond a boosted post.",
           ],
         },
         {
           type: "image" as const,
           src: "/case-studies/loop-strategy/gtm-artifacts.png",
           alt: "Loop go-to-market artifacts: waitlist site, LinkedIn page, and ad campaigns",
-          caption: "Go-to-market experiment — waitlist site, LinkedIn company page, and targeted ad campaigns validating demand signal.",
+          caption: "Go-to-market experiment: waitlist site, LinkedIn company page, and targeted ad campaigns validating demand signal.",
         },
         {
           type: "text" as const,
           label: "Impact",
           heading: "Outcome",
           body: [
-            "Loop demonstrated that the rejection moment — the single most neglected touchpoint in the hiring funnel — is designable, automatable, and strategically valuable. The concept was validated across three dimensions: stakeholders confirmed the business case, applicants confirmed the experience quality, and market signals confirmed real-world demand.",
-            "The deeper finding was about AI's role in sensitive communication. Loop works not because it pretends to be human, but because it provides what humans intend but consistently fail to deliver at scale: timely, specific, growth-oriented feedback after a difficult decision. The constraint was empathy — and the AI honored it.",
+            "Loop demonstrated that the rejection moment (the single most neglected touchpoint in the hiring funnel) is designable, automatable, and strategically valuable. The concept was validated across three dimensions: stakeholders confirmed the business case, applicants confirmed the experience quality, and market signals confirmed real-world demand.",
+            "The deeper finding was about AI's role in sensitive communication. Loop works not because it pretends to be human, but because it provides what humans intend but consistently fail to deliver at scale: timely, specific, growth-oriented feedback after a difficult decision. The constraint was empathy, and the AI honored it.",
           ],
         },
       ],
@@ -610,8 +610,8 @@ const allProjects = [
   },
   {
     slug: "goretex-accesswear",
-    title: "GORE-TEX Accesswear",
-    cardTitle: "Designing a Circular Outerwear Subscription",
+    title: "GORE-TEX AccessWear: Designing a Circular Outerwear Subscription",
+    cardTitle: "GORE-TEX AccessWear: Designing a Circular Outerwear Subscription",
     subtitle: "End-to-end service design for a circular outerwear rental subscription.",
     category: "GROWTH DESIGN · SERVICE DESIGN",
     filterCategory: "Strategy" as ProjectCategory,
@@ -621,7 +621,7 @@ const allProjects = [
     coverImage: "/covers/goretex-accesswear.png",    imageConfig: { fit: "cover" as const, position: "center 35%" },
     caseStudy: {
       role: "Design & Growth Strategist",
-      timeline: "May — Dec 2025 (9 months)",
+      timeline: "May to Dec 2025 (9 months)",
       tools: ["Shopify", "Figma", "Stripe", "Supercycle", "Meta Ads", "Mailchimp", "Discord", "Instagram"],
       team: "Lean startup team at Disruptive Edge × GORE-TEX Innovation",
       sections: [
@@ -655,7 +655,7 @@ const allProjects = [
         {
           type: "chart" as const,
           chartId: "conversion-milestones" as const,
-          caption: "Conversion rate as % of the original 200-person waitlist — before and after each phase of work.",
+          caption: "Conversion rate as % of the original 200-person waitlist: before and after each phase of work.",
         },
         {
           type: "text" as const,
@@ -663,9 +663,9 @@ const allProjects = [
           heading: "Research & Synthesis",
           body: [
             "Sixteen moderated usability sessions in month one surfaced three failure patterns that cut across participant types.",
-            "Trust signals were absent. The site lacked social proof, product reviews, and a recognizable brand voice. Users described it as anonymous — they wanted to know who was behind the service before committing a recurring payment.",
+            "Trust signals were absent. The site lacked social proof, product reviews, and a recognizable brand voice. Users described it as anonymous, they wanted to know who was behind the service before committing a recurring payment.",
             "The browse-to-subscribe journey was fragmented. No activity-based filtering, and checkout required navigating three disconnected systems. Users lost orientation mid-flow and defaulted to exit rather than working through the confusion.",
-            "Seasonality was a structural constraint to design around, not just a timing problem. A late-spring launch meant summer was the wrong context to convert for winter jackets. The research reframed this as an opportunity: use low-demand months to stabilize the UX and build the audience — so the system was primed when seasonal intent arrived.",
+            "Seasonality was a structural constraint to design around, not just a timing problem. A late-spring launch meant summer was the wrong context to convert for winter jackets. The research reframed this as an opportunity: use low-demand months to stabilize the UX and build the audience, so the system was primed when seasonal intent arrived.",
           ],
         },
         {
@@ -683,26 +683,26 @@ const allProjects = [
           heading: "Design Strategy",
           body: [
             "I structured the work as a three-phase strategy, sequenced around the product\u2019s seasonal demand curve rather than arbitrary sprint cycles.",
-            "Phase 1 \u2014 Stabilize (May\u2013July): Fix the broken conversion funnel, establish trust signals, and run low-investment acquisition experiments to identify which channels and messages deserved deeper investment.",
-            "Phase 2 \u2014 Build (August\u2013September): With a stable core flow, shift to systematic value proposition testing across paid and organic channels — and build the lifecycle email infrastructure needed for retention before peak season.",
-            "Phase 3 \u2014 Convert (October\u2013December): Activate the full conversion system as seasonal demand rose — brand co-marketing, community launch, and structured outbound across warm channels.",
+            "Phase 1 (Stabilize, May\u2013July): Fix the broken conversion funnel, establish trust signals, and run low-investment acquisition experiments to identify which channels and messages deserved deeper investment.",
+            "Phase 2 (Build, August\u2013September): With a stable core flow, shift to systematic value proposition testing across paid and organic channels, and build the lifecycle email infrastructure needed for retention before peak season.",
+            "Phase 3 (Convert, October\u2013December): Activate the full conversion system as seasonal demand rose, brand co-marketing, community launch, and structured outbound across warm channels.",
           ],
         },
         {
           type: "chart" as const,
           chartId: "subscriber-growth" as const,
-          caption: "Active subscriber growth across three design phases, May — December 2025.",
+          caption: "Active subscriber growth across three design phases, May to December 2025.",
         },
         {
           type: "image" as const,
           src: "/covers/goretex-accesswear.png",
           alt: "GORE-TEX AccessWear platform showing the rental subscription experience",
-          caption: "The AccessWear platform — manually operated throughout the pilot to validate demand patterns and user behavior before committing to scaled infrastructure.",
+          caption: "The AccessWear platform, manually operated throughout the pilot to validate demand patterns and user behavior before committing to scaled infrastructure.",
         },
         {
           type: "text" as const,
           label: "Phase 1",
-          heading: "Phase 1 \u2014 UX Stabilization",
+          heading: "Phase 1: UX Stabilization",
           body: [
             "My first sprint targeted the homepage and checkout flow. I redesigned the above-the-fold section to address the 65% drop-off, restructured the browse experience with activity-based filters, and repaired the Shopify\u2013Stripe integration to close the broken checkout handoffs. I launched a lead capture modal that generated 15 sign-ups in its first weekend.",
             "To address the trust deficit, I sourced product reviews from brand partners and added a founder narrative section. Sign-ups climbed from 9 to 17 within the first sprint cycle. A second round of 16 usability sessions surfaced the next barrier: pricing comprehension. Users needed MSRP comparisons alongside the subscription price to internalize the value proposition.",
@@ -711,10 +711,10 @@ const allProjects = [
         {
           type: "text" as const,
           label: "Phase 2",
-          heading: "Phase 2 \u2014 Messaging & Lifecycle Infrastructure",
+          heading: "Phase 2: Messaging & Lifecycle Infrastructure",
           body: [
-            "With a stable conversion funnel, I turned to the top of the funnel — specifically, which value propositions moved people. I designed and launched 18 awareness ads testing distinct framings: try-before-you-buy, activity-specific gear, multi-brand access, sustainability, and travel use cases. Try-before-you-buy consistently outperformed, with CTRs reaching 6.56% and CPCs as low as $0.24.",
-            "In parallel, I built a 14-touchpoint email lifecycle covering non-user nurture, subscriber onboarding, engagement, and churn recovery. The mailing list reached 740 subscribers. By the end of Phase 2, I had a clear segmentation of high-intent users, a validated messaging hierarchy, and a defined channel strategy — everything needed to run a full conversion push in peak season.",
+            "With a stable conversion funnel, I turned to the top of the funnel, specifically which value propositions moved people. I designed and launched 18 awareness ads testing distinct framings: try-before-you-buy, activity-specific gear, multi-brand access, sustainability, and travel use cases. Try-before-you-buy consistently outperformed, with CTRs reaching 6.56% and CPCs as low as $0.24.",
+            "In parallel, I built a 14-touchpoint email lifecycle covering non-user nurture, subscriber onboarding, engagement, and churn recovery. The mailing list reached 740 subscribers. By the end of Phase 2, I had a clear segmentation of high-intent users, a validated messaging hierarchy, and a defined channel strategy, everything needed to run a full conversion push in peak season.",
           ],
         },
         {
@@ -729,11 +729,11 @@ const allProjects = [
         {
           type: "text" as const,
           label: "Phase 3",
-          heading: "Phase 3 \u2014 Conversion & Community",
+          heading: "Phase 3: Conversion & Community",
           body: [
-            "October marked the shift from awareness to conversion. I activated brand co-marketing with 7mesh, GOREWEAR, and Mountain Hardwear — each campaign drove 90+ new followers. Outreach across 500+ accounts per week generated 1,500+ conversations at a 10% response rate.",
-            "I designed and launched the AccessWear Insider Program on Discord — a structured community with a contribution-based rewards system where high-engagement members could earn access to $700\u2013800 jackets. The community became the project\u2019s most valuable feedback loop: accelerating product learning and reducing churn through peer accountability.",
-            "Growth compounded through the quarter: 79 sign-ups and 3,000+ Instagram followers by mid-October, 120+ active subscribers by December. The platform reached operational capacity at 85\u2013100 concurrent users — a ceiling set by the manual fulfillment model, not by product demand.",
+            "October marked the shift from awareness to conversion. I activated brand co-marketing with 7mesh, GOREWEAR, and Mountain Hardwear, each campaign drove 90+ new followers. Outreach across 500+ accounts per week generated 1,500+ conversations at a 10% response rate.",
+            "I designed and launched the AccessWear Insider Program on Discord, a structured community with a contribution-based rewards system where high-engagement members could earn access to $700\u2013800 jackets. The community became the project\u2019s most valuable feedback loop: accelerating product learning and reducing churn through peer accountability.",
+            "Growth compounded through the quarter: 79 sign-ups and 3,000+ Instagram followers by mid-October, 120+ active subscribers by December. The platform reached operational capacity at 85\u2013100 concurrent users, a ceiling set by the manual fulfillment model, not by product demand.",
           ],
         },
         {
@@ -741,15 +741,15 @@ const allProjects = [
           label: "Impact",
           heading: "Outcomes",
           body: [
-            "The pilot validated the core hypothesis: premium outdoor consumers will engage with a subscription access model when the service experience is frictionless and the product variety is compelling. Active subscribers gave a 10/10 NPS, and organic community behavior — members sharing trip photos, recruiting peers, requesting new gear categories — provided qualitative signal that went well beyond the headline metrics.",
-            "Churn data deepened the picture. The primary drivers for leaving were limited jacket variety (80%) and seasonal timing (20%) — inventory and catalog constraints, not dissatisfaction with the model. When asked what would bring them back, 80% cited broader selection and 60% cited access to additional gear categories. Both are solvable with scale.",
+            "The pilot validated the core hypothesis: premium outdoor consumers will engage with a subscription access model when the service experience is frictionless and the product variety is compelling. Active subscribers gave a 10/10 NPS, and organic community behavior (members sharing trip photos, recruiting peers, requesting new gear categories) provided qualitative signal that went well beyond the headline metrics.",
+            "Churn data deepened the picture. The primary drivers for leaving were limited jacket variety (80%) and seasonal timing (20%), inventory and catalog constraints, not dissatisfaction with the model. When asked what would bring them back, 80% cited broader selection and 60% cited access to additional gear categories. Both are solvable with scale.",
             "Brand partner engagement strengthened independently of subscriber growth: Mountain Hardwear moved to a collaborative marketing arrangement, GOREWEAR co-created a giveaway campaign, and leadership from Mammut, Burton, and Mountain Hardwear requested follow-up sessions. Rent the Runway co-founder Jenny Fleiss was brought in as a consultant on financial modeling.",
           ],
         },
         {
           type: "chart" as const,
           chartId: "churn-reasons" as const,
-          caption: "Exit reasons cluster around inventory constraints and seasonal timing — not dissatisfaction with the subscription model itself.",
+          caption: "Exit reasons cluster around inventory constraints and seasonal timing, not dissatisfaction with the subscription model itself.",
         },
         {
           type: "metrics" as const,
@@ -774,8 +774,8 @@ const allProjects = [
   },
   {
     slug: "hp-scale-ui",
-    title: "HP: Scale UI",
-    cardTitle: "Scaling One Control-Panel UI Across Every HP Printer",
+    title: "HP: Scaling One Control-Panel UI",
+    cardTitle: "HP: Scaling One Control-Panel UI",
     subtitle: "One control-panel UI system scaled across every HP printer.",
     category: "PRODUCT DESIGN · DESIGN SYSTEMS",
     filterCategory: "Product Design" as ProjectCategory,
@@ -785,16 +785,16 @@ const allProjects = [
     coverImage: "/covers/hp-scale-ui.png",    imageConfig: { fit: "cover" as const, position: "center center", bg: "#e8e8e8" },
     caseStudy: {
       role: "Interaction Designer → Design Lead",
-      timeline: "2020 — 2024",
+      timeline: "2020 to 2024",
       tools: ["Figma", "Axure", "FigJam", "Scale UI Toolkit", "Jira"],
-      team: "Distributed design teams — Singapore, US (Boise / Portland / San Diego), Barcelona, Bangalore",
+      team: "Distributed design teams: Singapore, US (Boise / Portland / San Diego), Barcelona, Bangalore",
       sections: [
         {
           type: "text" as const,
           label: "Context",
           heading: "Four Years. Four Sizes. Four Continents.",
           body: [
-            "Scale UI is HP’s proprietary design system and shared firmware codebase for printer control panels — a single foundation that keeps the experience consistent while letting the code ship across every market segment. I joined the team as an interaction designer in 2020, owning Print from Source (USB and Network), the Contacts app, and Active Jobs (Print, Copy, Scan, Fax). I left in 2024 as design lead, managing a team of four.",
+            "Scale UI is HP’s proprietary design system and shared firmware codebase for printer control panels, a single foundation that keeps the experience consistent while letting the code ship across every market segment. I joined the team as an interaction designer in 2020, owning Print from Source (USB and Network), the Contacts app, and Active Jobs (Print, Copy, Scan, Fax). I left in 2024 as design lead, managing a team of four.",
             "The four years in between shifted the job entirely. Early on, it was about drawing the right screen. By the end, it was about running a process across Singapore, Boise, Portland, San Diego, Barcelona, and Bangalore — keeping eight time zones pointed at the same product decisions.",
           ],
         },
@@ -808,7 +808,7 @@ const allProjects = [
           type: "metrics" as const,
           items: [
             { value: "56M", label: "HP customers reached worldwide" },
-            { value: "4", label: "Market segments — Home, SoHo, SMB, Enterprise" },
+            { value: "4", label: "Market segments: Home, SoHo, SMB, Enterprise" },
             { value: "4", label: "Display sizes from 21″ to 2.7″" },
             { value: "4★", label: "Rated on PC Mag, Amazon, Digital Trends" },
           ],
@@ -842,7 +842,7 @@ const allProjects = [
           label: "Information Architecture",
           heading: "Mapping Every Path Before Writing a Line of Firmware",
           body: [
-            "Every use case started with task analysis. Task flows and Data Flow Diagrams mapped the happy path first, then every branch: error states, edge cases, unsupported inputs, detection failures. I validated each with Subject Matter Experts from design and firmware before any wireframe was drawn. This wasn’t process for its own sake — it was how firmware teams built. If a branch wasn’t documented, it didn’t get built.",
+            "Every use case started with task analysis. Task flows and Data Flow Diagrams mapped the happy path first, then every branch: error states, edge cases, unsupported inputs, detection failures. I validated each with Subject Matter Experts from design and firmware before any wireframe was drawn. This wasn’t process for its own sake, it was how firmware teams built. If a branch wasn’t documented, it didn’t get built.",
             "Print from USB alone splits constantly: USB detection, format-support checks, folder navigation, multi-file selection, unsupported-format errors, interrupted connections. Every one of those branches was resolved at the task-flow stage, so developers never had to make a design decision mid-sprint.",
           ],
         },
@@ -872,8 +872,8 @@ const allProjects = [
           label: "Design-Dev Handoff",
           heading: "Killing Ambiguity Before It Reached Firmware",
           body: [
-            "Pattern Tables documented every interactive element on every screen — each mapped to its layout description, availability state, and properties, with terminology matched to internal code repositories. A developer could read the table and trace any element directly to its codebase equivalent, no designer in the room required.",
-            "Behavior Tables went further: constraint states, filter logic, sort persistence, modal triggers, scroll behavior. Any interaction detail that would otherwise surface as a developer question at 2 a.m. across a time-zone gap got written down in the table before the build started. That was the point — not to produce documentation, but to stop a category of meeting from ever happening.",
+            "Pattern Tables documented every interactive element on every screen, each mapped to its layout description, availability state, and properties, with terminology matched to internal code repositories. A developer could read the table and trace any element directly to its codebase equivalent, no designer in the room required.",
+            "Behavior Tables went further: constraint states, filter logic, sort persistence, modal triggers, scroll behavior. Any interaction detail that would otherwise surface as a developer question at 2 a.m. across a time-zone gap got written down in the table before the build started. That was the point: not to produce documentation, but to stop a category of meeting from ever happening.",
           ],
         },
         {
@@ -887,7 +887,7 @@ const allProjects = [
             {
               src: "/casestudy/hp-scale-ui/behavior-tables.png",
               alt: "Behavior Table specifying interactive component behavior, constraint states, and filter/sort rules for Scale UI",
-              caption: "Behavior Tables: component-level interaction specs — constraint states, filter behavior, sort persistence, and modal triggers.",
+              caption: "Behavior Tables: component-level interaction specs (constraint states, filter behavior, sort persistence, and modal triggers).",
             },
           ],
         },
@@ -911,7 +911,7 @@ const allProjects = [
             {
               src: "/casestudy/hp-scale-ui/validation-contacts.png",
               alt: "Design validation of Contacts app on a physical HP printer, showing the touchscreen UI with app menu and user journey flow",
-              caption: "Contacts app: dedicated app for managing device contacts, private groups, and PDLs — validated on hardware.",
+              caption: "Contacts app: dedicated app for managing device contacts, private groups, and PDLs, validated on hardware.",
             },
           ],
         },
@@ -921,13 +921,13 @@ const allProjects = [
           heading: "Shipped. Reviewed. Adopted.",
           body: [
             "The HP Color LaserJet Pro MFP 4301fdw — the first product to ship on Scale UI — earned a 4-star review from PC Mag, strong Amazon ratings, and a best laser multifunction printer call from Digital Trends. For a system built to serve four different market segments off one codebase, that reception was the proof point.",
-            "Pattern and Behavior Tables became the standard handoff format across every HP printer program that followed. They didn’t replace designer-developer communication — they changed what that communication was about, moving it from what does this do to how do we make this better.",
+            "Pattern and Behavior Tables became the standard handoff format across every HP printer program that followed. They didn’t replace designer-developer communication, they changed what that communication was about, moving it from what does this do to how do we make this better.",
           ],
         },
         {
           type: "image" as const,
           src: "/casestudy/hp-scale-ui/impact-feedback.png",
-          alt: "Impact and feedback — 4-star reviews from PC Mag, Amazon, and Digital Trends for the HP Color LaserJet Pro MFP 4301fdw",
+          alt: "Impact and feedback: 4-star reviews from PC Mag, Amazon, and Digital Trends for the HP Color LaserJet Pro MFP 4301fdw",
           caption: "Press reception: 4-star reviews across PC Mag, Amazon, and Digital Trends.",
         },
         {
@@ -944,8 +944,8 @@ const allProjects = [
   },
   {
     slug: "hp-learning",
-    title: "HP Learning",
-    cardTitle: "Connecting Classrooms to Living Rooms",
+    title: "HP: Connecting Classrooms to Living Rooms",
+    cardTitle: "HP: Connecting Classrooms to Living Rooms",
     subtitle: "A B2C EdTech platform bringing printable, hands-on learning home.",
     category: "PRODUCT DESIGN · EDTECH",
     filterCategory: "Product Design" as ProjectCategory,
@@ -955,7 +955,7 @@ const allProjects = [
     coverImage: "/covers/hp-learning.png",    imageConfig: { fit: "cover" as const, position: "center center", bg: "#f0ede8" },
     caseStudy: {
       role: "Interaction Designer",
-      timeline: "2021 — 2022 (1 year)",
+      timeline: "2021 to 2022 (1 year)",
       tools: ["Figma", "FigJam", "Miro", "UserTesting", "Analytics"],
       team: "Interaction Designer, Visual Designer, Design Team Lead, Content Strategy",
       sections: [
@@ -964,8 +964,8 @@ const allProjects = [
           label: "Context",
           heading: "Overview",
           body: [
-            "HP Learning is a premium supplemental learning platform for pre-primary and primary school students, backed by strategic educational partnerships. HP already had a presence in millions of homes through its printers. The bet: use that footprint to drive educational engagement — and in turn, drive print revenue.",
-            "I envisioned the initial concept for an internal leadership showcase, leveraging the power of video to make learning more accessible for kids. That concept earned executive buy-in and kicked off the project. As the sole Interaction Designer, I owned the full design process end-to-end — from discovery and research through design delivery, dev review cycles, and implementation validation.",
+            "HP Learning is a premium supplemental learning platform for pre-primary and primary school students, backed by strategic educational partnerships. HP already had a presence in millions of homes through its printers. The bet: use that footprint to drive educational engagement, and in turn, drive print revenue.",
+            "I envisioned the initial concept for an internal leadership showcase, leveraging the power of video to make learning more accessible for kids. That concept earned executive buy-in and kicked off the project. As the sole Interaction Designer, I owned the full design process end-to-end: from discovery and research through design delivery, dev review cycles, and implementation validation.",
           ],
         },
         {
@@ -974,7 +974,7 @@ const allProjects = [
             { value: "2M", label: "Printed pages generated" },
             { value: "60K", label: "Active users on the platform" },
             { value: "16", label: "EdTech platforms benchmarked" },
-            { value: "2021", label: "Pilot — Russia & Turkey" },
+            { value: "2021", label: "Pilot: Russia & Turkey" },
           ],
         },
         {
@@ -982,14 +982,14 @@ const allProjects = [
           label: "Challenge",
           heading: "The Challenge",
           body: [
-            "HP Learning had a structural challenge most EdTech products don't face: the person paying (parent), the person assigning (teacher), and the person learning (child) are three distinct actors with entirely different needs and motivations. The Parent and The Teacher are the design center archetypes — The Child is inexplicit in decision-making, but absolutely central to the experience.",
+            "HP Learning had a structural challenge most EdTech products don't face: the person paying (parent), the person assigning (teacher), and the person learning (child) are three distinct actors with entirely different needs and motivations. The Parent and The Teacher are the design center archetypes, while The Child is inexplicit in decision-making but absolutely central to the experience.",
             "The platform also needed to serve two business goals simultaneously: drive educational engagement meaningful enough to earn parent trust, and generate enough print activity to justify HP's investment in the product. Every design decision had to move both needles at once.",
           ],
         },
         {
           type: "image" as const,
           src: "/casestudy/hp-learning/home-first-time-user.png",
-          alt: "HP Learning home screen — first-time user with grade filter and personalised top picks",
+          alt: "HP Learning home screen: first-time user with grade filter and personalised top picks",
           caption: "Home screen: grade-filtered content, personalised top picks, and structured discovery across mobile and desktop.",
           layout: "mobile" as const,
         },
@@ -998,8 +998,8 @@ const allProjects = [
           label: "Research",
           heading: "Research",
           body: [
-            "The global EdTech market was worth US$185.20Bn. Major players — Khan Academy, Toppr, IXL, Byju's, Education.com, Outschool — had launched digital solutions with real, measurable impact. Before designing a single screen, I conducted an in-depth analysis of 16 platforms, mapping existing user flows, interaction patterns, and content systems.",
-            "Collaborating with the Research and Marketing teams, I studied consumer psychology theories around value propositions, persuasion, and activation. The central question wasn't just 'what do children need?' — it was 'what creates a habit?' I mapped HP Learning's full activation journey using habit loop theory: Sign Up → Setup Moment → Aha Moment → Habit Moment → Engaged.",
+            "The global EdTech market was worth US$185.20Bn. Major players (Khan Academy, Toppr, IXL, Byju's, Education.com, Outschool) had launched digital solutions with real, measurable impact. Before designing a single screen, I conducted an in-depth analysis of 16 platforms, mapping existing user flows, interaction patterns, and content systems.",
+            "Collaborating with the Research and Marketing teams, I studied consumer psychology theories around value propositions, persuasion, and activation. The central question wasn't just 'what do children need?' but 'what creates a habit?' I mapped HP Learning's full activation journey using habit loop theory: Sign Up → Setup Moment → Aha Moment → Habit Moment → Engaged.",
           ],
         },
         {
@@ -1008,7 +1008,7 @@ const allProjects = [
           heading: "Habit Loop",
           body: [
             "Activation mapping meant identifying the exact moments that would turn a curious new user into a committed one. I mapped 10 distinct Aha Moments for parents — from finding the right content by their child's age, grade, and activity type, to watching their child score well on a printed exercise, to having the platform surface teacher recommendations before the parent even thought to ask. The product needed to feel less like a utility and more like an educational partner.",
-            "Each Aha Moment anchored to a specific trigger. I mapped three layers: habits (regular content consumption, social sharing, progress tracking), triggers (notifications, rewards one step away, school schedule alignment, new content drops), and low-effort actions (open printables, resume learning, mark activity complete). Every design decision downstream traced back to this framework — making sure the product didn't just attract users, but held them.",
+            "Each Aha Moment anchored to a specific trigger. I mapped three layers: habits (regular content consumption, social sharing, progress tracking), triggers (notifications, rewards one step away, school schedule alignment, new content drops), and low-effort actions (open printables, resume learning, mark activity complete). Every design decision downstream traced back to this framework, making sure the product didn't just attract users, but held them.",
           ],
         },
         {
@@ -1017,13 +1017,13 @@ const allProjects = [
           heading: "User Journey",
           body: [
             "The hero scenario tied all three actors together. A child goes to school and learns theoretical principles from a teacher. After class, the teacher selects exercises aligned with the day's curriculum and assigns them through HP Learning. The parent finds the homework, prints the activity, and monitors progress. The child revises school-learnt knowledge in a fun, physical, interactive way.",
-            "This loop — school theory to home practice through print — was the flywheel the entire product was built around. It gave teachers a lightweight assignment tool, parents a purposeful reason to print, and children a tactile learning experience that extended the classroom.",
+            "This loop (school theory to home practice through print) was the flywheel the entire product was built around. It gave teachers a lightweight assignment tool, parents a purposeful reason to print, and children a tactile learning experience that extended the classroom.",
           ],
         },
         {
           type: "image" as const,
           src: "/casestudy/hp-learning/entry-returning-user.png",
-          alt: "HP Learning entry point and returning user flow — Engagement Point to Print Exercise",
+          alt: "HP Learning entry point and returning user flow: Engagement Point to Print Exercise",
           caption: "Core user flow: Engagement Point → Choose Topic → Video Lesson → Print Exercise. Designed for the first-time visitor and the habitual learner equally.",
           layout: "mobile" as const,
         },
@@ -1032,15 +1032,15 @@ const allProjects = [
           label: "Execution",
           heading: "Design & Delivery",
           body: [
-            "I led strategic workshops in FigJam and Miro to build alignment across adjacent partners — Development Lead, Product Owner (Marketing), Legal & Security Council, and the Analytics Dev Team. We iterated hero user flows end-to-end, annotating directly in Figma with development notes, copy review flags, and analytics instrumentation points.",
+            "I led strategic workshops in FigJam and Miro to build alignment across adjacent partners: Development Lead, Product Owner (Marketing), Legal & Security Council, and the Analytics Dev Team. We iterated hero user flows end-to-end, annotating directly in Figma with development notes, copy review flags, and analytics instrumentation points.",
             "Every screen had to serve both the child (playful, low-friction) and the parent (efficient, informative) simultaneously. The experience was also architected for outward compatibility — built to integrate with HP Smart app, HP Store rewards, and social sharing from the ground up, not retrofitted later.",
           ],
         },
         {
           type: "image" as const,
           src: "/casestudy/hp-learning/post-printing-subtopic.png",
-          alt: "Post-printing sub-topic screen — learning outcome, Print Activity CTA, Mark as Complete, Up Next",
-          caption: "Post-printing screen: learning outcome, Print Activity, Mark as Complete, Up Next — each state closing one loop and surfacing the next action.",
+          alt: "Post-printing sub-topic screen: learning outcome, Print Activity CTA, Mark as Complete, Up Next",
+          caption: "Post-printing screen: learning outcome, Print Activity, Mark as Complete, Up Next, each state closing one loop and surfacing the next action.",
           layout: "mobile" as const,
         },
         {
@@ -1049,26 +1049,26 @@ const allProjects = [
           heading: "The Interstitial",
           body: [
             "Most EdTech products leave the space between lessons undesigned. I treated it as a product moment. The interstitial reinforced progress, surfaced the next learning step, and gave parents a passive visibility window into their child's activity — all without interrupting the flow.",
-            "The 'Mark as Complete' mechanic was deliberately low-effort so children could self-report progress without parental intervention. This gave parents a quiet signal of completion and immediately served the next action — closing the habit loop at the exact point where learner drop-off typically spikes.",
+            "The 'Mark as Complete' mechanic was deliberately low-effort so children could self-report progress without parental intervention. This gave parents a quiet signal of completion and immediately served the next action, closing the habit loop at the exact point where learner drop-off typically spikes.",
           ],
         },
         {
           type: "image" as const,
           src: "/casestudy/hp-learning/interstitial.png",
-          alt: "HP Learning interstitial screen — progress reinforcement and next lesson prompt",
-          caption: "Interstitial screen: progress signal, Up Next prompt, and Mark as Complete — designed to close one habit loop and open the next.",
+          alt: "HP Learning interstitial screen: progress reinforcement and next lesson prompt",
+          caption: "Interstitial screen: progress signal, Up Next prompt, and Mark as Complete, designed to close one habit loop and open the next.",
           layout: "mobile" as const,
         },
         {
           type: "quote" as const,
-          text: "The most successful EdTech product isn't the one with the most content — it's the one that builds the right habit.",
+          text: "The most successful EdTech product isn't the one with the most content, it's the one that builds the right habit.",
         },
         {
           type: "text" as const,
           label: "Impact",
           heading: "Impact",
           body: [
-            "The pilot launched in Russia and Turkey in 2021. My contributions directly drove 2M printed pages across 60K users. Every printed exercise wasn't just educational engagement — it was a tangible signal of print revenue for HP's core business. The redesigned onboarding and activation flow, built on the habit loop framework, measurably improved engagement metrics across the pilot markets.",
+            "The pilot launched in Russia and Turkey in 2021. My contributions directly drove 2M printed pages across 60K users. Every printed exercise wasn't just educational engagement, it was a tangible signal of print revenue for HP's core business. The redesigned onboarding and activation flow, built on the habit loop framework, measurably improved engagement metrics across the pilot markets.",
             "The experience was architected to integrate with HP Smart app, HP Store rewards, and HP ecosystem products — positioning HP Learning not just as an EdTech play, but as a long-term flywheel for HP's broader consumer business. The pilot proved the concept both educationally and commercially; the architecture was ready to scale.",
           ],
         },
@@ -1077,8 +1077,8 @@ const allProjects = [
           label: "Reflection",
           heading: "Reflection",
           body: [
-            "The sharpest shift in my thinking on this project was moving from 'what features does an EdTech platform need?' to 'what moment makes a parent come back tomorrow?' Framing the design problem around habit formation — not content completeness — changed every decision we made downstream, from the activation flow to the interstitial mechanic to how we sequenced the teacher-parent-child journey.",
-            "If I were to revisit it, I'd invest more research time with children directly. The child is the inexplicit user — central to the experience but invisible in our design process. I'd also A/B test the interstitial variations rather than shipping one direction, and build teacher-side tools with the same depth as the parent experience. The teacher journey was the least designed leg of the three-actor loop, and that's where I see the most untapped retention leverage.",
+            "The sharpest shift in my thinking on this project was moving from 'what features does an EdTech platform need?' to 'what moment makes a parent come back tomorrow?' Framing the design problem around habit formation (not content completeness) changed every decision we made downstream, from the activation flow to the interstitial mechanic to how we sequenced the teacher-parent-child journey.",
+            "If I were to revisit it, I'd invest more research time with children directly. The child is the inexplicit user, central to the experience but invisible in our design process. I'd also A/B test the interstitial variations rather than shipping one direction, and build teacher-side tools with the same depth as the parent experience. The teacher journey was the least designed leg of the three-actor loop, and that's where I see the most untapped retention leverage.",
           ],
         },
       ],
@@ -1086,8 +1086,8 @@ const allProjects = [
   },
   {
     slug: "bridgit",
-    title: "Microsoft Bridgit",
-    cardTitle: "Reimagining AI for Specialized Educators",
+    title: "Microsoft: Reimagining AI for Specialized Educators",
+    cardTitle: "Microsoft: Reimagining AI for Specialized Educators",
     cardVideo: "/casestudy/bridgit/card-reel.mp4",
     subtitle: "An AI-powered assistant built for special-education teachers.",
     category: "INCLUSIVE DESIGN RESEARCH",
@@ -1269,6 +1269,11 @@ const allProjects = [
           ],
         },
         {
+          type: "image" as const,
+          src: "/covers/flexible-insurance.jpg",
+          alt: "Flexible Insurance for Gig Workers — Rotman Design Challenge, first place",
+        },
+        {
           type: "text" as const,
           label: "Problem",
           heading: "The Coverage Gap",
@@ -1312,6 +1317,11 @@ const allProjects = [
     cardTextColor: "light" as const,
     coverImage: "/covers/greenbox-tempo.png",    imageConfig: { fit: "cover" as const, position: "center center", bg: "#0E3B2E" },
     cardVideo: "/casestudy/greenbox-tempo/card-reel.mp4",
+    heroVideo: {
+      mp4: "/casestudy/greenbox-tempo/thumbnail.mp4",
+      poster: "/covers/greenbox-tempo.png",
+      bg: "linear-gradient(140deg, #0E3B2E 0%, #14513C 52%, #0A2C22 100%)",
+    },
     caseStudy: {
       role: "Product Designer & Strategist",
       timeline: "2026 · Graduate Strategic Design studio (consulting engagement with GreenBox)",
@@ -1323,17 +1333,28 @@ const allProjects = [
           label: "Context",
           heading: "Overview",
           body: [
-            "GreenBox is an early-stage fintech. It builds enterprise software for independent Registered Investment Advisors (RIAs), the people who manage portfolios for the $84 trillion in generational wealth now changing hands. Our studio worked as a strategic consultancy. The class split into four teams, and each team took one of GreenBox's challenge areas. Ours was portfolio management. The brief was open on purpose: find the adjacent possible, the point where AI removes the heaviest friction from an advisor's day without taking over their judgment. We called our answer Tempo, an intelligence layer that connects the advisor's whole day instead of adding one more screen to manage.",
-            "The four of us did the work together. The research, the sense-making, the feature decisions, all shared. My part came at the front of the room. I presented. I owned the workflow-and-solutions narrative, walked GreenBox through the Morning Brief, and wrote the how-might-we framing and the roadmap the pitch was built on. The hard part was turning a dense system into a story a client could follow and question in real time.",
-            "It landed well. The GreenBox team responded strongly to two things: seeing market movements in the context of specific clients, and the externality-injection idea in the sandbox. They left us with a validated 3.5-year, four-phase roadmap. Over the engagement we defined four AI features across the advisor's full workflow (Detect, Decide, Execute, Verify, Report), and we showed them as a working interactive prototype instead of slides.",
+            "GreenBox builds software for independent RIAs — the advisors managing the $84 trillion now changing hands. Our studio took their portfolio-management challenge with one brief: find where AI removes the heaviest friction from an advisor's day without touching their judgment. The answer was Tempo, an intelligence layer that connects the whole day instead of adding one more screen.",
+            "Four of us shared the work end to end. I owned the front of the room — the workflow-and-solutions narrative, the Morning Brief walkthrough, the how-might-we framing, and the roadmap. It landed: GreenBox left us with a validated 3.5-year roadmap and a working prototype, not slides.",
           ],
         },
         {
-          type: "placeholder" as const,
-          media: "image" as const,
-          label: "Tempo — hero shot of the working prototype",
-          ratio: "21 / 9",
-          width: "wide" as const,
+          type: "embed" as const,
+          navLabel: "Try It Yourself",
+          label: "AI Prototype",
+          heading: "Try It Yourself",
+          intro: "Built with Claude Code. Open it and poke around the dashboard, the Morning Brief, and the Sandbox.",
+          url: "https://greenbox-app-rho.vercel.app/",
+          ratio: "16 / 10",
+          note: "Best viewed on desktop.",
+        },
+        {
+          type: "text" as const,
+          label: "Problem",
+          heading: "The Tool Pile",
+          body: [
+            "An advisor's stack is a pile of point solutions — CRM, portfolio reporting, planning, risk — each good at its slice, none owning the workflow. Context doesn't move between them, so what a client says Tuesday never reaches Wednesday's portfolio decision.",
+            "The advisor becomes the integration layer, carrying information by hand from one system to the next. That manual work is most of the 60%.",
+          ],
         },
         {
           type: "metrics" as const,
@@ -1349,16 +1370,7 @@ const allProjects = [
           type: "callout" as const,
           label: "The Strategic Reframe",
           body: [
-            "The bottleneck was never the quality of advice. We started describing the RIA as an air traffic controller for money: tracking dozens of portfolios, watching the market, judging risk, all at once, across systems that don't talk to each other. The cost is the time spent keeping eight tools in sync. Every hour an advisor spends reconciling data is an hour they don't spend with clients. Tempo handles the watching and the checking so that time comes back.",
-          ],
-        },
-        {
-          type: "text" as const,
-          label: "Problem",
-          heading: "The Tool Pile",
-          body: [
-            "An advisor's stack is a pile of point solutions. CRM lives in Salesforce, HubSpot, Wealthbox, or Redtail. Portfolio reporting sits in Orion, Black Diamond, or Advyzon. Planning happens in eMoney or RightCapital. Risk runs through Nitrogen or AndesRisk. Each one does its slice well.",
-            "None of them owns the workflow. Context doesn't move between them, so what a client says on Tuesday never reaches the portfolio decision on Wednesday. Advisors also end up bending sales CRMs to a job that is really about client psychology and long-term goals. The advisor becomes the integration layer, carrying information by hand from one system to the next. That manual work is most of the 60%.",
+            "The bottleneck was never advice — it was keeping eight tools in sync. We reframed the RIA as an air traffic controller for money: dozens of portfolios, live markets, constant risk calls, across systems that don't talk. Every hour reconciling data is an hour not with clients. Tempo does the watching and checking so that time comes back.",
           ],
         },
         {
@@ -1366,7 +1378,7 @@ const allProjects = [
           label: "Framework",
           heading: "The Job To Be Done",
           body: [
-            "Underneath the tools, the advisor's real job is one loop, repeated for every client: Detect, Decide, Execute, Verify, Report. It runs messy and out of order, with a lot of back-and-forth. We mapped a working day against it and found the time piling up at three stages. That is where we put Tempo.",
+            "Underneath the tools, the job is one loop repeated for every client: Detect, Decide, Execute, Verify, Report. We mapped a day against it. Time piled up at three stages — that's where Tempo lives.",
           ],
         },
         {
@@ -1378,80 +1390,78 @@ const allProjects = [
             { name: "Verify", targetId: "verify" },
             { name: "Report" },
           ],
-          caption: "The advisor's loop. We focused Tempo on the three stages where the time leaks.",
+          caption: "This is an RIA's current workflow through the day. We focused Tempo on the three stages where the time leaks.",
         },
         {
           type: "problem-gap" as const,
+          navLabel: "Detect",
           label: "Detect",
           heading: "Spotting the move before it's old news",
           current:
-            "The advisor opens tab after tab to see how the market moved against each client. By the time a signal shows up, the move already happened.",
+            "Tab after tab to see how the market hit each client. By the time a signal surfaces, the move already happened.",
           desired:
-            "Priority signals (drift, breaches, live events, overnight shifts) ranked and waiting before the first call.",
+            "Priority signals — drift, breaches, overnight shifts — ranked and waiting before the first call.",
         },
         {
           type: "problem-gap" as const,
+          navLabel: "Decide",
           label: "Decide",
           heading: "Testing a move before money moves",
           current:
-            "Trades happen across several platforms, with compliance checked after the fact. There is no safe place to try a move first.",
+            "Trades span several platforms, compliance checked after the fact. No safe place to try a move first.",
           desired:
-            "Model and stress-test a rebalance against real holdings, with compliance built in, before any money moves.",
+            "Model and stress-test a rebalance against real holdings, compliance built in, before money moves.",
         },
         {
           type: "problem-gap" as const,
+          navLabel: "Verify",
           label: "Verify",
           heading: "Confirming the trade matched the plan",
           current:
-            "Reconciliation sits apart from execution, so confirming that trades matched the plan is slow and manual.",
+            "Reconciliation sits apart from execution, so confirming trades matched the plan is slow and manual.",
           desired: "Execution and confirmation in one record. No surprises on Monday.",
         },
         {
           type: "pull-quote" as const,
+          navLabel: "Opportunity",
+          label: "Opportunity",
           text: "How might we help an advisor spot market anomalies, understand each client's full financial picture, and check a rebalance, all without leaving the work of advising?",
+          subtitle: "The reframe behind Tempo: keep the advisor advising; let the system carry the watching and checking.",
         },
         {
           type: "concepts-grid" as const,
-          heading: "Tempo: One Layer, Four Moves",
+          navLabel: "Solution",
+          heading: "Tempo: One Layer, Three Moves",
           items: [
-            {
-              name: "Meeting Intelligence",
-              tag: "Detect",
-              description:
-                "Video transcription, relationship memory, and sentiment profiling. Client context captured once and available everywhere.",
-            },
             {
               name: "Morning Brief",
               tag: "Detect",
               description:
-                "Market Pulse, overnight updates, and today's priorities, ranked by urgency and business impact.",
+                "Overnight moves and today's priorities, ranked by urgency and impact.",
             },
             {
               name: "Rebalance Sandbox",
               tag: "Decide",
               description:
-                "Model, stress-test, and compare strategies against real holdings, then commit to execution.",
+                "Model and stress-test strategies against real holdings, then commit.",
             },
             {
               name: "AI Copilot",
               tag: "Always-on",
               description:
-                "Always-on monitoring and next-best-action suggestions. The advisor signs off on every move.",
+                "Always-on monitoring and next-best-action suggestions. The advisor signs off.",
             },
           ],
         },
         {
-          type: "divider" as const,
-        },
-        {
           type: "features" as const,
-          label: "Solution",
-          heading: "How Tempo works, feature by feature",
+          navLabel: "Features",
           items: [
-            { name: "Meeting Intelligence", tag: "Detect", body: "Every client meeting gets transcribed and remembered. What a client said about their kid's tuition in March surfaces when you open their portfolio in June. Mood and trust get read alongside the numbers, so context lives in one place instead of scattered across notes apps.", media: "gif" as const, mediaLabel: "Meeting Intelligence — transcription + relationship memory", ratio: "4 / 3" },
-            { name: "Morning Brief", tag: "Detect", body: "The advisor's first five minutes. Market Pulse ties overnight moves to named portfolios, so Sarah sees \"the Hayes family is down $28k\" instead of \"the S&P moved 0.4%.\" Today's Priorities ranks who needs attention by urgency and business impact. The first hour goes to advising, not aggregating.", media: "image" as const, mediaLabel: "Morning Brief — ranked client queue", ratio: "4 / 3" },
-            { name: "Rebalance Sandbox", tag: "Decide", body: "A place to test a move before money moves. Inject an externality like a recession or a tech selloff and watch return, volatility, and drawdown respond, then run it across the whole book to see who is exposed. The client called it a graphic equalizer for strategy.", media: "video" as const, mediaLabel: "Rebalance Sandbox — externality stress test", ratio: "4 / 3" },
-            { name: "AI Copilot", tag: "Always-on", body: "Always watching the book for drift and risk breaches, surfacing the next best action with reasoning the advisor can override. It proposes, the advisor decides. Judgment stays human, and every action is signed off and logged.", media: "image" as const, mediaLabel: "AI Copilot — next-best-action panel", ratio: "4 / 3" },
+            { name: "Morning Brief", tag: "Detect", body: "The first five minutes. Market Pulse ties overnight moves to named portfolios — Sarah sees \"the Hayes family is down $28k,\" not \"the S&P moved 0.4%.\" Priorities rank who needs her first. The hour goes to advising, not aggregating.", media: "image" as const, mediaLabel: "Morning Brief — ranked client queue", ratio: "4 / 3", src: "/casestudy/greenbox-tempo/morning-brief.png" },
+            { name: "Clients Page", tag: "Context", body: "One client, one screen. It pulls AUM, YTD returns, allocation drift against target, the holdings timeline, and the full interaction history out of the eight tools that used to keep them apart. A memory layer keeps the offline texture too: the dinner last quarter, the worried call before the election. The advisor walks in already knowing where things stand, then books the next meeting without leaving the page.", media: "video" as const, mediaLabel: "Clients Page — the unified client profile", ratio: "4 / 3", src: "/casestudy/greenbox-tempo/clients.mp4" },
+            { name: "Rebalance Sandbox", tag: "Decide", body: "Test a move before money moves. Model a rebalance against real holdings; watch return, volatility, and drawdown respond. Compliance is built in, so the check happens before the trade.", media: "video" as const, mediaLabel: "Rebalance Sandbox — model against real holdings", ratio: "4 / 3", src: "/casestudy/greenbox-tempo/rebalance-sandbox.mp4" },
+            { name: "Prompt a Market Externality", tag: "Decide", body: "Type a what-if — a rate hike, a selloff — and Tempo runs it across the whole book in seconds. Exposure shifts live, so the advisor sees who's at risk and walks the client through it with numbers. GreenBox called it a graphic equalizer for strategy.", media: "video" as const, mediaLabel: "Prompt a Market Externality — book-wide stress test", ratio: "4 / 3", src: "/casestudy/greenbox-tempo/market-externality.mp4" },
+            { name: "AI Copilot", tag: "Always-on", body: "Always watching for drift and risk breaches, surfacing the next best action with reasoning the advisor can override. It proposes, the advisor decides. Every action signed off and logged.", media: "gif" as const, mediaLabel: "AI Copilot — next-best-action panel", ratio: "4 / 3", src: "/casestudy/greenbox-tempo/ai-copilot.mp4" },
           ],
         },
         {
@@ -1459,50 +1469,14 @@ const allProjects = [
         },
         {
           type: "timeline" as const,
+          navLabel: "Roadmap",
           label: "Roadmap",
           title: "A 3.5-year path to the operating system",
           items: [
-            { num: "01", label: "Phase 1 · M1–6", body: "Morning Brief dashboard plus an AI Copilot alpha that handles chat and contextual questions. Proves out the data layer." },
-            { num: "02", label: "Phase 2 · M7–18", body: "Smart note-taking and relationship memory. Adds the client-intelligence layer." },
+            { num: "01", label: "Phase 1 · M1–6", body: "Morning Brief dashboard + AI Copilot alpha for chat and contextual questions. Proves the data layer." },
+            { num: "02", label: "Phase 2 · M7–18", body: "Deeper portfolio and market integrations feeding the Brief, priorities tuned to each advisor's book." },
             { num: "03", label: "Phase 3 · M19–30", body: "The full Rebalance Sandbox, with sentiment and world data feeding the stress tests." },
-            { num: "04", label: "Phase 4 · M31–42", body: "An AI Copilot beta that monitors portfolios on its own, keeps the advisor in the loop, and runs across the dashboard." },
-          ],
-        },
-        {
-          type: "callout" as const,
-          label: "The Adjacent Possible",
-          body: [
-            "Tempo's advantage builds over time. Every feature adds a little to the switching cost through stored memory: the longer an advisor uses it, the more it knows about their clients, and the harder it becomes to walk away. An open API lets it sit at the center of an advisor's stack instead of competing as one more app.",
-          ],
-        },
-        {
-          type: "concepts-grid" as const,
-          heading: "What If: Stress-Testing the Strategy",
-          items: [
-            {
-              name: "A competitor ships a better product",
-              tag: "Risk",
-              description:
-                "The moat is the depth of stored client memory and sentiment, and those switching costs grow every day. A rival feature doesn't reset them.",
-            },
-            {
-              name: "The great wealth transfer accelerates",
-              tag: "Risk",
-              description:
-                "Heirs stay with advisors they trust. Tempo holds the relationship history that carries an advisor through a death, a divorce, or a handoff to the next generation.",
-            },
-            {
-              name: "AI regulation tightens (SEC)",
-              tag: "Risk",
-              description:
-                "Human sign-off is already part of the advisor-in-the-loop design. The audit logs are timestamped, queryable, and exportable, so there is no retrofit when the rules change.",
-            },
-            {
-              name: "The RIA market consolidates",
-              tag: "Risk",
-              description:
-                "A single-advisor setup scales to a multi-advisory firm without a rebuild: roles, audit, compliance, and shared dashboards. The constraint turns into an advantage.",
-            },
+            { num: "04", label: "Phase 4 · M31–42", body: "AI Copilot beta that monitors portfolios on its own, advisor in the loop, across the dashboard." },
           ],
         },
         {
@@ -1510,26 +1484,17 @@ const allProjects = [
           label: "Outcome",
           heading: "My Role & Reflection",
           body: [
-            "This was a strategy and concept engagement. We validated it through a working prototype and a strong response from the client, not a live product. I want to be straight about that.",
-            "The thinking was shared. All four of us shaped the problem framing, the research, and the feature set. My own contribution was getting it across the line: presenting the workflow-and-solutions narrative and the Morning Brief to GreenBox, and writing the how-might-we framing and the roadmap that held the pitch together. The job I did was standing between a complicated system and the people who had to decide whether to back it.",
+            "A strategy and concept engagement — validated by a working prototype and a strong client response, not a shipped product.",
+            "The four of us shaped the problem, research, and features together. My part was getting it across the line: presenting the narrative and the Morning Brief, and writing the how-might-we framing and roadmap that held the pitch together — standing between a dense system and the people deciding whether to back it.",
           ],
-        },
-        {
-          type: "embed" as const,
-          label: "Live Prototype",
-          heading: "Try it yourself",
-          intro: "Tempo was a concept, but we shipped a working build. Open it and poke around the dashboard, the Morning Brief, and the Sandbox.",
-          url: "https://greenbox-app-rho.vercel.app/",
-          ratio: "16 / 10",
-          note: "Best viewed on desktop.",
         },
       ],
     },
   },
   {
     slug: "project-sense",
-    title: "SENSE: Clinical Trial Intelligence Platform",
-    cardTitle: "Turning Trial Data Into Decisions",
+    title: "SENSE: Turning Trial Data into Decisions",
+    cardTitle: "SENSE: Turning Trial Data into Decisions",
     subtitle: "An analytics platform predicting risk and delay across clinical trials.",
     category: "PRODUCT DESIGN · DATA VISUALIZATION",
     filterCategory: "Product Design" as ProjectCategory,
@@ -1789,8 +1754,8 @@ export const skills = Object.values(skillCategories).flat();
 export const aboutData = {
   subtitle: "Product Designer & Strategist based in New York",
   narrative: [
-    "I\u2019ve spent the last seven years figuring out how to make complicated things feel obvious. At HP, that meant redesigning printer software used by tens of thousands of people who never wanted to think about printers. At Accenture, it was enterprise onboarding flows where a single confusing field could lose a patient. At Parsons, it became something bigger \u2014 understanding how design decisions carry bias, and how AI can either amplify or correct it.",
-    "What I keep coming back to is the seam between strategy and craft. I like being in the room where the business model gets debated, and I like being the one who turns that conversation into an interface someone actually wants to use. I think the best designers do both \u2014 they don\u2019t just make things pretty, they make things right.",
+    "I\u2019ve spent the last seven years figuring out how to make complicated things feel obvious. At HP, that meant redesigning printer software used by tens of thousands of people who never wanted to think about printers. At Accenture, it was enterprise onboarding flows where a single confusing field could lose a patient. At Parsons, it became something bigger: understanding how design decisions carry bias, and how AI can either amplify or correct it.",
+    "What I keep coming back to is the seam between strategy and craft. I like being in the room where the business model gets debated, and I like being the one who turns that conversation into an interface someone actually wants to use. I think the best designers do both: they don\u2019t just make things pretty, they make things right.",
     "Right now I\u2019m finishing my MS at Parsons, building AI-native tools, and trying to figure out what design practice looks like when your most powerful collaborator is a language model.",
   ],
   education: {

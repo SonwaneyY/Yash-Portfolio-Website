@@ -475,6 +475,20 @@
   margin-top: var(--space-4);
 }
 
+.pullQuote .textHeadingLabel {
+  display: block;
+  margin-bottom: var(--space-4);
+}
+
+.pullQuoteSubtitle {
+  max-width: 560px;
+  margin: var(--space-4) auto 0;
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
 /* Callout — structured insight block */
 .callout {
   width: 100%;
@@ -1109,7 +1123,7 @@
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   display: block;
 }
 
@@ -1124,15 +1138,16 @@
 
 .embedIntro {
   margin-top: var(--space-2);
-  font-size: var(--text-lead);
+  font-size: var(--text-body);
   color: var(--text-secondary);
-  line-height: 1.6;
+  line-height: 1.7;
   max-width: var(--content-width);
 }
 
 .embedFrame {
   position: relative;
   width: 100%;
+  margin: 0 auto;
   background: var(--bg-secondary);
   border: 1px solid var(--rule);
   overflow: hidden;
@@ -1151,6 +1166,17 @@
   font-family: var(--font-mono);
   font-size: var(--text-small);
   color: var(--text-tertiary);
+}
+
+/* "Best viewed on desktop" — only relevant on mobile/tablet */
+.embedNoteWarning {
+  display: none;
+}
+
+@media (max-width: 1024px) {
+  .embedNoteWarning {
+    display: inline;
+  }
 }
 
 .embedLink {

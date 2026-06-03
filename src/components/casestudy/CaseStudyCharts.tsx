@@ -25,9 +25,9 @@ const gx = (i: number) => GP.left + (i / (GROWTH_DATA.length - 1)) * GCW;
 const gy = (v: number) => GP.top + GCH - (v / GROWTH_MAX) * GCH;
 
 const PHASES = [
-  { start: 0, end: 2, label: "PHASE 1 — STABILIZE" },
-  { start: 2, end: 4, label: "PHASE 2 — BUILD" },
-  { start: 4, end: 7, label: "PHASE 3 — CONVERT" },
+  { start: 0, end: 2, label: "PHASE 1: STABILIZE" },
+  { start: 2, end: 4, label: "PHASE 2: BUILD" },
+  { start: 4, end: 7, label: "PHASE 3: CONVERT" },
 ];
 
 const Y_GRID = [0, 40, 80, 120];
@@ -414,7 +414,7 @@ export function ChurnReasonsChart() {
               fontWeight={600}
               fill="var(--text-primary)"
             >
-              {seg.pct}% — {seg.label}
+              {seg.pct}%: {seg.label}
             </text>
             <text
               x={DCX * 2 + 50}

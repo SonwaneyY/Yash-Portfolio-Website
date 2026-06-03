@@ -91,7 +91,7 @@ export default function Testimonials() {
             <div key={i} className={styles.quoteWrapper}>
               <p className={styles.quote}>&ldquo;{t.quote}&rdquo;</p>
               <span className={styles.attribution}>
-                &mdash; {t.name}, {t.title}
+                {t.name}, {t.title}
               </span>
             </div>
           ))}
@@ -113,7 +113,7 @@ export default function Testimonials() {
               >
                 <p className={styles.quote}>&ldquo;{current.quote}&rdquo;</p>
                 <span className={styles.attribution}>
-                  &mdash; {current.name}, {current.title}
+                  {current.name}, {current.title}
                 </span>
               </motion.div>
             </AnimatePresence>
