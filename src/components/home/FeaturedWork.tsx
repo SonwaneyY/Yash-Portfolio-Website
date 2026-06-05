@@ -5,7 +5,7 @@ import { useSearchParams } from "next/navigation";
 import Container from "@/components/ui/Container";
 import ProjectCard from "./ProjectCard";
 import { projects, projectCategories, type ProjectCategory } from "@/lib/data";
-import { gsap, ScrollTrigger } from "@/lib/gsap";
+import { gsap } from "@/lib/gsap";
 import styles from "./FeaturedWork.module.css";
 
 const slugToCategory: Record<string, ProjectCategory> = {
@@ -81,26 +81,6 @@ export default function FeaturedWork() {
 
     return () => ctx.revert();
   }, []);
-
-  // Animate project cards on filter change — rise + fade, column stagger
-  useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    if (!listRef.current) return;
-
-    const cards = listRef.current.querySelectorAll("[data-project-card]");
-    if (cards.length === 0) return;
-
-    gsap.fromTo(
-      cards,
-      { opacity: 0 },
-      {
-        opacity: 1,
-        duration: 0.6,
-        stagger: 0.05,
-        ease: "power2.out",
-      }
-    );
-  }, [active]);
 
   const filtered =
     active === "All"

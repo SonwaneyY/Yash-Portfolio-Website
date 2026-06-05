@@ -21,6 +21,7 @@ export default function LoopRail({
   const railRef = useRef<HTMLDivElement>(null);
   const [traveled, setTraveled] = useState(false);
   const [activeId, setActiveId] = useState<string | null>(null);
+  const [released, setReleased] = useState(false);
 
   // Travel the dot once when the rail first enters view.
   useEffect(() => {
@@ -74,13 +75,33 @@ export default function LoopRail({
     return () => io.disconnect();
   }, [stages]);
 
+  // Release stickiness once the last targeted stage scrolls above the rail.
+  useEffect(() => {
+    const ids = stages
+      .map((s) => s.targetId)
+      .filter((id): id is string => Boolean(id));
+    const lastId = ids[ids.length - 1];
+    const el = lastId ? document.getElementById(lastId) : null;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([e]) => setReleased(!e.isIntersecting && e.boundingClientRect.top < 0),
+      { threshold: 0, rootMargin: "-72px 0px 0px 0px" }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [stages]);
+
   const handleJump = (targetId?: string) => {
     if (!targetId) return;
     document.getElementById(targetId)?.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
   };
 
   return (
-    <div className={styles.wrap} ref={railRef}>
+    <div
+      className={styles.wrap}
+      ref={railRef}
+      style={released ? { position: "static" } : undefined}
+    >
       {(label || heading) && (
         <div className={styles.head}>
           {label && <span className={styles.label}>{label}</span>}
@@ -88,7 +109,11 @@ export default function LoopRail({
         </div>
       )}
 
-      <div className={styles.rail} role="list">
+      <div
+        className={styles.rail}
+        role="list"
+        style={{ gridTemplateColumns: `repeat(${Math.max(stages.length - 1, 1)}, 1fr) max-content` }}
+      >
         <div className={styles.track} aria-hidden />
         <motion.div
           className={styles.progress}
