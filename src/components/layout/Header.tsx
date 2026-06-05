@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import clsx from "clsx";
 import Container from "@/components/ui/Container";
 import MobileMenu from "./MobileMenu";
@@ -23,6 +23,26 @@ export default function Header() {
   const [copied, setCopied] = useState(false);
   const copyTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const pathname = usePathname();
+  const reduceMotion = useReducedMotion();
+  const isHome = pathname === "/";
+
+  // On home, the header stays hidden through beat 1 and slides down with the
+  // rest of the page when the Hero fires its reveal (beat 2).
+  const [revealed, setRevealed] = useState(!isHome || !!reduceMotion);
+
+  useEffect(() => {
+    if (!isHome || reduceMotion) {
+      setRevealed(true);
+      return;
+    }
+    // Home + animated: hide the header and wait for the Hero's beat-2 signal.
+    // (Beat 2 is ~950ms out, well after mount, so the listener is always in
+    // place before it fires — no need to reconcile against a missed event.)
+    setRevealed(false);
+    const onReveal = () => setRevealed(true);
+    window.addEventListener("hero-reveal", onReveal);
+    return () => window.removeEventListener("hero-reveal", onReveal);
+  }, [isHome, reduceMotion]);
 
   function handleCopyEmail() {
     const confirm = () => {
@@ -49,7 +69,6 @@ export default function Header() {
     }
   }
 
-  const isHome = pathname === "/";
   const headerInitialY = isHome ? -24 : 0;
 
   return (
@@ -57,7 +76,7 @@ export default function Header() {
       <motion.header
         className={styles.header}
         initial={{ opacity: 0, y: headerInitialY }}
-        animate={{ opacity: 1, y: 0 }}
+        animate={revealed ? { opacity: 1, y: 0 } : { opacity: 0, y: headerInitialY }}
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
       >
         <Container>

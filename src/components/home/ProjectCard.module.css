@@ -17,27 +17,34 @@
   border-radius: var(--radius);
 }
 
+/* Cover wrapper — GSAP transforms this (parallax drift + scale) */
 .cover {
-  transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: calc(100% - 8px);
+  height: calc(100% - 8px);
+  border-radius: calc(var(--radius) - 4px);
+  overflow: hidden;
+  will-change: transform;
+}
+
+.coverMedia {
   border-radius: calc(var(--radius) - 4px);
 }
 
-.media .cover {
+.media .coverMedia {
   position: absolute;
-  top: 4px !important;
-  left: 4px !important;
+  top: 0 !important;
+  left: 0 !important;
   right: auto !important;
   bottom: auto !important;
-  width: calc(100% - 8px) !important;
-  height: calc(100% - 8px) !important;
+  width: 100% !important;
+  height: 100% !important;
   min-width: 0 !important;
   max-width: none !important;
   min-height: 0 !important;
   max-height: none !important;
-}
-
-.card:hover .cover {
-  transform: scale(1.04);
 }
 
 /* ---- Text block ---- */
@@ -70,7 +77,12 @@
   line-height: 1.15;
   letter-spacing: -0.01em;
   color: var(--text-primary);
-  transition: color 400ms ease;
+  transition: color 400ms ease, transform 500ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Hover: title nudges toward the case study */
+.card:hover .title {
+  transform: translateX(6px);
 }
 
 .subtitle {

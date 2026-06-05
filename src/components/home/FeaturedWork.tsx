@@ -82,7 +82,7 @@ export default function FeaturedWork() {
     return () => ctx.revert();
   }, []);
 
-  // Animate project cards on filter change — clip-path wipe
+  // Animate project cards on filter change — rise + fade, column stagger
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     if (!listRef.current) return;
@@ -92,14 +92,12 @@ export default function FeaturedWork() {
 
     gsap.fromTo(
       cards,
-      { clipPath: "inset(0 100% 0 0)", opacity: 0 },
+      { opacity: 0 },
       {
-        clipPath: "inset(0 0% 0 0)",
         opacity: 1,
         duration: 0.6,
-        stagger: 0.08,
-        ease: "power4.inOut",
-        clearProps: "clipPath",
+        stagger: 0.05,
+        ease: "power2.out",
       }
     );
   }, [active]);
