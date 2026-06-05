@@ -42,7 +42,7 @@
   position: absolute;
   top: 5px;
   left: 0;
-  right: 0;
+  right: -24px;
   height: 1px;
   background: var(--rule);
 }
@@ -51,7 +51,7 @@
   position: absolute;
   top: 5px;
   left: 0;
-  right: 0;
+  right: -24px;
   height: 1px;
   background: var(--accent);
   transform-origin: left center;

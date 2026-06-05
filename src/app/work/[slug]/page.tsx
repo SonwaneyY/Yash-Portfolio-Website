@@ -467,8 +467,10 @@ function SectionRenderer({ section, onImageClick }: { section: CaseStudySection;
       return (
         <ScrollReveal>
           <div id={section.navLabel ? headingToId(section.navLabel) : undefined} className={styles.conceptsSection}>
-            {section.label && <span className={styles.textHeadingLabel}>{section.label}</span>}
-            <p className={styles.conceptsSectionHeading}>{section.heading}</p>
+            <div className={styles.conceptsHead}>
+              <h2 className={styles.conceptsTitle}>{section.heading}</h2>
+              {section.label && <span className={styles.conceptsSubtitle}>{section.label}</span>}
+            </div>
             <div className={styles.conceptsGrid}>
               {section.items.map((item, i) => (
                 <div key={i} className={`${styles.conceptCard} ${item.selected ? styles.conceptCardSelected : ""}`}>

@@ -95,9 +95,9 @@ export default function Hero() {
           {/* Display statement — eases in (grey) on beat 1, resolves to primary on beat 2 */}
           <motion.h1
             className={styles.statement}
-            initial={reduceMotion ? false : { opacity: 0, y: 18 }}
+            initial={reduceMotion ? false : { opacity: 0, y: 32 }}
             animate={showStatement ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.65, ease: easeOut }}
+            transition={{ duration: 0.85, ease: easeOut }}
           >
             <span className={styles.statementPhrase} data-revealed={isReveal}>
               {STATEMENT}

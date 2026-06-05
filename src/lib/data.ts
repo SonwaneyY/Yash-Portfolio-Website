@@ -4,7 +4,7 @@ export const siteConfig = {
   initials: "YS",
   tagline: "Designing systems that make complex things feel simple.",
   bio: "Senior product designer with 7+ years of experience shaping enterprise tools, service ecosystems, and AI-native workflows. Currently finishing an MS in Strategic Design & Management at Parsons School of Design.",
-  email: "yash.sonwaney@newschool.edu",
+  email: "designwyash@gmail.com",
   linkedin: "https://linkedin.com/in/yashsonwaney",
 };
 
@@ -65,7 +65,7 @@ const allProjects = [
   {
     slug: "beyond-efficiency",
     title: "Beyond Efficiency: Understanding the Paradox of AI in Hiring",
-    cardTitle: "Technology-led Inequities in Hiring",
+    cardTitle: "Loop AI: Technology-led Inequities in Hiring",
     subtitle: "Design research on how AI made hiring faster, but far less human.",
     category: "DESIGN RESEARCH",
     filterCategory: "Research" as ProjectCategory,
@@ -379,7 +379,7 @@ const allProjects = [
   {
     slug: "loop-strategy",
     title: "Loop : Strategy",
-    cardTitle: "Turning Rejection into Brand Equity",
+    cardTitle: "Loop AI: Turning Rejection into Brand Equity",
     subtitle: "An AI intelligence layer that turns candidate rejection into recruiter brand equity.",
     category: "PRODUCT DESIGN · STRATEGY · AI PRODUCT",
     filterCategory: "Strategy" as ProjectCategory,
@@ -610,6 +610,7 @@ const allProjects = [
   },
   {
     slug: "goretex-accesswear",
+    draft: true, // hidden from the grid in production; visible on dev/preview + localhost
     title: "GORE-TEX AccessWear: Designing a Circular Outerwear Subscription",
     cardTitle: "GORE-TEX AccessWear: Designing a Circular Outerwear Subscription",
     subtitle: "End-to-end service design for a circular outerwear rental subscription.",
@@ -1361,8 +1362,8 @@ const allProjects = [
           label: "Context",
           heading: "Overview",
           body: [
-            "GreenBox builds software for independent RIAs — the advisors managing the $84 trillion now changing hands. Our studio took their portfolio-management challenge with one brief: find where AI removes the heaviest friction from an advisor's day without touching their judgment. The answer was Tempo, an intelligence layer that connects the whole day instead of adding one more screen.",
-            "Four of us shared the work end to end. I owned the front of the room — the workflow-and-solutions narrative, the Morning Brief walkthrough, the how-might-we framing, and the roadmap. It landed: GreenBox left us with a validated 3.5-year roadmap and a working prototype, not slides.",
+            "GreenBox builds software for independent RIAs, the advisors managing the $84 trillion now changing hands. Our studio took their portfolio-management challenge with one brief: find where AI removes the heaviest friction from an advisor's day without touching their judgment. The answer was Tempo, an intelligence layer that connects the whole day instead of adding one more screen.",
+            "Four of us shared the work end to end. I owned the front of the room: the workflow-and-solutions narrative, the Morning Brief walkthrough, the how-might-we framing, and the roadmap. It landed: GreenBox left us with a validated 3.5-year roadmap and a working prototype, not slides.",
           ],
         },
         {
@@ -1380,7 +1381,7 @@ const allProjects = [
           label: "Problem",
           heading: "The Tool Pile",
           body: [
-            "An advisor's stack is a pile of point solutions — CRM, portfolio reporting, planning, risk — each good at its slice, none owning the workflow. Context doesn't move between them, so what a client says Tuesday never reaches Wednesday's portfolio decision.",
+            "An advisor's stack is a pile of point solutions (CRM, portfolio reporting, planning, risk), each good at its slice, none owning the workflow. Context doesn't move between them, so what a client says Tuesday never reaches Wednesday's portfolio decision.",
             "The advisor becomes the integration layer, carrying information by hand from one system to the next. That manual work is most of the 60%.",
           ],
         },
@@ -1398,7 +1399,7 @@ const allProjects = [
           type: "callout" as const,
           label: "The Strategic Reframe",
           body: [
-            "The bottleneck was never advice — it was keeping eight tools in sync. We reframed the RIA as an air traffic controller for money: dozens of portfolios, live markets, constant risk calls, across systems that don't talk. Every hour reconciling data is an hour not with clients. Tempo does the watching and checking so that time comes back.",
+            "The bottleneck was never advice. It was keeping eight tools in sync. We reframed the RIA as an air traffic controller for money: dozens of portfolios, live markets, constant risk calls, across systems that don't talk. Every hour reconciling data is an hour not with clients. Tempo does the watching and checking so that time comes back.",
           ],
         },
         {
@@ -1406,7 +1407,7 @@ const allProjects = [
           label: "Framework",
           heading: "The Job To Be Done",
           body: [
-            "Underneath the tools, the job is one loop repeated for every client: Detect, Decide, Execute, Verify, Report. We mapped a day against it. Time piled up at three stages — that's where Tempo lives.",
+            "Underneath the tools, the job is one loop repeated for every client: Detect, Decide, Execute, Verify, Report. We mapped a day against it. Time piled up at three stages: that's where Tempo lives.",
           ],
         },
         {
@@ -1428,7 +1429,7 @@ const allProjects = [
           current:
             "Tab after tab to see how the market hit each client. By the time a signal surfaces, the move already happened.",
           desired:
-            "Priority signals — drift, breaches, overnight shifts — ranked and waiting before the first call.",
+            "Priority signals (drift, breaches, overnight shifts), ranked and waiting before the first call.",
         },
         {
           type: "problem-gap" as const,
@@ -1459,6 +1460,7 @@ const allProjects = [
         {
           type: "concepts-grid" as const,
           navLabel: "Solution",
+          label: "Solution",
           heading: "Tempo: One Layer, Three Moves",
           items: [
             {
@@ -1485,11 +1487,11 @@ const allProjects = [
           type: "features" as const,
           navLabel: "Features",
           items: [
-            { name: "Morning Brief", tag: "Detect", body: "The first five minutes. Market Pulse ties overnight moves to named portfolios — Sarah sees \"the Hayes family is down $28k,\" not \"the S&P moved 0.4%.\" Priorities rank who needs her first. The hour goes to advising, not aggregating.", media: "image" as const, mediaLabel: "Morning Brief — ranked client queue", ratio: "4 / 3", src: "/casestudy/greenbox-tempo/morning-brief.png" },
-            { name: "Clients Page", tag: "Context", body: "One client, one screen. It pulls AUM, YTD returns, allocation drift against target, the holdings timeline, and the full interaction history out of the eight tools that used to keep them apart. A memory layer keeps the offline texture too: the dinner last quarter, the worried call before the election. The advisor walks in already knowing where things stand, then books the next meeting without leaving the page.", media: "video" as const, mediaLabel: "Clients Page — the unified client profile", ratio: "4 / 3", src: "/casestudy/greenbox-tempo/clients.mp4" },
-            { name: "Rebalance Sandbox", tag: "Decide", body: "Test a move before money moves. Model a rebalance against real holdings; watch return, volatility, and drawdown respond. Compliance is built in, so the check happens before the trade.", media: "video" as const, mediaLabel: "Rebalance Sandbox — model against real holdings", ratio: "4 / 3", src: "/casestudy/greenbox-tempo/rebalance-sandbox.mp4" },
-            { name: "Prompt a Market Externality", tag: "Decide", body: "Type a what-if — a rate hike, a selloff — and Tempo runs it across the whole book in seconds. Exposure shifts live, so the advisor sees who's at risk and walks the client through it with numbers. GreenBox called it a graphic equalizer for strategy.", media: "video" as const, mediaLabel: "Prompt a Market Externality — book-wide stress test", ratio: "4 / 3", src: "/casestudy/greenbox-tempo/market-externality.mp4" },
-            { name: "AI Copilot", tag: "Always-on", body: "Always watching for drift and risk breaches, surfacing the next best action with reasoning the advisor can override. It proposes, the advisor decides. Every action signed off and logged.", media: "gif" as const, mediaLabel: "AI Copilot — next-best-action panel", ratio: "4 / 3", src: "/casestudy/greenbox-tempo/ai-copilot.mp4" },
+            { name: "Morning Brief", tag: "Detect", body: "The first five minutes. Market Pulse ties overnight moves to named portfolios: Sarah sees \"the Hayes family is down $28k,\" not \"the S&P moved 0.4%.\" Priorities rank who needs her first. The hour goes to advising, not aggregating.", media: "gif" as const, mediaLabel: "Morning Brief: ranked client queue", ratio: "4 / 3", src: "/casestudy/greenbox-tempo/morning-brief.mp4" },
+            { name: "Clients Page", tag: "Context", body: "One client, one screen. It pulls AUM, YTD returns, allocation drift against target, the holdings timeline, and the full interaction history out of the eight tools that used to keep them apart. A memory layer keeps the offline texture too: the dinner last quarter, the worried call before the election. The advisor walks in already knowing where things stand, then books the next meeting without leaving the page.", media: "video" as const, mediaLabel: "Clients Page: the unified client profile", ratio: "4 / 3", src: "/casestudy/greenbox-tempo/clients.mp4" },
+            { name: "Rebalance Sandbox", tag: "Decide", body: "Test a move before money moves. Model a rebalance against real holdings; watch return, volatility, and drawdown respond. Compliance is built in, so the check happens before the trade.", media: "video" as const, mediaLabel: "Rebalance Sandbox: model against real holdings", ratio: "4 / 3", src: "/casestudy/greenbox-tempo/rebalance-sandbox.mp4" },
+            { name: "Prompt a Market Externality", tag: "Decide", body: "Type a what-if (a rate hike, a selloff) and Tempo runs it across the whole book in seconds. Exposure shifts live, so the advisor sees who's at risk and walks the client through it with numbers. GreenBox called it a graphic equalizer for strategy.", media: "video" as const, mediaLabel: "Prompt a Market Externality: book-wide stress test", ratio: "4 / 3", src: "/casestudy/greenbox-tempo/market-externality.mp4" },
+            { name: "AI Copilot", tag: "Always-on", body: "Always watching for drift and risk breaches, surfacing the next best action with reasoning the advisor can override. It proposes, the advisor decides. Every action signed off and logged.", media: "gif" as const, mediaLabel: "AI Copilot: next-best-action panel", ratio: "4 / 3", src: "/casestudy/greenbox-tempo/ai-copilot.mp4" },
           ],
         },
         {
@@ -1512,8 +1514,8 @@ const allProjects = [
           label: "Outcome",
           heading: "My Role & Reflection",
           body: [
-            "A strategy and concept engagement — validated by a working prototype and a strong client response, not a shipped product.",
-            "The four of us shaped the problem, research, and features together. My part was getting it across the line: presenting the narrative and the Morning Brief, and writing the how-might-we framing and roadmap that held the pitch together — standing between a dense system and the people deciding whether to back it.",
+            "A strategy and concept engagement, validated by a working prototype and a strong client response, not a shipped product.",
+            "The four of us shaped the problem, research, and features together. My part was getting it across the line: presenting the narrative and the Morning Brief, and writing the how-might-we framing and roadmap that held the pitch together. I stood between a dense system and the people deciding whether to back it.",
           ],
         },
       ],
@@ -1736,11 +1738,17 @@ const featuredOrder = [
   "hp-learning",
 ];
 
-export const projects = [...allProjects].sort((a, b) => {
-  const ia = featuredOrder.indexOf(a.slug);
-  const ib = featuredOrder.indexOf(b.slug);
-  return (ia === -1 ? Infinity : ia) - (ib === -1 ? Infinity : ib);
-});
+// In production (main → Vercel), drafts are hidden from the grid. On dev/preview
+// and localhost they stay visible so work-in-progress can still be reviewed.
+const isProduction = process.env.NEXT_PUBLIC_VERCEL_ENV === "production";
+
+export const projects = [...allProjects]
+  .filter((p) => !(isProduction && (p as { draft?: boolean }).draft))
+  .sort((a, b) => {
+    const ia = featuredOrder.indexOf(a.slug);
+    const ib = featuredOrder.indexOf(b.slug);
+    return (ia === -1 ? Infinity : ia) - (ib === -1 ? Infinity : ib);
+  });
 
 export const testimonials = [
   {

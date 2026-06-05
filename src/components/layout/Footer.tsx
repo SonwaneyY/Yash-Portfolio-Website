@@ -33,6 +33,14 @@ export default function Footer() {
   return (
     <footer className={styles.footer} ref={footerRef}>
       <Container>
+        <div className={styles.status}>
+          <p className={styles.statusLine}>
+            Currently looking for my next opportunity in the US.
+          </p>
+          <a href={`mailto:${siteConfig.email}`} className={styles.statusCta}>
+            Reach out &rarr;
+          </a>
+        </div>
         <div className={styles.inner} data-footer-inner>
           <span className={styles.name}>
             &copy; {new Date().getFullYear()} {siteConfig.name}
