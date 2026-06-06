@@ -60,7 +60,7 @@ function SectionRenderer({ section, onImageClick }: { section: CaseStudySection;
               <div
                 className={styles.imageFull}
                 onClick={() => onImageClick(section.src)}
-                style={{ cursor: "zoom-in" }}
+                style={{ cursor: "zoom-in", ...(section.aspectRatio ? { aspectRatio: section.aspectRatio } : {}) }}
               >
                 <div className={styles.imageInner}>
                   <Image src={section.src} alt={section.alt} fill />
@@ -74,10 +74,38 @@ function SectionRenderer({ section, onImageClick }: { section: CaseStudySection;
         </ScrollReveal>
       );
 
+    case "logos":
+      return (
+        <ScrollReveal>
+          <div className={styles.logosSection}>
+            <div className={styles.logosRow}>
+              {section.items.map((logo, i) => {
+                const card = (
+                  <div className={styles.logoCard}>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={logo.src} alt={logo.alt} className={styles.logoImg} loading="lazy" />
+                  </div>
+                );
+                return logo.url ? (
+                  <a key={i} href={logo.url} target="_blank" rel="noopener noreferrer" className={styles.logoLink}>
+                    {card}
+                  </a>
+                ) : (
+                  <div key={i}>{card}</div>
+                );
+              })}
+            </div>
+            {section.caption && (
+              <p className={styles.imageCaption}>{section.caption}</p>
+            )}
+          </div>
+        </ScrollReveal>
+      );
+
     case "two-images":
       return (
         <ScrollReveal>
-          <div className={`${styles.imageStack}${section.columns ? ` ${styles.imageStackColumns}` : ""}`}>
+          <div className={`${styles.imageStack}${section.columns ? ` ${styles.imageStackColumns}` : ""}${section.fit === "contain" ? ` ${styles.imageStackContain}` : ""}`}>
             {section.images.map((img, i) => (
               <div key={i} className={styles.imageStackItem}>
                 <div
@@ -251,13 +279,27 @@ function SectionRenderer({ section, onImageClick }: { section: CaseStudySection;
       return (
         <ScrollReveal>
           <div className={styles.videoSection}>
-            <video
-              src={section.src}
-              poster={section.poster}
-              controls
-              playsInline
-              className={styles.videoPlayer}
-            />
+            {section.loop ? (
+              <video
+                src={section.src}
+                poster={section.poster}
+                autoPlay
+                loop
+                muted
+                playsInline
+                className={styles.videoPlayer}
+                style={section.maxWidth ? { maxWidth: section.maxWidth } : undefined}
+              />
+            ) : (
+              <video
+                src={section.src}
+                poster={section.poster}
+                controls
+                playsInline
+                className={styles.videoPlayer}
+                style={section.maxWidth ? { maxWidth: section.maxWidth } : undefined}
+              />
+            )}
             {section.caption && (
               <p className={styles.imageCaption}>{section.caption}</p>
             )}
@@ -421,6 +463,25 @@ function SectionRenderer({ section, onImageClick }: { section: CaseStudySection;
             >
               {section.label} &rarr;
             </a>
+          </div>
+        </ScrollReveal>
+      );
+
+    case "buttons":
+      return (
+        <ScrollReveal>
+          <div className={styles.buttonsRow}>
+            {section.items.map((b, i) => (
+              <a
+                key={i}
+                href={b.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.caseButton}
+              >
+                {b.label} &rarr;
+              </a>
+            ))}
           </div>
         </ScrollReveal>
       );
