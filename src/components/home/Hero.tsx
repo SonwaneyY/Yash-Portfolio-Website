@@ -113,6 +113,19 @@ export default function Hero() {
           >
             I&apos;m a full-stack designer with 7+ years of UX experience, a strategic practice, and an AI-native toolkit. I work end to end, from framing the problem to shipping the product.
           </motion.p>
+
+          {/* Available for work pill */}
+          <motion.div
+            className={styles.statusPill}
+            initial={reduceMotion ? false : { opacity: 0, y: 12 }}
+            animate={isReveal ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.5, ease: easeOut, delay: 0.12 }}
+          >
+            <span className={styles.statusPillInner}>
+              <span className={styles.statusPillDot} aria-hidden="true" />
+              Available for Work
+            </span>
+          </motion.div>
         </Container>
       </div>
 

@@ -7,7 +7,7 @@ import Link from "next/link";
 import Container from "@/components/ui/Container";
 import TextReveal from "@/components/ui/TextReveal";
 import ScrollReveal from "@/components/ui/ScrollReveal";
-import { projects, siteConfig } from "@/lib/data";
+import { projects } from "@/lib/data";
 import type { CaseStudySection } from "@/lib/data";
 import styles from "./casestudy.module.css";
 import { SubscriberGrowthChart, ConversionMilestonesChart, ChurnReasonsChart } from "@/components/casestudy/CaseStudyCharts";
@@ -77,7 +77,7 @@ function SectionRenderer({ section, onImageClick }: { section: CaseStudySection;
     case "two-images":
       return (
         <ScrollReveal>
-          <div className={styles.imageStack}>
+          <div className={`${styles.imageStack}${section.columns ? ` ${styles.imageStackColumns}` : ""}`}>
             {section.images.map((img, i) => (
               <div key={i} className={styles.imageStackItem}>
                 <div
@@ -685,17 +685,6 @@ export default function CaseStudyPage() {
         </div>
       )}
 
-      {/* CTA */}
-      <section className={styles.cta}>
-        <Container>
-          <ScrollReveal>
-            <h2 className={styles.ctaHeading}>Let&rsquo;s work together</h2>
-            <a href={`mailto:${siteConfig.email}`} className={styles.ctaLink}>
-              {siteConfig.email} &rarr;
-            </a>
-          </ScrollReveal>
-        </Container>
-      </section>
     </>
   );
 }
