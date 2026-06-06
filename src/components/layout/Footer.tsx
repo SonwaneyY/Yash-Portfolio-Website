@@ -40,7 +40,7 @@ export default function Footer() {
           </span>
           <div className={styles.statusRow}>
             <p className={styles.statusLine}>
-              Interested in building tech that actually works and makes you money?
+              Get In Touch
             </p>
             <a href={`mailto:${siteConfig.email}`} className={styles.statusCta}>
               Let&rsquo;s talk &rarr;
