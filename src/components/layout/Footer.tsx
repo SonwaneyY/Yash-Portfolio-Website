@@ -34,12 +34,18 @@ export default function Footer() {
     <footer className={styles.footer} ref={footerRef}>
       <Container>
         <div className={styles.status}>
-          <p className={styles.statusLine}>
-            Currently looking for my next opportunity in the US.
-          </p>
-          <a href={`mailto:${siteConfig.email}`} className={styles.statusCta}>
-            Reach out &rarr;
-          </a>
+          <span className={styles.pill}>
+            <span className={styles.pillDot} aria-hidden="true" />
+            Available for Work
+          </span>
+          <div className={styles.statusRow}>
+            <p className={styles.statusLine}>
+              Interested in building tech that actually works and makes you money?
+            </p>
+            <a href={`mailto:${siteConfig.email}`} className={styles.statusCta}>
+              Let&rsquo;s talk &rarr;
+            </a>
+          </div>
         </div>
         <div className={styles.inner} data-footer-inner>
           <span className={styles.name}>
