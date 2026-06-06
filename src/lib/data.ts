@@ -1677,10 +1677,11 @@ const allProjects = [
           ],
         },
         {
-          type: "image" as const,
-          src: "/casestudy/project-sense/dashboard.png",
-          alt: "SENSE platform dashboard showing portfolio-level widgets for clinical trial monitoring",
-          caption: "The SENSE home screen: macro-level widgets across an active portfolio, each surfacing a different dimension of trial risk and progress.",
+          type: "video" as const,
+          src: "/casestudy/project-sense/what-sense-is.mp4",
+          poster: "/casestudy/project-sense/what-sense-is-poster.jpg",
+          loop: true,
+          caption: "SENSE in motion: a walkthrough of the platform across portfolio, study, process, and site levels.",
         },
         {
           type: "text" as const,
