@@ -260,6 +260,49 @@
   border-radius: var(--radius);
 }
 
+/* Press / review logos row */
+.logosSection {
+  width: 100%;
+}
+
+.logosRow {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
+}
+
+@media (max-width: 640px) {
+  .logosRow {
+    grid-template-columns: 1fr;
+  }
+}
+
+.logoLink {
+  display: block;
+  transition: opacity 300ms ease;
+}
+
+.logoLink:hover {
+  opacity: 0.85;
+}
+
+.logoCard {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 140px;
+  padding: var(--space-5);
+  background: #fff;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+}
+
+.logoImg {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
 /* Full-width image */
 .imageSection {
   width: 100%;
@@ -330,14 +373,6 @@
   gap: var(--space-6);
 }
 
-/* On desktop, let image blocks reclaim the sidebar gutter so visuals run wider than the text column */
-@media (min-width: 1024px) {
-  .imageStack,
-  .gallery,
-  .imageSection {
-    margin-left: calc(-1 * max(0px, 192px - var(--container-pad)));
-  }
-}
 
 /* Opt-in two-column variant — only when columns flag is set on a two-images section */
 .imageStackColumns {
@@ -374,6 +409,12 @@
 
 .imageStackFrame img {
   object-fit: cover;
+  object-position: center center;
+}
+
+/* Opt-in: show full image, centered, no crop (used for wide tables) */
+.imageStackContain .imageStackFrame img {
+  object-fit: contain;
   object-position: center center;
 }
 
@@ -1233,6 +1274,13 @@
   display: flex;
   justify-content: center;
   padding: var(--space-4) 0;
+}
+
+.buttonsRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  padding: var(--space-2) 0;
 }
 
 .caseButton {

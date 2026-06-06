@@ -20,8 +20,9 @@ export type ProjectCategory = (typeof projectCategories)[number];
 
 export type CaseStudySection =
   | { type: "text"; heading: string; label?: string; body: string[] }
-  | { type: "image"; src: string; alt: string; caption?: string; layout?: "default" | "mobile" }
-  | { type: "two-images"; images: { src: string; alt: string; caption?: string }[]; layout?: "default" | "mobile"; columns?: boolean }
+  | { type: "image"; src: string; alt: string; caption?: string; layout?: "default" | "mobile"; aspectRatio?: string }
+  | { type: "logos"; items: { src: string; alt: string; url?: string }[]; caption?: string }
+  | { type: "two-images"; images: { src: string; alt: string; caption?: string }[]; layout?: "default" | "mobile"; columns?: boolean; fit?: "cover" | "contain" }
   | { type: "gallery"; images: { src: string; alt: string; caption?: string }[]; caption?: string }
   | { type: "quote"; text: string; attribution?: string }
   | { type: "pull-quote"; text: string; attribution?: string; label?: string; subtitle?: string; navLabel?: string }
@@ -32,7 +33,7 @@ export type CaseStudySection =
   | { type: "insight-card"; theme: string; insight: string; verbatim: string; attribution: string }
   | { type: "problem-gap"; label: string; heading: string; current: string; desired: string; navLabel?: string }
   | { type: "concepts-grid"; label?: string; heading: string; items: { name: string; tag: string; description: string; selected?: boolean }[]; navLabel?: string }
-  | { type: "video"; src: string; caption?: string; poster?: string }
+  | { type: "video"; src: string; caption?: string; poster?: string; loop?: boolean; maxWidth?: number }
   | { type: "loop"; label?: string; heading?: string; stages: { name: string; targetId?: string; active?: boolean }[]; caption?: string }
   | { type: "triage"; label?: string; heading: string; intro?: string; noise: string[]; cards: { client: string; signal: string; delta?: string; urgency?: "high" | "med" | "low" }[]; note?: string }
   | {
@@ -50,7 +51,8 @@ export type CaseStudySection =
   | { type: "placeholder"; media: "image" | "video" | "gif"; label: string; ratio?: string; width?: "content" | "wide" }
   | { type: "features"; label?: string; heading?: string; items: { name: string; tag?: string; body: string; media?: "image" | "video" | "gif"; mediaLabel?: string; ratio?: string; src?: string }[]; navLabel?: string }
   | { type: "embed"; label?: string; heading?: string; intro?: string; url: string; ratio?: string; note?: string; navLabel?: string }
-  | { type: "button"; label: string; url: string };
+  | { type: "button"; label: string; url: string }
+  | { type: "buttons"; items: { label: string; url: string }[] };
 
 export interface CaseStudy {
   role: string;
@@ -794,8 +796,23 @@ const allProjects = [
       sections: [
         {
           type: "text" as const,
+          label: "Overview",
+          heading: "Overview",
+          body: [
+            "Over four years on HP’s Control Panel UX team, I designed and shipped the control-panel experience for 25+ printers built on Scale UI, HP’s shared design system and firmware codebase. As the interaction designer for Print from USB, Contacts, and Active Jobs, I worked across five market segments and screen sizes from 2.7 to 22 inches, for a product line that reaches 56 million customers worldwide.",
+          ],
+        },
+        {
+          type: "buttons" as const,
+          items: [
+            { label: "HP Color LaserJet Pro MFP 4301fdw", url: "https://www.hp.com/us-en/shop/pdp/hp-color-laserjet-pro-mfp-4301fdw-printer" },
+            { label: "HP Color LaserJet Pro 3201dw", url: "https://www.hp.com/us-en/shop/pdp/hp-color-laserjet-pro-3201dw-printer" },
+          ],
+        },
+        {
+          type: "text" as const,
           label: "Problem",
-          heading: "One product decision. Shipped to 56 million people, on hardware that doesn’t update.",
+          heading: "One control-panel system across HP’s printer lineup",
           body: [
             "HP’s printer lineup spans five market segments, seven display sizes, and dozens of programs shipping simultaneously across the globe. Before Scale UI, each program designed and built its control-panel experience largely in isolation, producing inconsistencies across products and duplicating firmware development work on every release cycle.",
             "Scale UI was HP’s answer: a proprietary design system paired with a shared firmware codebase, so that a single design decision could propagate across every program rather than being rebuilt from scratch each time. I joined the Control Panel UX team in 2020 as an interaction designer owning three surfaces: Print from USB/Network/Source, the Contacts management app, and Active Jobs (Print, Copy, Scan, Fax). Those three surfaces touched the most frequent daily workflows for the broadest range of users.",
@@ -803,9 +820,10 @@ const allProjects = [
         },
         {
           type: "image" as const,
-          src: "/casestudy/hp-scale-ui/control-panel-product.png",
-          alt: "HP Color LaserJet Pro printer control panel showing the home screen with Scan, Print, Copy, and Jobs app tiles",
-          caption: "The HP Color LaserJet Pro 4310dw: the first product to ship on Scale UI, launched globally in 2021.",
+          src: "/casestudy/hp-scale-ui/problem-4301fdw.jpg",
+          aspectRatio: "1500 / 1275",
+          alt: "HP Color LaserJet Pro MFP 4301fdw, front view, with the Scale UI control panel showing the home screen of Scan, Print, Copy, and Jobs",
+          caption: "The HP Color LaserJet Pro MFP 4301fdw, one of the first products to ship on Scale UI.",
         },
         {
           type: "metrics" as const,
@@ -819,7 +837,7 @@ const allProjects = [
         {
           type: "text" as const,
           label: "Users",
-          heading: "Who uses an HP printer, and why it matters for the design",
+          heading: "Who uses an HP printer",
           body: [
             "The same physical device can land in a home office of one or a corporate floor of 250, depending on which segment it belongs to. My design file had to satisfy all of them at once. Each segment has different task priorities, hardware budgets, and IT infrastructure expectations.",
           ],
@@ -846,7 +864,7 @@ const allProjects = [
         {
           type: "text" as const,
           label: "Constraints",
-          heading: "Four design constraints that made this unlike any web or B2C product",
+          heading: "Designing within hardware and system constraints",
           body: [
             "Web products allow iteration after launch. Hardware does not. Once a printer ships, the firmware in that physical unit is fixed. Every interaction pattern I specified became permanent in millions of devices. This shaped the entire process.",
           ],
@@ -869,42 +887,21 @@ const allProjects = [
         },
         {
           type: "text" as const,
-          label: "",
-          heading: "Designing without color",
-          body: [
-            "Visual design (type scale, spacing, palette) belonged to the visual design team and lived in the firmware codebase, not in our design files. My deliverable was a wireframe: the outline of a button, the skeleton of a screen. No fill, no color tokens applied at the screen level. That visual layer was applied programmatically when a developer built the workflow from Scale UI components.",
-            "This constraint forced a discipline that most screen design does not require: structure and hierarchy had to be resolved entirely through layout, density, and content placement before any color made anything easier to read. Every design decision was structural before it was visual.",
-          ],
-        },
-        {
-          type: "text" as const,
           label: "Operating model",
-          heading: "How design actually worked at this scale",
+          heading: "How the design process worked",
           body: [
             "Design was not owned end-to-end by one interaction designer. The process was operationalized: multiple teams each touched a part of the experience and handed it forward to the next. An IxD’s responsibilities were specific: ensure the workflow was compatible with predecessor products (users are habituated to existing patterns); incorporate any product or program improvements in a usable way; and guarantee design intent was correctly captured and built as specified.",
             "In practice, each use case moved through a defined sequence. I received requirements from a product owner or PM, then understood the requirement’s segment, use cases, edge cases, happy paths, predecessor workflow, and launch timing before beginning any design work. Once designs were complete, I aligned cross-functional partners to ensure product and design intent was captured without breaking interdependencies in adjacent apps or features. I tracked design-team timelines, development timelines, and product-launch timelines as separate but dependent variables.",
           ],
         },
         {
-          type: "image" as const,
-          src: "/casestudy/hp-scale-ui/control-panel-hero.png",
-          alt: "Close-up of an HP printer control panel side view, showing the touchscreen display mounted on the device body",
-          caption: "The physical control panel is the only interface a user has with the device. There is no web fallback, no mobile companion required for core tasks.",
-        },
-        {
           type: "text" as const,
           label: "Task Analysis",
-          heading: "Mapping every path before any firmware was written",
+          heading: "Mapping flows and edge cases before development",
           body: [
             "Every use case started with a Data Flow Diagram. I mapped the happy path first, then every branch: error states, edge cases, unsupported inputs, detection failures, format-not-supported screens, interrupted connections. Each DFD was validated with subject-matter experts from design and firmware before any wireframe was drawn.",
             "Print from USB branches at nearly every decision point: is a USB inserted? Are multiple USBs present? Is the printer busy? Does the USB require a loading dialog? Were files found? Are any of those files in a supported format? Resolving all of these at the task-flow stage meant developers could build through a full sprint without stopping to ask design questions. The DFD was the contract.",
           ],
-        },
-        {
-          type: "image" as const,
-          src: "/casestudy/hp-scale-ui/dfd-print-usb-overview.png",
-          alt: "Print from USB Data Flow Diagram in Axure, showing the flow from Home through USB detection, multiple USB handling, printer busy states, and file loading",
-          caption: "Print from USB DFD, Axure. WS Lead: Yash Sonwaney. Last updated 12 June 2021. The diagram spans 34 screens and covers every detection, error, and edge-case path.",
         },
         {
           type: "image" as const,
@@ -915,36 +912,30 @@ const allProjects = [
         {
           type: "text" as const,
           label: "Design Delivery",
-          heading: "Responsive wireframes across seven display sizes",
+          heading: "Responsive wireframes across display sizes",
           body: [
             "Each screen was designed at three size groups: XL to M (21-inch to 8-inch), S (4.3-inch), and XS (2.7-inch). These were not scaled down from a larger frame but reconsidered at each breakpoint. Layout, content density, and navigation changed significantly across sizes because a grid that works on a 21-inch enterprise panel does not transfer to a panel the size of a credit card.",
           ],
         },
         {
           type: "image" as const,
-          src: "/casestudy/hp-scale-ui/wireframe-xl-print-usb.png",
-          alt: "Print from USB wireframe at XL size (21-inch display): grid layout with folder and file thumbnails, sort/filter/search toolbar, and print button in footer",
-          caption: "Print from USB at XL (21-inch): grid layout, thumbnail previews, toolbar with Sort/Filter/Search, selected-item count in the footer with the Print CTA.",
+          src: "/casestudy/hp-scale-ui/design-delivery-all-sizes.png",
+          aspectRatio: "1513 / 457",
+          alt: "Print from USB wireframe across three size groups side by side: XL (21-inch grid), S (4.3-inch list), and XS (2.7-inch dark panel), with annotated component numbers",
+          caption: "One Print from USB workflow, reconsidered across three size groups. XL (21-inch) uses a thumbnail grid; S (4.3-inch) collapses to a list; XS (2.7-inch) ships on a dark panel often driven by analog buttons. Annotated numbers map each element to its Pattern Table entry.",
         },
         {
-          type: "two-images" as const,
-          images: [
-            {
-              src: "/casestudy/hp-scale-ui/wireframe-s-print-usb.png",
-              alt: "Print from USB wireframe at S size (4.3-inch): list layout with annotated component numbers showing pattern table references",
-              caption: "S (4.3-inch): grid collapses to a list. Annotated component numbers map directly to Pattern Table entries for developer lookup.",
-            },
-            {
-              src: "/casestudy/hp-scale-ui/wireframe-xs-print-usb.png",
-              alt: "Print from USB wireframe at XS size (2.7-inch, dark panel): list view with a bottom action bar, reduced nav, on a dark hardware background",
-              caption: "XS (2.7-inch): the smallest panels often ship with analog buttons rather than touch. Dark background reflects the physical hardware color at this price tier.",
-            },
+          type: "text" as const,
+          label: "",
+          heading: "Designing without color",
+          body: [
+            "Visual design lived in the firmware codebase and was applied programmatically, so my deliverable was a wireframe where structure and hierarchy had to be resolved through layout and density before any color.",
           ],
         },
         {
           type: "text" as const,
           label: "Handoff",
-          heading: "Pattern and Behavior Tables: removing the translation step",
+          heading: "Pattern and behavior tables",
           body: [
             "Pattern Buildup Tables listed every interactive element on every screen: area, layout description, availability state, and properties. Critically, the terminology was matched to internal code repositories exactly. A developer could read a table row, look up the component name in the firmware codebase, and know which variant to use without asking. This was not documentation for its own sake. It was designed to eliminate a specific category of mid-sprint conversation that cost time across an eight-timezone distributed team.",
             "Behavior Tables covered the layer beneath: constraint states (the Print button stays inactive until at least one file is selected), filter and sort logic (sort order persists across folder navigation but resets on app exit), modal triggers, and scroll behavior. Any interaction detail that would otherwise surface as a developer question in a Slack thread at 2am got resolved in the table before the build began.",
@@ -958,6 +949,7 @@ const allProjects = [
         },
         {
           type: "two-images" as const,
+          fit: "contain" as const,
           images: [
             {
               src: "/casestudy/hp-scale-ui/pattern-buildup-table.png",
@@ -974,7 +966,7 @@ const allProjects = [
         {
           type: "text" as const,
           label: "Validation",
-          heading: "Implementation reviews on physical hardware",
+          heading: "Validating the build on hardware",
           body: [
             "When development hit milestones, I loaded the build onto a physical printer and walked every flow on the actual device, not an emulator or a prototype. Print from USB: plug in USB, navigate Menu > Print > Print from USB, browse, select, configure copies and options, print. Contacts: Menu > Contacts, view list, add contact, add group, search, sort, filter. Issues were filed in Jira and tracked against the design intent until the build matched the specification.",
             "The hardware reality sharpens why this step matters. A web product can push a fix in hours. A printer ships firmware into physical units with no over-the-air update path for most of the range. An unresolved discrepancy between design and build is not a debt to pay later. It is the product that ships.",
@@ -982,42 +974,86 @@ const allProjects = [
         },
         {
           type: "video" as const,
+          loop: true,
           src: "/casestudy/hp-scale-ui/print-to-usb.mp4",
           caption: "Print from USB on a physical HP Color LaserJet Pro: USB inserted, folder structure navigated, file selected, copies configured, print confirmed.",
         },
         {
           type: "video" as const,
+          loop: true,
           src: "/casestudy/hp-scale-ui/contacts.mp4",
           caption: "Contacts app on hardware: contact list viewed, new contact added, search and filter demonstrated on the physical control panel.",
         },
         {
           type: "text" as const,
-          label: "Hybrid UI",
-          heading: "The same system, without a touchscreen",
+          label: "User Testing",
+          heading: "Testing prototypes with users across market segments",
           body: [
-            "The 2.7-inch home panels at the lower end of the product range sometimes shipped without touch capability at all. Users navigated with a D-pad (a physical directional button) and a set of hard keys. No tap targets, no swipe, no pinch. The same interaction patterns had to be expressed through a completely different physical input model.",
-            "I owned the interaction design for Hybrid UI separately from the touchscreen flows. Navigation hierarchy, focus states, and action sequences were rebuilt from the ground up to work within the D-pad interaction model, while remaining recognizable as the same product to users who might move between a home and an office device.",
+            "On this work I held a dual role as interaction designer and researcher. Alongside the research team, I owned the research protocol and designed the test sessions, including the stimuli participants interacted with.",
+            "Participants were recruited by market segment, split between emerging and developed markets, so sessions reflected how home, SMB, and enterprise users work across different regions. What we learned fed back into the design before the workflow was committed to firmware.",
           ],
         },
         {
           type: "video" as const,
+          loop: true,
+          src: "/casestudy/hp-scale-ui/prototype.mp4",
+          caption: "We built interactive HTML prototypes as the test stimuli, so participants could move through real workflows before any hardware was final.",
+        },
+        {
+          type: "video" as const,
+          loop: true,
+          src: "/casestudy/hp-scale-ui/hybrid-ui.mp4",
+          caption: "A prototyped control-panel flow used in the test sessions.",
+        },
+        {
+          type: "video" as const,
+          src: "/casestudy/hp-scale-ui/user-test.mp4",
+          caption: "A recorded user test session: a participant working through the prototype while we observed.",
+        },
+        {
+          type: "text" as const,
+          label: "Hybrid UI",
+          heading: "The same process across different control panels",
+          body: [
+            "The process described so far was not tied to a single product. The same method of task flows, responsive delivery, and pattern and behavior tables carried across several control-panel types, each with its own interaction model. Hybrid UI was one of them.",
+            "Hybrid UI covered the 2.7-inch home panels at the lower end of the range, which sometimes shipped without touch at all. Users navigated with a D-pad (a physical directional button) and a set of hard keys, so the same interaction patterns had to be expressed through a completely different physical input model.",
+            "I owned the interaction design for Hybrid UI separately from the touchscreen flows. Navigation hierarchy, focus states, and action sequences were rebuilt to work within the D-pad model, while staying recognizable as the same product to users who move between a home and an office device.",
+          ],
+        },
+        {
+          type: "video" as const,
+          loop: true,
+          maxWidth: 600,
           src: "/casestudy/hp-scale-ui/hybrid-ui.mp4",
           caption: "Hybrid UI prototype: D-pad navigation on a 2.7-inch panel with no touchscreen. Focus traversal, selection states, and action confirmation all handled through physical buttons.",
         },
         {
+          type: "image" as const,
+          src: "/casestudy/hp-scale-ui/hybrid-product.png",
+          alt: "HP Color LaserJet Pro 3201dw printer, front-left catalog view on a white background",
+          caption: "The HP Color LaserJet Pro 3201dw shipped with the Hybrid UI: a 2.7-inch non-touch panel driven by a D-pad and hard keys.",
+        },
+        {
+          type: "button" as const,
+          label: "View Shipped Product",
+          url: "https://www.hp.com/us-en/shop/pdp/hp-color-laserjet-pro-3201dw-printer",
+        },
+        {
           type: "text" as const,
           label: "Impact",
-          heading: "Shipped, reviewed, adopted",
+          heading: "Reception and outcomes",
           body: [
             "The HP Color LaserJet Pro MFP 4301fdw, the first product to ship on Scale UI, received a 4.5/5 Amazon rating, a four-star review from PC Mag, and a best-in-class designation from Digital Trends. Across my four years on the team, 25+ printer programs shipped globally using the Scale UI system and the interaction model I helped define.",
-            "The Pattern and Behavior Table format I developed for Print from USB was adopted as the standard handoff artifact across subsequent HP printer programs. The format changed the nature of cross-team communication: conversations shifted from resolving what an interaction was supposed to do, to discussing whether it could be improved.",
           ],
         },
         {
-          type: "image" as const,
-          src: "/casestudy/hp-scale-ui/product-render.png",
-          alt: "HP Color LaserJet Pro printer in Light Basalt, front-left catalog view on a white background",
-          caption: "The HP Color LaserJet Pro 3200 series, one of the programs shipped on Scale UI. Featured by Digital Trends as a best laser multifunction printer.",
+          type: "logos" as const,
+          items: [
+            { src: "/casestudy/hp-scale-ui/logo-amazon.png", alt: "Amazon" },
+            { src: "/casestudy/hp-scale-ui/logo-pcmag.png", alt: "PC Mag" },
+            { src: "/casestudy/hp-scale-ui/logo-digitaltrends.png", alt: "Digital Trends" },
+          ],
+          caption: "Covered and rated by PC Mag, Amazon customers, and Digital Trends, which named it a best laser multifunction printer.",
         },
         {
           type: "metrics" as const,
