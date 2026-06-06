@@ -486,6 +486,32 @@ function SectionRenderer({ section, onImageClick }: { section: CaseStudySection;
         </ScrollReveal>
       );
 
+    case "product-cards":
+      return (
+        <ScrollReveal>
+          <div className={styles.productCardsBlock}>
+            <div className={styles.productCardsRow}>
+              {section.items.map((card, i) => (
+                <a
+                  key={i}
+                  href={card.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.productCard}
+                >
+                  <div className={styles.productCardThumb}>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={card.src} alt={card.alt} className={styles.productCardImg} loading="lazy" />
+                  </div>
+                  <span className={styles.productCardBtn}>{card.label} &rarr;</span>
+                </a>
+              ))}
+            </div>
+            {section.note && <p className={styles.productCardsNote}>{section.note}</p>}
+          </div>
+        </ScrollReveal>
+      );
+
     case "divider":
       return <hr className={styles.sectionDivider} aria-hidden />;
 

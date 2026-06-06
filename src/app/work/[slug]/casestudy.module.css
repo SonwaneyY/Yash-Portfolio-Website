@@ -1283,6 +1283,73 @@
   padding: var(--space-2) 0;
 }
 
+/* Product link cards: thumbnail image + button */
+.productCardsRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  padding: var(--space-2) 0;
+}
+
+.productCard {
+  display: flex;
+  flex-direction: column;
+  width: 320px;
+  max-width: 100%;
+  gap: var(--space-2);
+}
+
+.productCard:hover .productCardBtn {
+  transform: translateY(-2px);
+  background: var(--accent);
+  color: #fff;
+}
+
+.productCardsNote {
+  margin-top: var(--space-3);
+  font-family: var(--font-mono);
+  font-size: var(--text-eyebrow);
+  letter-spacing: 0.08em;
+  color: var(--text-tertiary);
+}
+
+.productCardThumb {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.productCardImg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.productCardBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  width: 100%;
+  padding: 0.7rem 1.3rem;
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  font-family: var(--font-sans);
+  font-size: var(--text-small, 14px);
+  font-weight: 500;
+  text-align: center;
+  white-space: nowrap;
+  border-radius: 999px;
+  transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+
 .caseButton {
   display: inline-flex;
   align-items: center;

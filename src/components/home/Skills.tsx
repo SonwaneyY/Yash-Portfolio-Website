@@ -1,10 +1,17 @@
 "use client";
 
 import { useRef, useEffect } from "react";
+import Image from "next/image";
 import Container from "@/components/ui/Container";
 import { skillCategories } from "@/lib/data";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
 import styles from "./Skills.module.css";
+
+const categoryIcons: Record<string, string> = {
+  Research: "/icons/research.png",
+  Design: "/icons/design.png",
+  Strategy: "/icons/strategy.png",
+};
 
 export default function Skills() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -79,6 +86,15 @@ export default function Skills() {
         <div className={styles.categories}>
           {Object.entries(skillCategories).map(([category, skills]) => (
             <div key={category} className={styles.category} data-skill-category>
+              {categoryIcons[category] && (
+                <Image
+                  src={categoryIcons[category]}
+                  alt=""
+                  width={56}
+                  height={56}
+                  className={styles.categoryIcon}
+                />
+              )}
               <span className={styles.categoryLabel} data-category-label>{category}</span>
               <p className={styles.skillList} data-skill-list>
                 {skills.join(" · ")}

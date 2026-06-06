@@ -52,7 +52,8 @@ export type CaseStudySection =
   | { type: "features"; label?: string; heading?: string; items: { name: string; tag?: string; body: string; media?: "image" | "video" | "gif"; mediaLabel?: string; ratio?: string; src?: string }[]; navLabel?: string }
   | { type: "embed"; label?: string; heading?: string; intro?: string; url: string; ratio?: string; note?: string; navLabel?: string }
   | { type: "button"; label: string; url: string }
-  | { type: "buttons"; items: { label: string; url: string }[] };
+  | { type: "buttons"; items: { label: string; url: string }[] }
+  | { type: "product-cards"; items: { src: string; alt: string; label: string; url: string }[]; note?: string };
 
 export interface CaseStudy {
   role: string;
@@ -777,8 +778,8 @@ const allProjects = [
   },
   {
     slug: "hp-scale-ui",
-    title: "HP Scale UI: One Control Panel for 56 Million Customers",
-    cardTitle: "HP Scale UI: One Control Panel for 56M Customers",
+    title: "HP Scale UI: One Control Panel for 100+ Million Customers",
+    cardTitle: "HP Scale UI: One Control Panel for 100M+ Customers",
     subtitle: "Shipping 25+ printer programs globally through a shared design system and firmware codebase.",
     category: "PRODUCT DESIGN · DESIGN SYSTEMS",
     filterCategory: "Product Design" as ProjectCategory,
@@ -798,15 +799,16 @@ const allProjects = [
           label: "Overview",
           heading: "Overview",
           body: [
-            "Over four years on HP’s Control Panel UX team, I designed and shipped the control-panel experience for 25+ printers built on Scale UI, HP’s shared design system and firmware codebase. As the interaction designer for Print from USB, Contacts, and Active Jobs, I worked across five market segments and screen sizes from 2.7 to 22 inches, for a product line that reaches 56 million customers worldwide.",
+            "Over four years on HP’s Control Panel UX team, I designed and shipped the control-panel experience for 25+ printers built on Scale UI, HP’s shared design system and firmware codebase. As the interaction designer for Print from USB, Contacts, and Active Jobs, I worked across five market segments and screen sizes from 2.7 to 22 inches, for a product line that reaches 100+ million customers worldwide.",
           ],
         },
         {
-          type: "buttons" as const,
+          type: "product-cards" as const,
           items: [
-            { label: "HP Color LaserJet Pro MFP 4301fdw", url: "https://www.hp.com/us-en/shop/pdp/hp-color-laserjet-pro-mfp-4301fdw-printer" },
-            { label: "HP Color LaserJet Pro 3201dw", url: "https://www.hp.com/us-en/shop/pdp/hp-color-laserjet-pro-3201dw-printer" },
+            { src: "/casestudy/hp-scale-ui/problem-4301fdw.jpg", alt: "HP Color LaserJet Pro MFP 4301fdw", label: "HP Color LaserJet Pro MFP 4301fdw", url: "https://www.hp.com/us-en/shop/pdp/hp-color-laserjet-pro-mfp-4301fdw-printer" },
+            { src: "/casestudy/hp-scale-ui/overview-3201dw.png", alt: "HP Color LaserJet Pro 3201dw", label: "HP Color LaserJet Pro 3201dw", url: "https://www.hp.com/us-en/shop/pdp/hp-color-laserjet-pro-3201dw-printer" },
           ],
+          note: "and many more, across 25+ printer programs shipped on Scale UI.",
         },
         {
           type: "text" as const,
@@ -818,16 +820,9 @@ const allProjects = [
           ],
         },
         {
-          type: "image" as const,
-          src: "/casestudy/hp-scale-ui/problem-4301fdw.jpg",
-          aspectRatio: "1500 / 1275",
-          alt: "HP Color LaserJet Pro MFP 4301fdw, front view, with the Scale UI control panel showing the home screen of Scan, Print, Copy, and Jobs",
-          caption: "The HP Color LaserJet Pro MFP 4301fdw, one of the first products to ship on Scale UI.",
-        },
-        {
           type: "metrics" as const,
           items: [
-            { value: "56M", label: "HP customers worldwide reached by Scale UI programs" },
+            { value: "100M+", label: "HP customers worldwide reached by Scale UI programs" },
             { value: "25+", label: "Printer programs shipped across four market segments" },
             { value: "2.7\"–22\"", label: "Control-panel display range, designed responsively" },
             { value: "4.5/5", label: "Amazon rating for the HP Color LaserJet Pro MFP 4301fdw" },
@@ -842,16 +837,21 @@ const allProjects = [
           ],
         },
         {
-          type: "image" as const,
-          src: "/casestudy/hp-scale-ui/market-segments.png",
-          alt: "Four market segments in a single design file: Home (1-5 users), SMB (10-125 users), Enterprise (125-250 users), Large-format (5-25 operators)",
-          caption: "One design file. Four segments. Home printers sit in apartments; enterprise units handle bank floors and government offices.",
-        },
-        {
-          type: "image" as const,
-          src: "/casestudy/hp-scale-ui/personas.png",
-          alt: "Five user personas for the Home/SoHo/SMB/Enterprise segment: Ella (target home consumer), Zoe (Gen-Z non-printer owner), Eric (limited user), Joe (SMB IT admin), Wen (small business owner)",
-          caption: "Five personas across the Home/SoHo/SMB/Enterprise segment. The target is Ella, a dual-role home consumer and office citizen. Joe (IT admin) sets up and governs the device; Wen owns the business that depends on it.",
+          type: "two-images" as const,
+          columns: true,
+          fit: "contain" as const,
+          images: [
+            {
+              src: "/casestudy/hp-scale-ui/market-segments.png",
+              alt: "Four market segments in a single design file: Home (1-5 users), SMB (10-125 users), Enterprise (125-250 users), Large-format (5-25 operators)",
+              caption: "One design file. Four segments. Home printers sit in apartments; enterprise units handle bank floors and government offices.",
+            },
+            {
+              src: "/casestudy/hp-scale-ui/personas.png",
+              alt: "Five user personas for the Home/SoHo/SMB/Enterprise segment: Ella (target home consumer), Zoe (Gen-Z non-printer owner), Eric (limited user), Joe (SMB IT admin), Wen (small business owner)",
+              caption: "Five personas across the Home/SoHo/SMB/Enterprise segment. The target is Ella, a dual-role home consumer and office citizen. Joe (IT admin) sets up and governs the device; Wen owns the business that depends on it.",
+            },
+          ],
         },
         {
           type: "callout" as const,
@@ -871,6 +871,7 @@ const allProjects = [
         {
           type: "two-images" as const,
           columns: true,
+          fit: "contain" as const,
           images: [
             {
               src: "/casestudy/hp-scale-ui/responsive-sizes.png",
@@ -878,7 +879,7 @@ const allProjects = [
               caption: "Wide-range responsive: seven distinct display resolutions, from a 22-inch enterprise touchscreen to a 2.7-inch home panel the size of a credit card.",
             },
             {
-              src: "/casestudy/hp-scale-ui/component-variants.png",
+              src: "/casestudy/hp-scale-ui/unified-design-system.png",
               alt: "Scale UI dropdown component variants: default, locked state, with right icon, with left icon, custom locked and constrained",
               caption: "Unified design system: the dropdown component ships in five variants, each defined in the shared codebase. Custom additions required a formal change-management process.",
             },
@@ -926,7 +927,7 @@ const allProjects = [
         {
           type: "text" as const,
           label: "",
-          heading: "Designing without color",
+          heading: "Visual design",
           body: [
             "Visual design lived in the firmware codebase and was applied programmatically, so my deliverable was a wireframe where structure and hierarchy had to be resolved through layout and density before any color.",
           ],
@@ -974,12 +975,14 @@ const allProjects = [
         {
           type: "video" as const,
           loop: true,
+          maxWidth: 600,
           src: "/casestudy/hp-scale-ui/print-to-usb.mp4",
           caption: "Print from USB on a physical HP Color LaserJet Pro: USB inserted, folder structure navigated, file selected, copies configured, print confirmed.",
         },
         {
           type: "video" as const,
           loop: true,
+          maxWidth: 600,
           src: "/casestudy/hp-scale-ui/contacts.mp4",
           caption: "Contacts app on hardware: contact list viewed, new contact added, search and filter demonstrated on the physical control panel.",
         },
@@ -995,17 +998,20 @@ const allProjects = [
         {
           type: "video" as const,
           loop: true,
+          maxWidth: 600,
           src: "/casestudy/hp-scale-ui/prototype.mp4",
           caption: "We built interactive HTML prototypes as the test stimuli, so participants could move through real workflows before any hardware was final.",
         },
         {
           type: "video" as const,
           loop: true,
+          maxWidth: 600,
           src: "/casestudy/hp-scale-ui/hybrid-ui.mp4",
           caption: "A prototyped control-panel flow used in the test sessions.",
         },
         {
           type: "video" as const,
+          maxWidth: 600,
           src: "/casestudy/hp-scale-ui/user-test.mp4",
           caption: "A recorded user test session: a participant working through the prototype while we observed.",
         },

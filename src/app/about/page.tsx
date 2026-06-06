@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Container from "@/components/ui/Container";
 import ScrollReveal from "@/components/ui/ScrollReveal";
-import { siteConfig, experience, skills, aboutData } from "@/lib/data";
+import { experience, skills, aboutData } from "@/lib/data";
 import styles from "./about.module.css";
 
 export default function AboutPage() {
@@ -131,18 +131,6 @@ export default function AboutPage() {
             </ScrollReveal>
 
           </div>
-        </Container>
-      </section>
-
-      {/* CTA */}
-      <section className={styles.cta}>
-        <Container>
-          <ScrollReveal>
-            <h2 className={styles.ctaHeading}>Let&rsquo;s work together</h2>
-            <a href={`mailto:${siteConfig.email}`} className={styles.ctaLink}>
-              {siteConfig.email} →
-            </a>
-          </ScrollReveal>
         </Container>
       </section>
     </>
