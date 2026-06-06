@@ -287,6 +287,7 @@ function SectionRenderer({ section, onImageClick }: { section: CaseStudySection;
                 loop
                 muted
                 playsInline
+                preload="auto"
                 className={styles.videoPlayer}
                 style={section.maxWidth ? { maxWidth: section.maxWidth } : undefined}
               />

@@ -55,15 +55,11 @@ export default function Hero() {
     return () => clearTimeout(t);
   }, [reduceMotion, isReveal, typedCount, typingDone]);
 
-  // Cursor blink — only while typing; period sits solid once done
+  // Cursor blink — keeps blinking after typing so the period pulses too
   useEffect(() => {
-    if (typingDone) {
-      setCursorOn(true);
-      return;
-    }
     const t = setInterval(() => setCursorOn((v) => !v), 530);
     return () => clearInterval(t);
-  }, [typingDone]);
+  }, []);
 
   return (
     <section className={styles.hero}>
