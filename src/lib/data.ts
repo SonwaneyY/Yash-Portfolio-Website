@@ -777,7 +777,6 @@ const allProjects = [
   },
   {
     slug: "hp-scale-ui",
-    draft: true,
     title: "HP Scale UI: One Control Panel for 56 Million Customers",
     cardTitle: "HP Scale UI: One Control Panel for 56M Customers",
     subtitle: "Shipping 25+ printer programs globally through a shared design system and firmware codebase.",
@@ -1854,10 +1853,10 @@ const allProjects = [
 
 // Explicit display order; slugs not listed keep their original array order after these.
 const featuredOrder = [
+  "hp-scale-ui",
   "greenbox-tempo",
   "project-sense",
   "bridgit",
-  "hp-scale-ui",
   "hp-learning",
 ];
 
@@ -1889,13 +1888,27 @@ export const testimonials = [
 export const skillCategories: Record<string, string[]> = {
   Research: [
     "User Research",
+    "Usability Testing",
+    "User Interviews",
     "Information Architecture",
+    "Journey Mapping",
+    "Persona Development",
+    "Competitive Analysis",
+    "A/B Testing",
     "Workshop Facilitation",
     "AI Prototyping",
   ],
   Design: [
     "UX Design",
+    "UI Design",
+    "Interaction Design",
+    "Wireframing",
+    "Prototyping",
     "Design Systems",
+    "Visual Design",
+    "Accessibility (WCAG)",
+    "Responsive Design",
+    "Design Thinking",
     "Service Design",
     "Figma",
     "Cursor",
@@ -1903,7 +1916,14 @@ export const skillCategories: Record<string, string[]> = {
   ],
   Strategy: [
     "Product Strategy",
+    "Design Strategy",
+    "Product Roadmapping",
+    "Product Discovery",
+    "Cross-functional Collaboration",
     "Stakeholder Management",
+    "Go-to-Market Strategy",
+    "Data-Driven Decision Making",
+    "Agile / Scrum",
     "Enterprise B2B",
   ],
 };

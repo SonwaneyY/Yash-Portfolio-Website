@@ -86,12 +86,16 @@ export default function Testimonials() {
       ref={sectionRef}
     >
       <Container>
+        <span className={styles.eyebrow}>What People Say</span>
+
         <div ref={measureRef} className={styles.measurer} aria-hidden="true">
           {testimonials.map((t, i) => (
             <div key={i} className={styles.quoteWrapper}>
-              <p className={styles.quote}>&ldquo;{t.quote}&rdquo;</p>
+              <span className={styles.mark} aria-hidden="true">&ldquo;</span>
+              <p className={styles.quote}>{t.quote}</p>
               <span className={styles.attribution}>
-                {t.name}, {t.title}
+                <span className={styles.name}>{t.name}</span>
+                <span className={styles.role}>{t.title}</span>
               </span>
             </div>
           ))}
@@ -111,9 +115,11 @@ export default function Testimonials() {
                 animate="center"
                 exit="exit"
               >
-                <p className={styles.quote}>&ldquo;{current.quote}&rdquo;</p>
+                <span className={styles.mark} aria-hidden="true">&ldquo;</span>
+                <p className={styles.quote}>{current.quote}</p>
                 <span className={styles.attribution}>
-                  {current.name}, {current.title}
+                  <span className={styles.name}>{current.name}</span>
+                  <span className={styles.role}>{current.title}</span>
                 </span>
               </motion.div>
             </AnimatePresence>
