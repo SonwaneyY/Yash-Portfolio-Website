@@ -27,6 +27,13 @@
   padding-top: var(--space-3);
 }
 
+.categoryIcon {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+  margin-bottom: -4px;
+}
+
 .categoryLabel {
   font-family: var(--font-mono);
   font-size: var(--text-eyebrow);

@@ -46,6 +46,9 @@
 
 .narrativeInner {
   max-width: 620px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
 }
 
 .narrativeParagraph {
@@ -54,7 +57,6 @@
   font-weight: 400;
   color: var(--text-secondary);
   line-height: 1.7;
-  margin-bottom: var(--space-6);
 }
 
 .narrativeParagraph:first-child {
@@ -80,14 +82,20 @@
 
 .infoBlock {
   padding: var(--space-6) 0;
-  border-bottom: 1px solid var(--rule);
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
 }
 
-.infoBlock:first-child {
-  border-top: 1px solid var(--rule);
+/* Dividers live on the grid children (the ScrollReveal wrappers), not on
+   .infoBlock — each block is the sole child of its wrapper, so :first/:last
+   on .infoBlock would match every block. */
+.infoGrid > * {
+  border-bottom: 1px solid var(--rule);
+}
+
+.infoGrid > *:last-child {
+  border-bottom: none;
 }
 
 @media (min-width: 768px) {
@@ -99,20 +107,32 @@
     padding: var(--space-6);
   }
 
-  /* Full-width blocks */
-  .infoGrid > *:nth-child(1) { grid-column: 1 / -1; }
+  /* Full-width blocks: Experience (1), Design Beliefs (4), Toolkit (5), Beyond Work (6).
+     Education (2) + Now (3) remain the only paired row. */
+  .infoGrid > *:nth-child(1),
+  .infoGrid > *:nth-child(4),
+  .infoGrid > *:nth-child(5),
+  .infoGrid > *:nth-child(6) { grid-column: 1 / -1; }
 
   /* One singular full-width separator across — the line under Experience.
      All other per-block dividers are removed on desktop. */
-  .infoBlock {
+  .infoGrid > * {
     border-top: none;
     border-bottom: none;
   }
 
-  .infoBlock:first-child {
-    border-bottom: 1px solid var(--rule);
+  /* Full-width blocks align flush to the container edge (no side padding),
+     so they share Experience's left edge rather than indenting. */
+  .infoGrid > *:nth-child(1),
+  .infoGrid > *:nth-child(4),
+  .infoGrid > *:nth-child(5),
+  .infoGrid > *:nth-child(6) {
     padding-left: 0;
     padding-right: 0;
+  }
+
+  .infoGrid > *:first-child {
+    border-bottom: 1px solid var(--rule);
   }
 }
 
@@ -241,7 +261,7 @@
   font-family: var(--font-mono);
 }
 
-/* Design beliefs */
+/* Design beliefs — full-width feature statements, the page's focal point */
 .beliefList {
   display: flex;
   flex-direction: column;
@@ -254,13 +274,46 @@
   font-weight: 400;
   font-style: italic;
   color: var(--text-primary);
-  line-height: 1.4;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  max-width: 880px;
+  padding-left: 22px;
+  position: relative;
 }
 
-/* Toolkit — flowing inline text, no chrome */
+.beliefItem::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.45em;
+  width: 10px;
+  height: 2px;
+  background-color: var(--accent);
+}
+
+@media (min-width: 768px) {
+  .beliefList {
+    gap: var(--space-6);
+  }
+
+  .beliefItem {
+    font-size: var(--text-h3, 1.75rem);
+    line-height: 1.3;
+    padding-left: 28px;
+  }
+
+  .beliefItem::before {
+    top: 0.6em;
+    width: 14px;
+  }
+}
+
+/* Toolkit — quiet, full-width flowing text. Deliberately low in the hierarchy
+   so 30+ skills read as a reference list, not a focal point. */
 .toolkit {
   display: block;
-  line-height: 2;
+  line-height: 1.9;
+  max-width: 900px;
 }
 
 .toolPill {
@@ -284,6 +337,7 @@
   font-size: 15px;
   color: var(--text-secondary);
   line-height: 1.6;
+  max-width: 620px;
 }
 
 /* ---- CTA ---- */
