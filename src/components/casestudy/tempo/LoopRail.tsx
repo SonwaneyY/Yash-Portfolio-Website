@@ -5,25 +5,40 @@ import { motion, useReducedMotion } from "framer-motion";
 import styles from "./LoopRail.module.css";
 
 type Stage = { name: string; targetId?: string; active?: boolean };
+type Marker = { id: string; stage: string };
 
 export default function LoopRail({
   label,
   heading,
   stages,
   caption,
+  markers,
 }: {
   label?: string;
   heading?: string;
   stages: Stage[];
   caption?: string;
+  markers?: Marker[];
 }) {
   const reduce = useReducedMotion();
   const railRef = useRef<HTMLDivElement>(null);
   const [traveled, setTraveled] = useState(false);
-  const [activeId, setActiveId] = useState<string | null>(null);
+  const [activeStage, setActiveStage] = useState<string | null>(null);
   const [released, setReleased] = useState(false);
+  const [progressW, setProgressW] = useState(0);
+  const [trackW, setTrackW] = useState(0);
+  const nodeRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
-  // Travel the dot once when the rail first enters view.
+  // All scroll markers the rail follows: stage targets + extra (feature) markers.
+  const watch: Marker[] = [
+    ...stages
+      .filter((s): s is Stage & { targetId: string } => Boolean(s.targetId))
+      .map((s) => ({ id: s.targetId, stage: s.name })),
+    ...(markers ?? []),
+  ];
+  const watchKey = watch.map((w) => `${w.id}:${w.stage}`).join("|");
+
+  // Travel the dots once when the rail first enters view.
   useEffect(() => {
     const el = railRef.current;
     if (!el) return;
@@ -40,56 +55,50 @@ export default function LoopRail({
     return () => io.disconnect();
   }, []);
 
-  // Follow scroll: light the stage whose target section is deepest in view.
+  // Scroll-driven: light the active stage and fill the progress bar continuously.
   useEffect(() => {
-    const targets = stages
-      .map((s) => s.targetId)
-      .filter((id): id is string => Boolean(id));
-    if (targets.length === 0) return;
+    if (watch.length === 0) return;
 
-    const els = targets
-      .map((id) => document.getElementById(id))
-      .filter((el): el is HTMLElement => Boolean(el));
-    if (els.length === 0) return;
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      const line = window.innerHeight * 0.4; // reference line in the viewport
+      let active: string | null = null;
+      let lastBottom: number | null = null;
 
-    const visible = new Map<string, number>();
-    const io = new IntersectionObserver(
-      (entries) => {
-        for (const e of entries) {
-          if (e.isIntersecting) visible.set(e.target.id, e.intersectionRatio);
-          else visible.delete(e.target.id);
-        }
-        let best: string | null = null;
-        let bestRatio = 0;
-        for (const [id, ratio] of visible) {
-          if (ratio >= bestRatio) {
-            bestRatio = ratio;
-            best = id;
-          }
-        }
-        if (best) setActiveId(best);
-      },
-      { threshold: [0.25, 0.5, 0.75], rootMargin: "-20% 0px -40% 0px" }
-    );
-    els.forEach((el) => io.observe(el));
-    return () => io.disconnect();
-  }, [stages]);
+      for (const w of watch) {
+        const el = document.getElementById(w.id);
+        if (!el) continue;
+        const r = el.getBoundingClientRect();
+        lastBottom = r.bottom;
+        if (r.top <= line) active = w.stage;
+      }
 
-  // Release stickiness once the last targeted stage scrolls above the rail.
-  useEffect(() => {
-    const ids = stages
-      .map((s) => s.targetId)
-      .filter((id): id is string => Boolean(id));
-    const lastId = ids[ids.length - 1];
-    const el = lastId ? document.getElementById(lastId) : null;
-    if (!el) return;
-    const io = new IntersectionObserver(
-      ([e]) => setReleased(!e.isIntersecting && e.boundingClientRect.top < 0),
-      { threshold: 0, rootMargin: "-72px 0px 0px 0px" }
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, [stages]);
+      setActiveStage(active);
+      if (lastBottom !== null) setReleased(lastBottom < 96);
+
+      const dotHalf = 5.5; // half the 11px dot
+      const lastNode = nodeRefs.current[stages.length - 1];
+      if (lastNode) setTrackW(lastNode.offsetLeft + dotHalf);
+      const idx = active ? stages.findIndex((s) => s.name === active) : -1;
+      const activeNode = idx >= 0 ? nodeRefs.current[idx] : null;
+      setProgressW(activeNode ? activeNode.offsetLeft + dotHalf : 0);
+    };
+
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(update);
+    };
+
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      if (raf) cancelAnimationFrame(raf);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [watchKey]);
 
   const handleJump = (targetId?: string) => {
     if (!targetId) return;
@@ -114,27 +123,22 @@ export default function LoopRail({
         role="list"
         style={{ gridTemplateColumns: `repeat(${Math.max(stages.length - 1, 1)}, 1fr) max-content` }}
       >
-        <div className={styles.track} aria-hidden />
-        <motion.div
-          className={styles.progress}
-          aria-hidden
-          initial={{ scaleX: 0 }}
-          animate={{ scaleX: traveled || reduce ? 1 : 0 }}
-          transition={{ duration: reduce ? 0 : 1.1, ease: [0.22, 1, 0.36, 1] }}
-        />
+        <div className={styles.track} style={{ width: trackW || undefined }} aria-hidden />
+        <div className={styles.progress} style={{ width: progressW }} aria-hidden />
         {stages.map((s, i) => {
-          const isTarget = activeId && s.targetId === activeId;
-          const lit = isTarget || s.active;
+          const isActive = activeStage === s.name;
+          const lit = isActive || s.active;
           const clickable = Boolean(s.targetId);
           return (
             <button
               key={s.name}
+              ref={(el) => { nodeRefs.current[i] = el; }}
               role="listitem"
               type="button"
               className={`${styles.node} ${lit ? styles.nodeLit : ""} ${clickable ? styles.nodeClickable : ""}`}
               onClick={() => handleJump(s.targetId)}
               disabled={!clickable}
-              aria-current={isTarget ? "true" : undefined}
+              aria-current={isActive ? "true" : undefined}
             >
               <motion.span
                 className={styles.dot}

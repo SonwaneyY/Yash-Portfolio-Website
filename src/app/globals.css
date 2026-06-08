@@ -16,6 +16,11 @@
   /* Single accent — deep ember, hue 38 */
   --accent: oklch(57.76% 0.1575 38.02);
 
+  /* Status — positive / available (green, kept off the brand accent on purpose) */
+  --status-positive: #5fd090;
+  --status-positive-solid: #2ea060;
+  --status-positive-rgb: 46, 160, 96;
+
   /* Rules — barely visible against field */
   --border: oklch(27.75% 0.0078 84.59);
   --rule:   oklch(27.75% 0.0078 84.59);

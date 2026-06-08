@@ -96,7 +96,6 @@ export default function FeaturedWork() {
     <section id="work" className={styles.section} ref={sectionRef}>
       <Container>
         <h2 className={styles.sectionMarker} ref={markerRef}>
-          <span className={styles.markerNum}>02 /</span>
           <span className={styles.markerLabel}>Selected Work</span>
         </h2>
       </Container>

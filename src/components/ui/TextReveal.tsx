@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
+import { useEffect, useState } from "react";
 import { textRevealWord, viewportOnce } from "@/lib/animations";
 
 interface TextRevealProps {
@@ -19,6 +20,19 @@ export default function TextReveal({
   delay = 0,
   split = "word",
 }: TextRevealProps) {
+  const reduceMotion = useReducedMotion();
+  const [enabled, setEnabled] = useState(false);
+
+  // SSR / no-JS / reduced motion: render the text statically and visibly.
+  // No mask, no opacity gate, no rotateX 3D spin.
+  useEffect(() => {
+    setEnabled(true);
+  }, []);
+
+  if (reduceMotion || !enabled) {
+    return <Tag className={className}>{children}</Tag>;
+  }
+
   if (split === "char") {
     // Character-by-character split — more dramatic for hero headings
     const words = children.split(" ");

@@ -42,7 +42,6 @@
   position: absolute;
   top: 5px;
   left: 0;
-  right: -24px;
   height: 1px;
   background: var(--rule);
 }
@@ -51,10 +50,10 @@
   position: absolute;
   top: 5px;
   left: 0;
-  right: -24px;
+  width: 0;
   height: 1px;
   background: var(--accent);
-  transform-origin: left center;
+  transition: width 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .node {
