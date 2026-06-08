@@ -4,6 +4,7 @@ import { JetBrains_Mono } from "next/font/google";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import SmoothScroll from "@/components/ui/SmoothScroll";
+import ScrollReset from "@/components/ui/ScrollReset";
 import PageTransition from "@/components/ui/PageTransition";
 import AppShell from "@/components/ui/AppShell";
 import { Agentation } from "agentation";
@@ -55,6 +56,7 @@ export default function RootLayout({
       <body>
         <a href="#main-content" className="skip-link">Skip to content</a>
         <SmoothScroll />
+        <ScrollReset />
         <AppShell>
           <Header />
           <main id="main-content">

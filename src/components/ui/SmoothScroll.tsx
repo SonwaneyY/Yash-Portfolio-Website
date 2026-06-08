@@ -14,6 +14,9 @@ export default function SmoothScroll() {
       touchMultiplier: 2,
     });
 
+    // Expose instance so route changes can reset scroll position
+    (window as unknown as { lenis?: Lenis }).lenis = lenis;
+
     // Sync Lenis scroll position with GSAP ScrollTrigger
     lenis.on("scroll", ScrollTrigger.update);
 
@@ -25,6 +28,7 @@ export default function SmoothScroll() {
     return () => {
       gsap.ticker.remove(lenis.raf as any);
       lenis.destroy();
+      delete (window as unknown as { lenis?: Lenis }).lenis;
     };
   }, []);
 

@@ -34,7 +34,7 @@ export type CaseStudySection =
   | { type: "problem-gap"; label: string; heading: string; current: string; desired: string; navLabel?: string }
   | { type: "concepts-grid"; label?: string; heading: string; items: { name: string; tag: string; description: string; selected?: boolean }[]; navLabel?: string }
   | { type: "video"; src: string; caption?: string; poster?: string; loop?: boolean; maxWidth?: number }
-  | { type: "loop"; label?: string; heading?: string; stages: { name: string; targetId?: string; active?: boolean }[]; caption?: string }
+  | { type: "loop"; label?: string; heading?: string; stages: { name: string; targetId?: string; active?: boolean }[]; caption?: string; markers?: { id: string; stage: string }[] }
   | { type: "triage"; label?: string; heading: string; intro?: string; noise: string[]; cards: { client: string; signal: string; delta?: string; urgency?: "high" | "med" | "low" }[]; note?: string }
   | {
       type: "sandbox";
@@ -888,7 +888,7 @@ const allProjects = [
         {
           type: "text" as const,
           label: "Operating model",
-          heading: "How the design process worked",
+          heading: "Collaborating with 7+ teams towards success",
           body: [
             "Design was not owned end-to-end by one interaction designer. The process was operationalized: multiple teams each touched a part of the experience and handed it forward to the next. An IxD’s responsibilities were specific: ensure the workflow was compatible with predecessor products (users are habituated to existing patterns); incorporate any product or program improvements in a usable way; and guarantee design intent was correctly captured and built as specified.",
             "In practice, each use case moved through a defined sequence. I received requirements from a product owner or PM, then understood the requirement’s segment, use cases, edge cases, happy paths, predecessor workflow, and launch timing before beginning any design work. Once designs were complete, I aligned cross-functional partners to ensure product and design intent was captured without breaking interdependencies in adjacent apps or features. I tracked design-team timelines, development timelines, and product-launch timelines as separate but dependent variables.",
@@ -925,9 +925,8 @@ const allProjects = [
           caption: "One Print from USB workflow, reconsidered across three size groups. XL (21-inch) uses a thumbnail grid; S (4.3-inch) collapses to a list; XS (2.7-inch) ships on a dark panel often driven by analog buttons. Annotated numbers map each element to its Pattern Table entry.",
         },
         {
-          type: "text" as const,
-          label: "",
-          heading: "Visual design",
+          type: "callout" as const,
+          label: "Visual design",
           body: [
             "Visual design lived in the firmware codebase and was applied programmatically, so my deliverable was a wireframe where structure and hierarchy had to be resolved through layout and density before any color.",
           ],
@@ -1539,17 +1538,6 @@ const allProjects = [
           ],
         },
         {
-          type: "loop" as const,
-          stages: [
-            { name: "Detect", targetId: "detect" },
-            { name: "Decide", targetId: "decide" },
-            { name: "Execute" },
-            { name: "Verify", targetId: "verify" },
-            { name: "Report" },
-          ],
-          caption: "This is an RIA's current workflow through the day. We focused Tempo on the three stages where the time leaks.",
-        },
-        {
           type: "problem-gap" as const,
           navLabel: "Detect",
           label: "Detect",
@@ -1612,6 +1600,22 @@ const allProjects = [
           ],
         },
         {
+          type: "loop" as const,
+          stages: [
+            { name: "Detect" },
+            { name: "Decide" },
+            { name: "Verify" },
+          ],
+          caption: "Each move in Tempo maps back to the loop: detect, decide, verify.",
+          markers: [
+            { id: "feature-morning-brief", stage: "Detect" },
+            { id: "feature-clients-page", stage: "Detect" },
+            { id: "feature-rebalance-sandbox", stage: "Decide" },
+            { id: "feature-prompt-a-market-externality", stage: "Decide" },
+            { id: "feature-ai-copilot", stage: "Verify" },
+          ],
+        },
+        {
           type: "features" as const,
           navLabel: "Features",
           items: [
@@ -1621,9 +1625,6 @@ const allProjects = [
             { name: "Prompt a Market Externality", tag: "Decide", body: "Type a what-if (a rate hike, a selloff) and Tempo runs it across the whole book in seconds. Exposure shifts live, so the advisor sees who's at risk and walks the client through it with numbers. GreenBox called it a graphic equalizer for strategy.", media: "video" as const, mediaLabel: "Prompt a Market Externality: book-wide stress test", ratio: "4 / 3", src: "/casestudy/greenbox-tempo/market-externality.mp4" },
             { name: "AI Copilot", tag: "Always-on", body: "Always watching for drift and risk breaches, surfacing the next best action with reasoning the advisor can override. It proposes, the advisor decides. Every action signed off and logged.", media: "gif" as const, mediaLabel: "AI Copilot: next-best-action panel", ratio: "4 / 3", src: "/casestudy/greenbox-tempo/ai-copilot.mp4" },
           ],
-        },
-        {
-          type: "divider" as const,
         },
         {
           type: "timeline" as const,
@@ -1681,6 +1682,7 @@ const allProjects = [
           src: "/casestudy/project-sense/what-sense-is.mp4",
           poster: "/casestudy/project-sense/what-sense-is-poster.jpg",
           loop: true,
+          maxWidth: 820,
           caption: "SENSE in motion: a walkthrough of the platform across portfolio, study, process, and site levels.",
         },
         {
@@ -1723,6 +1725,12 @@ const allProjects = [
           ],
         },
         {
+          type: "image" as const,
+          src: "/casestudy/project-sense/personas.png",
+          alt: "The three SENSE user personas, each with a distinct scope of responsibility and relationship to the data",
+          caption: "Three user types across the platform, each with a different scope of responsibility and relationship to the data.",
+        },
+        {
           type: "text" as const,
           label: "Information Architecture",
           heading: "Two Hierarchies of Data",
@@ -1732,10 +1740,17 @@ const allProjects = [
           ],
         },
         {
+          type: "image" as const,
+          src: "/casestudy/project-sense/hierarchy.png",
+          alt: "Diagram of SENSE's two data hierarchies: content (study → project → portfolio) and geographical (global → regional → country → site)",
+          caption: "Two independent hierarchies: content (study → project → portfolio) and geographical (global → regional → country → site).",
+        },
+        {
           type: "divider" as const,
         },
         {
           type: "features" as const,
+          navLabel: "Features",
           label: "Features",
           heading: "A Walkthrough of SENSE",
           items: [
@@ -1791,11 +1806,6 @@ const allProjects = [
           ],
         },
         {
-          type: "video" as const,
-          src: "/casestudy/project-sense/walkthrough.mp4",
-          caption: "SENSE platform walkthrough: portfolio view → study summary → process activity → country startup → site detail. The full primary flow, end to end.",
-        },
-        {
           type: "text" as const,
           label: "Multi-widget comparison",
           heading: "Bridge, SENSE Control Centre",
@@ -1830,6 +1840,15 @@ const allProjects = [
           type: "divider" as const,
         },
         {
+          type: "text" as const,
+          label: "Impact",
+          heading: "Impact",
+          body: [
+            "SENSE launched to strong reception. The engagement was extended twice based on platform performance — an outcome that reflected the depth of adoption, not just delivery. Upon launch, the platform received media coverage from Bloomberg and was featured on Accenture's website as an example of excellence in client delivery.",
+            "The feedback that landed hardest as a designer: a user emailed the CEO of the pharmaceutical client, unprompted, to thank them for pushing the organization to build an app like SENSE. That kind of signal — a user taking time to write to leadership — does not come from a tool that merely works. It comes from something that changed how people work.",
+          ],
+        },
+        {
           type: "metrics" as const,
           columns: 2,
           items: [
@@ -1843,15 +1862,6 @@ const allProjects = [
           type: "pull-quote" as const,
           text: "Thank you for pushing the organization to create an app like SENSE. The first time for me - in over 13 years at [Client Name] - that an app created digital happiness.",
           attribution: "Senior Medical Advisor, Oncology. Feedback to the CEO",
-        },
-        {
-          type: "text" as const,
-          label: "Impact",
-          heading: "Impact",
-          body: [
-            "SENSE launched to strong reception. The engagement was extended twice based on platform performance — an outcome that reflected the depth of adoption, not just delivery. Upon launch, the platform received media coverage from Bloomberg and was featured on Accenture's website as an example of excellence in client delivery.",
-            "The feedback that landed hardest as a designer: a user emailed the CEO of the pharmaceutical client, unprompted, to thank them for pushing the organization to build an app like SENSE. That kind of signal — a user taking time to write to leadership — does not come from a tool that merely works. It comes from something that changed how people work.",
-          ],
         },
       ],
     },

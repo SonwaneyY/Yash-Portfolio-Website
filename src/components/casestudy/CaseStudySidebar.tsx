@@ -17,32 +17,37 @@ interface CaseStudySidebarProps {
 export default function CaseStudySidebar({ items, sectionsRef }: CaseStudySidebarProps) {
   const [activeId, setActiveId] = useState<string>(items[0]?.id ?? "");
   const sidebarRef = useRef<HTMLElement>(null);
-  const observerRef = useRef<IntersectionObserver | null>(null);
 
-  // Active section tracking
+  // Active section tracking: pick the last heading scrolled above the marker line.
+  // Scroll-position based so it stays reliable across tall image/video gaps where
+  // an IntersectionObserver band can sit empty.
   useEffect(() => {
     if (items.length === 0) return;
 
-    const headingElements = items.map(({ id }) => document.getElementById(id)).filter(Boolean) as HTMLElement[];
+    const getEls = () =>
+      items
+        .map(({ id }) => document.getElementById(id))
+        .filter(Boolean) as HTMLElement[];
 
-    observerRef.current = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveId(entry.target.id);
-          }
-        });
-      },
-      {
-        rootMargin: "-20% 0px -60% 0px",
-        threshold: 0,
+    const update = () => {
+      const els = getEls();
+      if (els.length === 0) return;
+      const line = window.innerHeight * 0.3;
+      let current = els[0].id;
+      for (const el of els) {
+        if (el.getBoundingClientRect().top <= line) current = el.id;
+        else break;
       }
-    );
+      setActiveId(current);
+    };
 
-    headingElements.forEach((el) => observerRef.current!.observe(el));
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update, { passive: true });
+    update();
 
     return () => {
-      observerRef.current?.disconnect();
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
     };
   }, [items]);
 

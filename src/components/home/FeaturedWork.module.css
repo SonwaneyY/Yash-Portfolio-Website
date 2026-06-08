@@ -36,7 +36,6 @@
   background: var(--bg-primary);
   width: 100%;
   padding: 16px 0;
-  border-bottom: 1px solid var(--rule);
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
@@ -69,6 +68,7 @@
   text-transform: uppercase;
   white-space: nowrap;
   cursor: pointer;
+  min-height: 44px;
   padding: 7px 16px;
   border-radius: var(--radius-pill);
   border: 1px solid var(--rule);

@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
+import { useEffect, useState } from "react";
 import { fadeInUp, viewportOnce } from "@/lib/animations";
 import type { ReactNode } from "react";
 
@@ -15,6 +16,19 @@ export default function ScrollReveal({
   className = "",
   delay = 0,
 }: ScrollRevealProps) {
+  const reduceMotion = useReducedMotion();
+  const [enabled, setEnabled] = useState(false);
+
+  // Only opt into the hidden->visible reveal after mount. SSR / no-JS / reduced
+  // motion render the content visible so it is never gated behind an in-view trigger.
+  useEffect(() => {
+    setEnabled(true);
+  }, []);
+
+  if (reduceMotion || !enabled) {
+    return <div className={className}>{children}</div>;
+  }
+
   return (
     <motion.div
       variants={{

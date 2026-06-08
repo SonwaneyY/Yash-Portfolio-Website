@@ -109,12 +109,13 @@
   gap: var(--space-2);
   padding: var(--space-2) var(--space-3);
   background: var(--bg-tertiary);
-  border-left: 2px solid var(--text-tertiary);
+  border: 1px solid var(--rule);
 }
 
-.u_high { border-left-color: var(--accent); }
-.u_med  { border-left-color: var(--text-secondary); }
-.u_low  { border-left-color: var(--text-tertiary); }
+/* Urgency carried by the leading rank number, not a side-stripe */
+.u_high .cardRank { color: var(--accent); }
+.u_med  .cardRank { color: var(--text-secondary); }
+.u_low  .cardRank { color: var(--text-tertiary); }
 
 .cardRank {
   font-family: var(--font-mono);

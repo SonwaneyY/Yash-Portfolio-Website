@@ -49,7 +49,7 @@
   font-size: var(--text-body);
   color: var(--text-secondary);
   line-height: 1.6;
-  max-width: 540px;
+  max-width: none;
 }
 
 /* ---- Cover Image ---- */
@@ -552,7 +552,6 @@
   width: 100%;
   background: var(--bg-secondary);
   border: 1px solid var(--rule);
-  border-left: 2px solid var(--accent);
   padding: var(--space-3) var(--space-4);
   display: flex;
   flex-direction: column;
@@ -848,9 +847,7 @@
   margin: 0 auto;
   width: 100%;
   background: var(--bg-secondary);
-  border-left: 2px solid var(--accent);
   border: 1px solid var(--rule);
-  border-left: 2px solid var(--accent);
   padding: var(--space-5);
 }
 
@@ -909,10 +906,10 @@
 
 .problemGapLabel {
   font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.14em;
+  font-size: 13px;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--text-tertiary);
+  color: var(--accent);
 }
 
 .problemGapHeading {

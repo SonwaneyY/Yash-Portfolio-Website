@@ -68,7 +68,7 @@
   color: var(--text-secondary);
 }
 
-.navItemActive {
+.navItem.navItemActive {
   color: var(--text-primary);
   font-weight: 500;
 }

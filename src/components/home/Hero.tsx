@@ -16,8 +16,8 @@ const STATEMENT =
   "Strategic Product Designer turning ambiguous problems into purposeful, scalable experiences.";
 
 // Choreography (matches Figma proto): black → statement fades into grey → full page + statement resolves to white
-const STATEMENT_IN_MS = 160; // brief beat of black, then the sentence eases in (grey)
-const REVEAL_DELAY_MS = 950; // sentence holds in grey, then the rest loads in and it brightens
+const STATEMENT_IN_MS = 120; // brief beat of black, then the sentence eases in (grey)
+const REVEAL_DELAY_MS = 420; // sentence holds in grey, then the rest loads in and it brightens
 
 export default function Hero() {
   const reduceMotion = useReducedMotion();

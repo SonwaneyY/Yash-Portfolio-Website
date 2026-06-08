@@ -13,7 +13,6 @@ export default function AboutPage() {
       <section className={styles.hero}>
         <Container>
           <div className={styles.eyebrow}>
-            <span className={styles.eyebrowNum}>01 /</span>
             <span className={styles.eyebrowLabel}>About</span>
           </div>
           <h1 className={styles.heading}>{aboutData.subtitle}</h1>
@@ -41,7 +40,6 @@ export default function AboutPage() {
             <ScrollReveal>
               <div className={styles.infoBlock}>
                 <div className={styles.blockMarker}>
-                  <span className={styles.markerNum}>02 /</span>
                   <span className={styles.markerLabel}>Experience</span>
                 </div>
                 <div className={styles.expList}>
@@ -64,7 +62,6 @@ export default function AboutPage() {
             <ScrollReveal delay={0.05}>
               <div className={styles.infoBlock}>
                 <div className={styles.blockMarker}>
-                  <span className={styles.markerNum}>03 /</span>
                   <span className={styles.markerLabel}>Education</span>
                 </div>
                 <p className={styles.eduSchool}>{aboutData.education.school}</p>
@@ -76,7 +73,6 @@ export default function AboutPage() {
             <ScrollReveal delay={0.1}>
               <div className={styles.infoBlock}>
                 <div className={styles.blockMarker}>
-                  <span className={styles.markerNum}>04 /</span>
                   <span className={styles.markerLabel}>Now</span>
                 </div>
                 <div className={styles.nowList}>
@@ -90,7 +86,6 @@ export default function AboutPage() {
             <ScrollReveal delay={0.15}>
               <div className={styles.infoBlock}>
                 <div className={styles.blockMarker}>
-                  <span className={styles.markerNum}>05 /</span>
                   <span className={styles.markerLabel}>Design Beliefs</span>
                 </div>
                 <div className={styles.beliefList}>
@@ -104,7 +99,6 @@ export default function AboutPage() {
             <ScrollReveal delay={0.2}>
               <div className={styles.infoBlock}>
                 <div className={styles.blockMarker}>
-                  <span className={styles.markerNum}>06 /</span>
                   <span className={styles.markerLabel}>Toolkit</span>
                 </div>
                 <div className={styles.toolkit}>
@@ -123,7 +117,6 @@ export default function AboutPage() {
             <ScrollReveal delay={0.25}>
               <div className={styles.infoBlock}>
                 <div className={styles.blockMarker}>
-                  <span className={styles.markerNum}>07 /</span>
                   <span className={styles.markerLabel}>Beyond Work</span>
                 </div>
                 <p className={styles.personal}>{aboutData.personal}</p>
