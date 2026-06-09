@@ -13,7 +13,7 @@ const GREETING_BODY = GREETING.slice(0, -1);
 const CHAR_DELAY = 45; // ms per character
 
 const STATEMENT =
-  "Strategic Product Designer building products and experiences that serve the user and the business in equal measure.";
+  "Strategic Product Designer building products that serve the user and the business equally.";
 
 // Choreography (matches Figma proto): black → statement fades into grey → full page + statement resolves to white
 const STATEMENT_IN_MS = 120; // brief beat of black, then the sentence eases in (grey)
