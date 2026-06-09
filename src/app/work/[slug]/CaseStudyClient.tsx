@@ -161,6 +161,40 @@ function SectionRenderer({ section, onImageClick }: { section: CaseStudySection;
         </ScrollReveal>
       );
 
+    case "image-grid":
+      return (
+        <ScrollReveal>
+          <div id={section.navLabel ? headingToId(section.navLabel) : undefined}>
+            {(section.heading || section.label) && (
+              <div className={styles.textHeadingGroup}>
+                {section.label && <span className={styles.textHeadingLabel}>{section.label}</span>}
+                {section.heading && <h2 className={styles.textHeading}>{section.heading}</h2>}
+              </div>
+            )}
+            <div className={styles.imageGrid}>
+              {section.images.map((img, i) => (
+                <div key={i} className={styles.imageStackItem}>
+                  <button
+                    type="button"
+                    className={styles.imageStackFrame}
+                    onClick={(e) => onImageClick(img.src, e.currentTarget)}
+                    style={zoomTriggerStyle}
+                    aria-label={`View ${img.alt} full size`}
+                  >
+                    <div className={styles.imageInner}>
+                      <Image src={img.src} alt={img.alt} fill />
+                    </div>
+                  </button>
+                  {img.caption && (
+                    <p className={styles.imageCaption}>{img.caption}</p>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        </ScrollReveal>
+      );
+
     case "quote":
       return (
         <ScrollReveal>

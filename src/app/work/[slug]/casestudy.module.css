@@ -373,6 +373,23 @@
   gap: var(--space-6);
 }
 
+/* 2-column image grid — 4 images flow into a 2x2 */
+.imageGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+}
+
+@media (min-width: 768px) {
+  .imageGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.imageGrid .imageStackFrame {
+  aspect-ratio: 16 / 9;
+}
+
 
 /* Opt-in two-column variant — only when columns flag is set on a two-images section */
 .imageStackColumns {
