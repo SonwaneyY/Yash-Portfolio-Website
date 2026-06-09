@@ -16,7 +16,6 @@ interface ProjectCardProps {
   cardMetric?: string;
   coverImage: string;
   cardVideo?: string;
-  index?: number;
   imageConfig?: {
     fit: "cover" | "contain";
     position: string;
@@ -35,11 +34,9 @@ export default function ProjectCard({
   cardMetric,
   coverImage,
   cardVideo,
-  index = 1,
   imageConfig = { fit: "cover", position: "center center" },
 }: ProjectCardProps) {
   const thumbBg = "var(--card-grey)";
-  const num = String(index).padStart(2, "0");
   const displayTitle = cardTitle || title;
 
   return (
@@ -79,7 +76,6 @@ export default function ProjectCard({
 
       <div className={styles.body}>
         <span className={styles.meta}>
-          <span className={styles.index}>{num}</span>
           {category}
         </span>
         <h3 className={styles.title}>{displayTitle}</h3>
