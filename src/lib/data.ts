@@ -1320,17 +1320,14 @@ const allProjects = [
         {
           type: "text" as const,
           label: "Opportunity Areas",
-          heading: "Four Areas Teachers Lacked Support",
+          heading: "Four Opportunity Areas",
           body: [
-            "Productivity — handle admin and planning faster. \"Making my own schedule was one of the most annoying parts of the job. AI could help clinicians and teachers complete documentation and admin work.\" — Speech pathologist",
-            "Communication — coordinate across specialists and classrooms. \"Specialists and class teachers sometimes don't meet for weeks. That lack of communication dampens the child's progress.\" — Special-education coordinator",
-            "Personalization — build individualized plans without starting from scratch. \"Differentiating instruction for that range of kids is hugely time-consuming. AI has a huge application there.\" — Classroom teacher",
-            "Student Achievement — serve diverse needs equitably. \"You can't drop AI instruction into a kindergarten classroom — they need play as part of their learning.\" — Veteran kindergarten teacher",
+            "Across every interview, the gaps clustered into four areas where teachers consistently lacked support.",
           ],
         },
         {
           type: "concepts-grid" as const,
-          heading: "Four Opportunity Areas",
+          heading: "",
           columns: 4,
           items: [
             { tag: "01", name: "Productivity", description: "Teachers need a way to handle admin and planning tasks more efficiently." },
@@ -1338,11 +1335,6 @@ const allProjects = [
             { tag: "03", name: "Personalization", description: "Teachers need a way to easily create personalized learning plans." },
             { tag: "04", name: "Student Achievement", description: "Teachers need support so they can use their skills to address diverse learning needs and provide an equitable learning experience." },
           ],
-        },
-        {
-          type: "quote" as const,
-          text: "I might need to text, email, put a note in the backpack, and call home and I still won't hear anything.",
-          attribution: "Olivia, classroom teacher — on parent communication",
         },
         {
           type: "text" as const,
