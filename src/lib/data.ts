@@ -24,6 +24,7 @@ export type CaseStudySection =
   | { type: "logos"; items: { src: string; alt: string; url?: string }[]; caption?: string }
   | { type: "two-images"; images: { src: string; alt: string; caption?: string }[]; layout?: "default" | "mobile"; columns?: boolean; fit?: "cover" | "contain" }
   | { type: "gallery"; images: { src: string; alt: string; caption?: string }[]; caption?: string }
+  | { type: "image-grid"; label?: string; heading?: string; images: { src: string; alt: string; caption?: string }[]; navLabel?: string }
   | { type: "quote"; text: string; attribution?: string }
   | { type: "pull-quote"; text: string; attribution?: string; label?: string; subtitle?: string; navLabel?: string }
   | { type: "callout"; label: string; body: string[] }
@@ -1315,6 +1316,23 @@ const allProjects = [
           body: [
             "Rather than assume a technology solution, we started with the human rhythms of teaching. Seven interviews with parents, teachers, administrators, and specialists — plus three rounds of co-design and a literature review — built a systems-level picture before we designed anything.",
             "The research pointed to four areas where teachers consistently lacked support: Productivity, Communication, Personalization, and Student Achievement.",
+          ],
+        },
+        {
+          type: "text" as const,
+          label: "Methods",
+          heading: "How We Worked",
+          body: [
+            "Alongside a literature review and stakeholder interviews, we ran three rounds of co-design workshops. Each session set ground rules, opened up ideation, and had specialists co-create and prioritize directions with us — so the solution was built with teachers, not just for them.",
+          ],
+        },
+        {
+          type: "image-grid" as const,
+          images: [
+            { src: "/casestudy/bridgit/method-3.png", alt: "Co-Creation Guidelines slide listing workshop ground rules", caption: "Co-creation guidelines opened each session with a no-wrong-answers, think-out-loud space." },
+            { src: "/casestudy/bridgit/method-2.png", alt: "Ideation session slide asking how an assistant might help teachers", caption: "Ideation translated pain points into 'How might an assistant help?' need statements." },
+            { src: "/casestudy/bridgit/method-4.png", alt: "Co-create activity mapping needs to Productivity, Personalization, Play, and Parent-Teacher collaboration", caption: "Specialists co-created against the core needs: productivity, personalization, play, and parent coordination." },
+            { src: "/casestudy/bridgit/method-1.png", alt: "Prioritization slide asking which ideas would be most impactful day to day", caption: "Prioritization grouped and ranked ideas by real day-to-day impact." },
           ],
         },
         {
