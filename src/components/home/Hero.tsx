@@ -13,7 +13,7 @@ const GREETING_BODY = GREETING.slice(0, -1);
 const CHAR_DELAY = 45; // ms per character
 
 const STATEMENT =
-  "Strategic Product Designer turning ambiguous problems into purposeful, scalable experiences.";
+  "Strategic Product Designer turning ambiguous problems into thoughtful, scalable experiences.";
 
 // Choreography (matches Figma proto): black → statement fades into grey → full page + statement resolves to white
 const STATEMENT_IN_MS = 120; // brief beat of black, then the sentence eases in (grey)
@@ -107,7 +107,7 @@ export default function Hero() {
             animate={isReveal ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.55, ease: easeOut, delay: 0.08 }}
           >
-            I&apos;m a full-stack designer with 7+ years of UX experience, a strategic practice, and an AI-native toolkit. I work end to end, from framing the problem to shipping the product.
+            Full-stack designer with 7 years of experience shipping consumer product UX at HP and complex enterprise tools at Accenture, now working with an AI-native toolkit to take organizations from 0 to 1 in their product strategy.
           </motion.p>
 
           {/* Available for work pill */}
