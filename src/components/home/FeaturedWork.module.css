@@ -68,7 +68,9 @@
   text-transform: uppercase;
   white-space: nowrap;
   cursor: pointer;
+  box-sizing: border-box;
   min-height: 44px;
+  min-width: 139px;
   padding: 7px 16px;
   border-radius: var(--radius-pill);
   border: 1px solid var(--rule);
