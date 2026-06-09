@@ -130,8 +130,8 @@ export default function FeaturedWork() {
           className={styles.entryList}
           ref={listRef}
         >
-          {filtered.map((project, i) => (
-            <ProjectCard key={project.slug} {...project} index={i + 1} />
+          {filtered.map((project) => (
+            <ProjectCard key={project.slug} {...project} />
           ))}
         </div>
       </Container>
