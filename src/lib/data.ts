@@ -1321,7 +1321,7 @@ const allProjects = [
         {
           type: "text" as const,
           label: "Methods",
-          heading: "How We Worked",
+          heading: "Research Protocol & Methodology",
           body: [
             "Alongside a literature review and stakeholder interviews, we ran three rounds of co-design workshops. Each session set ground rules, opened up ideation, and had specialists co-create and prioritize directions with us — so the solution was built with teachers, not just for them.",
           ],
@@ -1352,15 +1352,6 @@ const allProjects = [
             { tag: "02", name: "Communication", description: "Teachers need a way to better communicate and collaborate." },
             { tag: "03", name: "Personalization", description: "Teachers need a way to easily create personalized learning plans." },
             { tag: "04", name: "Student Achievement", description: "Teachers need support so they can use their skills to address diverse learning needs and provide an equitable learning experience." },
-          ],
-        },
-        {
-          type: "text" as const,
-          label: "Research cont.",
-          heading: "The Recurring Bottleneck",
-          body: [
-            "Three patterns repeated across every stakeholder. Administrative overload: Meher, a speech pathologist, spends more time building her schedule than working with students. Broken communication: Olivia's multi-channel outreach getting no reply. Technology adopted without support: Stephaney, teaching since the 1980s, got classroom computers with no training — 'nobody knew how to turn them on.'",
-            "Literature confirmed it: AI's implementation burden lands on teachers, not students or parents.",
           ],
         },
         {
