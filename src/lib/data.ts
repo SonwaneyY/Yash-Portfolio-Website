@@ -1344,15 +1344,6 @@ const allProjects = [
         },
         {
           type: "text" as const,
-          label: "Design Principles",
-          heading: "Three Co-Design Principles",
-          body: [
-            "Three principles guided prototyping. Safety First: student data privacy is non-negotiable. Adaptable: help specialists customize materials fast, not start from scratch. Assistive: AI augments teacher expertise, never replaces judgment.",
-            "These became explicit checks during co-design — and shaped the privacy model directly.",
-          ],
-        },
-        {
-          type: "text" as const,
           label: "Competitive Scan",
           heading: "Where Existing Tools Fall Short",
           body: [
