@@ -1289,12 +1289,28 @@ const allProjects = [
           ],
         },
         {
+          type: "quote" as const,
+          text: "How might we support elementary teachers with an AI tool that reduces burden and enhances collaboration — without compromising their agency or trust?",
+          attribution: "Our guiding research question",
+        },
+        {
           type: "text" as const,
           label: "Research",
-          heading: "Research and Opportunity Areas",
+          heading: "Led With Research, Not Technology",
           body: [
-            "Seven interviews with parents, teachers, administrators, and specialists — plus a literature review — built a systems-level picture of the problem.",
-            "They pointed to four areas teachers consistently lacked support: Productivity, Communication, Personalization, and Student Achievement.",
+            "Rather than assume a technology solution, we started with the human rhythms of teaching. Seven interviews with parents, teachers, administrators, and specialists — plus three rounds of co-design and a literature review — built a systems-level picture before we designed anything.",
+            "The research pointed to four areas where teachers consistently lacked support: Productivity, Communication, Personalization, and Student Achievement.",
+          ],
+        },
+        {
+          type: "text" as const,
+          label: "Opportunity Areas",
+          heading: "Four Areas Teachers Lacked Support",
+          body: [
+            "Productivity — handle admin and planning faster. \"Making my own schedule was one of the most annoying parts of the job. AI could help clinicians and teachers complete documentation and admin work.\" — Speech pathologist",
+            "Communication — coordinate across specialists and classrooms. \"Specialists and class teachers sometimes don't meet for weeks. That lack of communication dampens the child's progress.\" — Special-education coordinator",
+            "Personalization — build individualized plans without starting from scratch. \"Differentiating instruction for that range of kids is hugely time-consuming. AI has a huge application there.\" — Classroom teacher",
+            "Student Achievement — serve diverse needs equitably. \"You can't drop AI instruction into a kindergarten classroom — they need play as part of their learning.\" — Veteran kindergarten teacher",
           ],
         },
         {
@@ -1330,13 +1346,6 @@ const allProjects = [
           ],
         },
         {
-          type: "two-images" as const,
-          images: [
-            { src: "/casestudy/bridgit/dashboard.png", alt: "Bridgit dashboard with personalized schedule, urgency-sorted tasks, and proactive AI assistant", caption: "The dashboard: personalized schedule, urgency-sorted tasks on the right, and the AI assistant ready to draft communications or pre-session summaries." },
-            { src: "/casestudy/bridgit/session-page.png", alt: "Session detail view showing objectives, lesson plans, teacher notes, and AI personalization suggestions", caption: "Drilling into a session surfaces objectives, lesson plans, exercises, and primary teacher notes — then the AI reads anonymized student data to suggest personalization tactics." },
-          ],
-        },
-        {
           type: "text" as const,
           label: "Product",
           heading: "Introducing Bridgit",
@@ -1346,6 +1355,12 @@ const allProjects = [
           ],
         },
         {
+          type: "image" as const,
+          src: "/casestudy/bridgit/dashboard.png",
+          alt: "Bridgit dashboard with personalized schedule, urgency-sorted tasks, and proactive AI assistant",
+          caption: "The dashboard: personalized schedule, urgency-sorted tasks on the right, and the AI assistant ready to draft communications or pre-session summaries.",
+        },
+        {
           type: "text" as const,
           label: "Feature: Personalization",
           heading: "Session Personalization",
@@ -1353,6 +1368,12 @@ const allProjects = [
             "Open any session to see its objectives, lesson plans, exercises, and the primary teacher's notes. Pick a task, and the AI reads the student's anonymized profile and returns specific tactics.",
             "For a visual learner engaged only by her own interests, it suggested using her drawings as conversation starters and a visual agenda for structure — then synced the changes back to the task page automatically.",
           ],
+        },
+        {
+          type: "image" as const,
+          src: "/casestudy/bridgit/session-page.png",
+          alt: "Session detail view showing objectives, lesson plans, teacher notes, and AI personalization suggestions",
+          caption: "Drilling into a session surfaces objectives, lesson plans, exercises, and primary teacher notes — then the AI reads anonymized student data to suggest personalization tactics.",
         },
         {
           type: "two-images" as const,
@@ -1395,11 +1416,11 @@ const allProjects = [
         },
         {
           type: "text" as const,
-          label: "Reflection",
-          heading: "Reflection and Next Steps",
+          label: "Takeaway",
+          heading: "Research Reframed the Problem",
           body: [
-            "Documenting assumptions before fieldwork kept us honest — we couldn't rationalize around findings that contradicted our starting point. Shifting to participatory methods at the right moment gave specialists ownership of the direction.",
-            "Next: test personalization with different specialist types, keep co-designing with classroom teachers and administrators, and present Bridgit to school leaders to gauge interest.",
+            "Starting with human needs instead of technology capabilities changed what we built. The burden of AI adoption lands on teachers — so the opportunity wasn't a smarter classroom tool, it was infrastructure for the specialists holding the system together. That reframe drove every product decision in Bridgit.",
+            "Documenting our assumptions before fieldwork kept us honest when findings contradicted them. Next: test personalization across specialist types, keep co-designing with teachers and administrators, and pitch Bridgit to school leaders.",
           ],
         },
       ],
