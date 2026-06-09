@@ -91,6 +91,17 @@
   overflow: hidden;
 }
 
+.metric {
+  margin-top: 2px;
+  font-family: var(--font-mono);
+  font-size: var(--text-eyebrow);
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1.5;
+  color: var(--accent);
+}
+
 @media (max-width: 767px) {
   .media {
     aspect-ratio: 16 / 11;

@@ -13,6 +13,7 @@ interface ProjectCardProps {
   year?: string;
   cardBg?: string;
   cardTextColor?: "light" | "dark";
+  cardMetric?: string;
   coverImage: string;
   cardVideo?: string;
   index?: number;
@@ -31,6 +32,7 @@ export default function ProjectCard({
   category,
   year,
   cardBg,
+  cardMetric,
   coverImage,
   cardVideo,
   index = 1,
@@ -82,6 +84,7 @@ export default function ProjectCard({
         </span>
         <h3 className={styles.title}>{displayTitle}</h3>
         {subtitle ? <p className={styles.subtitle}>{subtitle}</p> : null}
+        {cardMetric ? <p className={styles.metric}>{cardMetric}</p> : null}
       </div>
     </Link>
   );
