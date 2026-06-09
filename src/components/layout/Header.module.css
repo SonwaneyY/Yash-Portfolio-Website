@@ -9,18 +9,81 @@
   justify-content: space-between;
 }
 
+/* ---- Interactive YASH / SONWANEY monogram ---- */
 .monogram {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  font-weight: 400;
-  letter-spacing: 0.1em;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1px;
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1;
+  font-weight: 700;
+  font-style: italic;
+  letter-spacing: -0.01em;
   text-transform: uppercase;
-  color: var(--text-secondary);
-  transition: color 400ms ease;
+  -webkit-font-smoothing: antialiased;
+  /* One-line wordmark: collapsed "YS", opens to "YASH SONWANEY" */
+  flex-direction: row;
+  align-items: baseline;
+  gap: 0;
+  width: 19px;
+  flex: none;
+  overflow: visible;
 }
 
-.monogram:hover {
+.logoRow,
+.logoRowAccent {
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+/* First-name group: accent colored */
+.logoRow {
+  color: var(--accent);
+}
+
+/* Last-name group: normal text */
+.logoRowAccent {
   color: var(--text-primary);
+  width: fit-content;
+}
+
+/* The persistent initials (Y / S) never move */
+.logoFixed {
+  display: inline-block;
+  flex: none;
+}
+
+/* The revealed remainder (ASH / ONWANEY) opens on hover */
+.logoRest {
+  display: inline-block;
+  max-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  /* Collapsed: no gutter so "YS" sits tight. The gutter (word space after
+     YASH + anti-clip for the trailing italic letter) opens with the reveal. */
+  padding-right: 0;
+  opacity: 0;
+  transform: translateX(-2px);
+  transition: max-width 450ms cubic-bezier(0.22, 1, 0.36, 1),
+    padding-right 450ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 320ms ease, transform 450ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.monogram:hover .logoRest,
+.monogram:focus-visible .logoRest {
+  max-width: 8em;
+  padding-right: 2px;
+  opacity: 1;
+  transform: translateX(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logoRest {
+    transition: opacity 200ms ease;
+  }
 }
 
 /* Location pin */

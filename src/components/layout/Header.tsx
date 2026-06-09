@@ -81,8 +81,15 @@ export default function Header() {
       >
         <Container>
           <div className={styles.inner}>
-            <Link href="/" className={styles.monogram}>
-              {siteConfig.initials}
+            <Link href="/" className={styles.monogram} aria-label="Yash Sonwaney — home">
+              <span className={styles.logoRow} aria-hidden="true">
+                <span className={styles.logoFixed}>Y</span>
+                <span className={styles.logoRest}>ASH</span>
+              </span>
+              <span className={styles.logoRowAccent} aria-hidden="true">
+                <span className={styles.logoFixed}>S</span>
+                <span className={styles.logoRest}>ONWANEY</span>
+              </span>
             </Link>
 
             <span className={styles.location} aria-label="Location: New York City">
