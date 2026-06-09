@@ -1654,7 +1654,7 @@ const allProjects = [
     slug: "project-sense",
     title: "SENSE: Turning Trial Data into Decisions",
     cardTitle: "SENSE: Turning Trial Data into Decisions",
-    subtitle: "An analytics platform predicting risk and delay across clinical trials.",
+    subtitle: "An analytics and data-visualization tool used to predict delays in Clinical Trial Study timeline & enable decision makers for proactive pivoting.",
     category: "PRODUCT DESIGN · DATA VISUALIZATION",
     filterCategory: "Product Design" as ProjectCategory,
     year: "2019",
@@ -1952,7 +1952,7 @@ export const aboutData = {
   narrative: [
     "I\u2019ve spent the last seven years figuring out how to make complicated things feel obvious. At HP, that meant redesigning printer software used by tens of thousands of people who never wanted to think about printers. At Accenture, it was enterprise onboarding flows where a single confusing field could lose a patient. At Parsons, it became something bigger: understanding how design decisions carry bias, and how AI can either amplify or correct it.",
     "What I keep coming back to is the seam between strategy and craft. I like being in the room where the business model gets debated, and I like being the one who turns that conversation into an interface someone actually wants to use. I think the best designers do both: they don\u2019t just make things pretty, they make things right.",
-    "Right now I\u2019m finishing my MS at Parsons, building AI-native tools, and trying to figure out what design practice looks like when your most powerful collaborator is a language model.",
+    "After graduating with a Strategic Design and Management MS from Parsons School of Design in New York City, I\u2019m now looking for my next opportunity, building software for work and for fun using AI tools, and trying to figure out what design practice looks like when your most powerful collaborator is a large language model.",
   ],
   education: {
     school: "Parsons School of Design",
@@ -1968,7 +1968,7 @@ export const aboutData = {
   philosophy: [
     "Complexity is a design failure.",
     "Strategy without craft is a deck. Craft without strategy is decoration.",
-    "The best interface is the one that teaches you something.",
+    "Good design is obvious. Great design is transparent.",
   ],
   personal: "Based in New York. Perpetual optimizer. Finds calm in long walks and loud music.",
 };
