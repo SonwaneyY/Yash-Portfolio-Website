@@ -568,7 +568,7 @@ function SectionRenderer({ section, onImageClick }: { section: CaseStudySection;
               <h2 className={styles.conceptsTitle}>{section.heading}</h2>
               {section.label && <span className={styles.conceptsSubtitle}>{section.label}</span>}
             </div>
-            <div className={styles.conceptsGrid}>
+            <div className={`${styles.conceptsGrid} ${section.columns === 4 ? styles.conceptsGrid4 : ""}`}>
               {section.items.map((item, i) => (
                 <div key={i} className={`${styles.conceptCard} ${item.selected ? styles.conceptCardSelected : ""}`}>
                   <span className={`${styles.conceptTag} ${item.selected ? styles.conceptTagSelected : ""}`}>{item.tag}</span>

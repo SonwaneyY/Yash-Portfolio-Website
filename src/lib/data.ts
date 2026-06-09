@@ -32,7 +32,7 @@ export type CaseStudySection =
   | { type: "chart"; chartId: "subscriber-growth" | "conversion-milestones" | "churn-reasons"; caption?: string }
   | { type: "insight-card"; theme: string; insight: string; verbatim: string; attribution: string }
   | { type: "problem-gap"; label: string; heading: string; current: string; desired: string; navLabel?: string }
-  | { type: "concepts-grid"; label?: string; heading: string; items: { name: string; tag: string; description: string; selected?: boolean }[]; navLabel?: string }
+  | { type: "concepts-grid"; label?: string; heading: string; items: { name: string; tag: string; description: string; selected?: boolean }[]; navLabel?: string; columns?: number }
   | { type: "video"; src: string; caption?: string; poster?: string; loop?: boolean; maxWidth?: number }
   | { type: "loop"; label?: string; heading?: string; stages: { name: string; targetId?: string; active?: boolean }[]; caption?: string; markers?: { id: string; stage: string }[] }
   | { type: "triage"; label?: string; heading: string; intro?: string; noise: string[]; cards: { client: string; signal: string; delta?: string; urgency?: "high" | "med" | "low" }[]; note?: string }
@@ -1326,6 +1326,17 @@ const allProjects = [
             "Communication — coordinate across specialists and classrooms. \"Specialists and class teachers sometimes don't meet for weeks. That lack of communication dampens the child's progress.\" — Special-education coordinator",
             "Personalization — build individualized plans without starting from scratch. \"Differentiating instruction for that range of kids is hugely time-consuming. AI has a huge application there.\" — Classroom teacher",
             "Student Achievement — serve diverse needs equitably. \"You can't drop AI instruction into a kindergarten classroom — they need play as part of their learning.\" — Veteran kindergarten teacher",
+          ],
+        },
+        {
+          type: "concepts-grid" as const,
+          heading: "Four Opportunity Areas",
+          columns: 4,
+          items: [
+            { tag: "01", name: "Productivity", description: "Teachers need a way to handle admin and planning tasks more efficiently." },
+            { tag: "02", name: "Communication", description: "Teachers need a way to better communicate and collaborate." },
+            { tag: "03", name: "Personalization", description: "Teachers need a way to easily create personalized learning plans." },
+            { tag: "04", name: "Student Achievement", description: "Teachers need support so they can use their skills to address diverse learning needs and provide an equitable learning experience." },
           ],
         },
         {

@@ -1014,6 +1014,9 @@
   .conceptsGrid {
     grid-template-columns: repeat(3, 1fr);
   }
+  .conceptsGrid4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }
 
 .conceptCard {
