@@ -1272,11 +1272,26 @@ const allProjects = [
       sections: [
         {
           type: "text" as const,
+          label: "Overview",
+          heading: "Overview",
+          body: [
+            "Bridgit came out of a 16-week engagement at Microsoft's External Engagement Studio at Parsons — a four-person team (Alana, Azelia, Arpit, and me) working a single question: how might trustworthy AI support the specialized educators who hold underserved classrooms together, without eroding their judgment or trust?",
+            "I worked as UX researcher and interaction designer. I ran semi-structured interviews and affinity mapping to turn raw educator voices into the four opportunity areas, then designed the dashboard, session personalization, and communication flows that became the Bridgit prototype.",
+          ],
+        },
+        {
+          type: "video" as const,
+          src: "/casestudy/bridgit/overview.webm",
+          maxWidth: 600,
+          caption: "Our co-design process — turning educator sessions into the four opportunity areas and the Bridgit prototype.",
+        },
+        {
+          type: "text" as const,
           label: "Problem",
           heading: "The Teacher Workload Problem",
           body: [
             "Elementary teachers spend 15 hours a week outside class on planning — 12 of them unpaid. Turnover sits above 20%, and 40% of new teachers leave within five years. AI was arriving with no clear answer for how it should help.",
-            "Our question: how might AI support elementary teachers? Over 16 weeks at Microsoft's External Engagement Studio at Parsons, a team of four — Azealia, Lana, Arpit, and me — answered it through research, co-design, and a prototype.",
+            "We answered our question through three moves: research to map the strain, co-design to keep specialists in the loop, and a prototype to make the solution concrete.",
           ],
         },
         {
